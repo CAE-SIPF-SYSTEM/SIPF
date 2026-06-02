@@ -1,16 +1,13 @@
 package com.caeproject.cae.infraestructure.adapter.in;
 
-import com.caeproject.cae.domain.ports.in.usuario.CrearUsuarioInputPort;
-import com.caeproject.cae.domain.ports.in.usuario.EditarUsuarioInputPort;
-import com.caeproject.cae.domain.ports.in.usuario.EliminarUsuarioInputPort;
-import com.caeproject.cae.domain.ports.in.usuario.LIstarUsuariosInputPort;
-import com.caeproject.cae.domain.ports.in.usuario.ObtenerUsuarioInputPort;
+import com.caeproject.cae.domain.ports.in.usuario.*;
 import com.caeproject.cae.domain.ports.model.enums.Rol;
 import com.caeproject.cae.domain.ports.model.perfil_base.PerfilBase;
 import com.caeproject.cae.domain.ports.model.usuario.Usuario;
-import com.caeproject.cae.infraestructure.dtos.CrearUsuarioRequest;
-import com.caeproject.cae.infraestructure.dtos.EditarUsuarioRequest;
-import com.caeproject.cae.infraestructure.dtos.UsuarioResponse;
+import com.caeproject.cae.infraestructure.dtos.usuario.CrearUsuarioRequest;
+import com.caeproject.cae.infraestructure.dtos.usuario.EditarUsuarioRequest;
+import com.caeproject.cae.infraestructure.dtos.usuario.UsuarioResponse;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,18 +32,23 @@ public class UsuarioController {
     private final ObtenerUsuarioInputPort obtenerUsuarioInputPort;
     private final EditarUsuarioInputPort editarUsuarioInputPort;
     private final EliminarUsuarioInputPort eliminarUsuarioInputPort;
+    private final InhabilitarUsuarioInputPort inhabilitarUsuarioInputPort;
 
     public UsuarioController(
             CrearUsuarioInputPort crearUsuarioInputPort,
             LIstarUsuariosInputPort listarUsuariosInputPort,
             ObtenerUsuarioInputPort obtenerUsuarioInputPort,
             EditarUsuarioInputPort editarUsuarioInputPort,
-            EliminarUsuarioInputPort eliminarUsuarioInputPort) {
+            EliminarUsuarioInputPort eliminarUsuarioInputPort,
+            InhabilitarUsuarioInputPort inhabilitarUsuarioInputPort) {
+
+        this.inhabilitarUsuarioInputPort = inhabilitarUsuarioInputPort;
         this.crearUsuarioInputPort = crearUsuarioInputPort;
         this.listarUsuariosInputPort = listarUsuariosInputPort;
         this.obtenerUsuarioInputPort = obtenerUsuarioInputPort;
         this.editarUsuarioInputPort = editarUsuarioInputPort;
         this.eliminarUsuarioInputPort = eliminarUsuarioInputPort;
+
     }
 
     @PostMapping
@@ -99,6 +101,12 @@ public class UsuarioController {
                 .map(this::buildSimpleResponse)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
+    }
+
+    @PostMapping ("/{id}/inhabilitar")
+    public ResponseEntity<Void> inhabilitarUsuario(@PathVariable Long id){
+        inhabilitarUsuarioInputPort.inhabilitarUsuario(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")

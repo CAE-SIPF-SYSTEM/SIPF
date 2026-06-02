@@ -1,4 +1,4 @@
-package com.caeproject.cae.infraestructure.dtos;
+package com.caeproject.cae.infraestructure.dtos.email;
 
 import java.time.LocalDateTime;
 

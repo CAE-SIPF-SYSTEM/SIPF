@@ -1,16 +1,14 @@
 package com.caeproject.cae.infraestructure.config;
 
-import com.caeproject.cae.application.usecases.usuario.CrearUsuarioUseCase;
-import com.caeproject.cae.application.usecases.usuario.EditarUsuarioUseCase;
-import com.caeproject.cae.application.usecases.usuario.EliminarUsuarioUseCase;
-import com.caeproject.cae.application.usecases.usuario.LIstarUsuariosUseCase;
-import com.caeproject.cae.application.usecases.usuario.ObtenerUsuarioUseCase;
-import com.caeproject.cae.domain.ports.in.usuario.CrearUsuarioInputPort;
-import com.caeproject.cae.domain.ports.in.usuario.EditarUsuarioInputPort;
-import com.caeproject.cae.domain.ports.in.usuario.EliminarUsuarioInputPort;
-import com.caeproject.cae.domain.ports.in.usuario.LIstarUsuariosInputPort;
-import com.caeproject.cae.domain.ports.in.usuario.ObtenerUsuarioInputPort;
+import com.caeproject.cae.application.usecases.recuperacion.RestablecerContrasenaUseCase;
+import com.caeproject.cae.application.usecases.recuperacion.SolicitarRecuperacionUseCase;
+import com.caeproject.cae.application.usecases.usuario.*;
+import com.caeproject.cae.domain.ports.in.recuperacion.RestablecerContrasenaInputPort;
+import com.caeproject.cae.domain.ports.in.recuperacion.SolicitarRecuperacionInputPort;
+import com.caeproject.cae.domain.ports.in.usuario.*;
+import com.caeproject.cae.domain.ports.out.EmailNotificationPort;
 import com.caeproject.cae.domain.ports.out.PerfilBaseRepository;
+import com.caeproject.cae.domain.ports.out.TokenRecuperacionRepository;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,5 +40,30 @@ public class BeanConfiguration {
     @Bean
     public ObtenerUsuarioInputPort obtenerUsuarioInputPort(UsuarioRepository usuarioRepository) {
         return new ObtenerUsuarioUseCase(usuarioRepository);
+    }
+
+    @Bean
+    public InhabilitarUsuarioInputPort inhabilitarUsuarioInputPort(UsuarioRepository usuarioRepository) {
+        return new InhabilitarUseCase(usuarioRepository);
+    }
+
+    @Bean
+    public com.caeproject.cae.domain.ports.in.usuario.LoginInputPort loginInputPort(UsuarioRepository usuarioRepository) {
+        return new com.caeproject.cae.application.usecases.usuario.LoginUseCase(usuarioRepository);
+    }
+
+    @Bean
+    public SolicitarRecuperacionInputPort solicitarRecuperacionInputPort(
+            UsuarioRepository usuarioRepository,
+            TokenRecuperacionRepository tokenRecuperacionRepository,
+            EmailNotificationPort emailNotificationPort) {
+        return new SolicitarRecuperacionUseCase(usuarioRepository, tokenRecuperacionRepository, emailNotificationPort);
+    }
+
+    @Bean
+    public RestablecerContrasenaInputPort restablecerContrasenaInputPort(
+            TokenRecuperacionRepository tokenRecuperacionRepository,
+            UsuarioRepository usuarioRepository) {
+        return new RestablecerContrasenaUseCase(tokenRecuperacionRepository, usuarioRepository);
     }
 }

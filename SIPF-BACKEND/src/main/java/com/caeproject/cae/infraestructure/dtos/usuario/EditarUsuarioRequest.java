@@ -1,4 +1,4 @@
-package com.caeproject.cae.infraestructure.dtos;
+package com.caeproject.cae.infraestructure.dtos.usuario;
 
 import com.caeproject.cae.domain.ports.model.enums.Rol;
 

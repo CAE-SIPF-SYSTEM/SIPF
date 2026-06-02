@@ -7,9 +7,11 @@ import com.caeproject.cae.domain.ports.exceptions.DocumentoYaRegistradoException
 import com.caeproject.cae.domain.ports.exceptions.EspecialidadNoValidaException;
 import com.caeproject.cae.domain.ports.exceptions.FichaFueraDeVigenciaException;
 import com.caeproject.cae.domain.ports.exceptions.LimiteHorasSuperadasException;
+import com.caeproject.cae.domain.ports.exceptions.TokenExpiradoException;
+import com.caeproject.cae.domain.ports.exceptions.TokenNoEncontradoException;
 import com.caeproject.cae.domain.ports.exceptions.UsuarioInhabilitadoException;
 import com.caeproject.cae.domain.ports.exceptions.UsuarioNoEncontradoException;
-import com.caeproject.cae.infraestructure.dtos.ErrorResponse;
+import com.caeproject.cae.infraestructure.dtos.email.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -70,5 +72,17 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleFichaFueraDeVigencia(FichaFueraDeVigenciaException ex) {
         ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(TokenExpiradoException.class)
+    public ResponseEntity<ErrorResponse> handleTokenExpirado(TokenExpiradoException ex) {
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(TokenNoEncontradoException.class)
+    public ResponseEntity<ErrorResponse> handleTokenNoEncontrado(TokenNoEncontradoException ex) {
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 }
