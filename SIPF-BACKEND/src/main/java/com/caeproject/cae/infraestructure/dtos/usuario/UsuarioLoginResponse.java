@@ -7,7 +7,7 @@ public class UsuarioLoginResponse {
     private Long id;
     private String correo;
     private Rol rol;
-    private String token;
+    private String tokenSession; //token para session unica
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -18,6 +18,6 @@ public class UsuarioLoginResponse {
     public Rol getRol() { return rol; }
     public void setRol(Rol rol) { this.rol = rol; }
 
-    public String getToken() { return token; }
-    public void setToken(String token) { this.token = token; }
+    public String getToken() { return tokenSession; }
+    public void setToken(String token) { this.tokenSession = token; }
 }

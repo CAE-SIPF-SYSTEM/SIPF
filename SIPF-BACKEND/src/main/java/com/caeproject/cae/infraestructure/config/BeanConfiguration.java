@@ -10,6 +10,7 @@ import com.caeproject.cae.domain.ports.out.EmailNotificationPort;
 import com.caeproject.cae.domain.ports.out.PerfilBaseRepository;
 import com.caeproject.cae.domain.ports.out.TokenRecuperacionRepository;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;
+import com.caeproject.cae.infraestructure.security.JwtUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -48,8 +49,8 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public com.caeproject.cae.domain.ports.in.usuario.LoginInputPort loginInputPort(UsuarioRepository usuarioRepository) {
-        return new com.caeproject.cae.application.usecases.usuario.LoginUseCase(usuarioRepository);
+    public com.caeproject.cae.domain.ports.in.usuario.LoginInputPort loginInputPort(UsuarioRepository usuarioRepository, JwtUtil jwtUtil) {
+        return new com.caeproject.cae.application.usecases.usuario.LoginUseCase(usuarioRepository,jwtUtil);
     }
 
     @Bean

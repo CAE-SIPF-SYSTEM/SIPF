@@ -24,6 +24,10 @@ public class UsuarioEntity {
     @Column(nullable = false)
     private String contrasena;
 
+    @Column(name = "tokenSession", length = 36)
+    private String tokenSession; //token de session
+
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Rol rol;
@@ -45,4 +49,7 @@ public class UsuarioEntity {
 
     public boolean isEstado() { return estado; }
     public void setEstado(boolean estado) { this.estado = estado; }
+
+    public String getTokenSession (){return tokenSession;}
+    public void setTokenSession(String tokenSession){this.tokenSession = tokenSession;}
 }

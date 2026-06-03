@@ -8,6 +8,7 @@ public class Usuario {
     private Long id;
     private String correo;
     private String contrasena;
+    private String tokenSession;
     private Rol rol;
     private boolean estado;
 
@@ -31,6 +32,10 @@ public class Usuario {
 
     public void setEstado(boolean estado) {this.estado = estado;}
 
-    //metodos implementados aqui para no ejecutar todo el codigo y poder valorarlo aqui
+    public String getTokenSession (){return tokenSession;}
+    public void setTokenSession(String tokenSession){this.tokenSession = tokenSession;}
 
+    private String jwtToken;
+    public String getJwtToken() { return jwtToken; }
+    public void setJwtToken(String jwtToken) { this.jwtToken = jwtToken; }
 }

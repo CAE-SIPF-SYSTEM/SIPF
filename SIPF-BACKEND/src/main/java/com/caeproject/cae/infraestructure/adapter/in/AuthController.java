@@ -35,12 +35,12 @@ public class AuthController {
 
         Usuario usuarioValidado = loginInputPort.loginSistema(request.getCorreo(), request.getContrasena());
 
-        //map para el frontend
+        //map frontend
         UsuarioLoginResponse response = new UsuarioLoginResponse();
         response.setId(usuarioValidado.getId());
         response.setCorreo(usuarioValidado.getCorreo());
         response.setRol(usuarioValidado.getRol());
-        response.setToken("TOKEN_FALSO_POR_AHORA");
+        response.setToken(usuarioValidado.getJwtToken());
 
         return ResponseEntity.ok(response);
     }

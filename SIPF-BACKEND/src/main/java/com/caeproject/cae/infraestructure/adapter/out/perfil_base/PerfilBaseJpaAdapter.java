@@ -30,6 +30,7 @@ public class PerfilBaseJpaAdapter implements PerfilBaseRepository {
     }
 
     @Override
+    @org.springframework.transaction.annotation.Transactional
     public PerfilBase save(PerfilBase perfilBase) {
         PerfilBaseEntity entity = mapper.toEntity(perfilBase);
         if (perfilBase.getUsuarioId() != null) {
@@ -38,7 +39,7 @@ public class PerfilBaseJpaAdapter implements PerfilBaseRepository {
         } else {
             entity.setNew(true);
         }
-        UsuarioEntity usuarioRef = usuarioJpaRepository.getReferenceById(perfilBase.getUsuarioId());
+        UsuarioEntity usuarioRef = usuarioJpaRepository.findById(perfilBase.getUsuarioId()).orElseThrow();
         entity.setUsuario(usuarioRef);
         PerfilBaseEntity saved = jpaRepository.save(entity);
         return mapper.toDomain(saved);
