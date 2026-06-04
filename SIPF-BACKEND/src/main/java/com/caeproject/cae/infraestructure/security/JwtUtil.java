@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
-public class JwtUtil { // Renombrado a JwtUtil (con J mayúscula por buena práctica)
+public class JwtUtil {
 
     @Value("${security.jwt.secret.key}")
     private String secretKey; //guarda el String para la llave Secreta "token"

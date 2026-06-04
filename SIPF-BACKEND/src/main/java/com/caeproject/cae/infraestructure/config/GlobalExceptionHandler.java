@@ -1,19 +1,10 @@
 package com.caeproject.cae.infraestructure.config;
 
-import com.caeproject.cae.domain.ports.exceptions.CorreoYaRegistradoException;
-import com.caeproject.cae.domain.ports.exceptions.CredencialesIncorrectasException;
-import com.caeproject.cae.domain.ports.exceptions.CruceHorarioException;
-import com.caeproject.cae.domain.ports.exceptions.DocumentoYaRegistradoException;
-import com.caeproject.cae.domain.ports.exceptions.EspecialidadNoValidaException;
-import com.caeproject.cae.domain.ports.exceptions.FichaFueraDeVigenciaException;
-import com.caeproject.cae.domain.ports.exceptions.LimiteHorasSuperadasException;
-import com.caeproject.cae.domain.ports.exceptions.TokenExpiradoException;
-import com.caeproject.cae.domain.ports.exceptions.TokenNoEncontradoException;
-import com.caeproject.cae.domain.ports.exceptions.UsuarioInhabilitadoException;
-import com.caeproject.cae.domain.ports.exceptions.UsuarioNoEncontradoException;
+import com.caeproject.cae.domain.ports.exceptions.*;
 import com.caeproject.cae.infraestructure.dtos.email.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -82,6 +73,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(TokenNoEncontradoException.class)
     public ResponseEntity<ErrorResponse> handleTokenNoEncontrado(TokenNoEncontradoException ex) {
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(SesionCerradaException.class)
+    public ResponseEntity<ErrorResponse> handleSesionCerrada(SesionCerradaException ex) {
         ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
