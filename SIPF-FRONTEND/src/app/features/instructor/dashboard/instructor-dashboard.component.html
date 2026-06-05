@@ -1,0 +1,66 @@
+<app-main-layout pageTitle="Panel del Instructor">
+  
+  <!-- Welcome Section -->
+  <div class="mb-8 animate-fade-in">
+    <h2 class="text-3xl font-bold text-slate-800 mb-3">Bienvenido, <span class="gradient-text">Instructor</span></h2>
+    <p class="text-slate-500">Gestiona tu programación y formación académica</p>
+  </div>
+
+  <!-- Profile & Info -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <div class="card lg:col-span-3 animate-fade-in-up" style="animation-delay: 0.1s">
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-500 text-2xl font-bold border border-emerald-500/30">
+          {{ email?.charAt(0)?.toUpperCase() || 'U' }}
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-slate-800">{{ email }}</h3>
+          <span class="badge badge-instructor mt-1">Instructor</span>
+        </div>
+      </div>
+      <div class="pt-4 border-t border-slate-200">
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-sm text-slate-500">Estado</span>
+          <span class="badge" [class.badge-active]="authService.getEstado()"[class.badge-inactive]="!authService.getEstado()">
+            {{authService.getEstado() ? 'Habilitado' : 'Inhabilitado'}}
+          </span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-slate-500">ID Usuario</span>
+          <span class="text-sm font-medium text-slate-700">#{{ authService.getUserId() }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature Cards (Placeholders) -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+    
+    <!-- Horarios -->
+    <div class="card relative overflow-hidden group animate-fade-in-up" style="animation-delay: 0.2s">
+      <div class="absolute top-4 right-4">
+        <span class="badge bg-amber-500/10 text-amber-500 border-amber-500/20">Próximamente</span>
+      </div>
+      <div class="w-12 h-12 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <h3 class="text-lg font-bold text-slate-800 mb-2">Mis Horarios</h3>
+      <p class="text-sm text-slate-500">Consulta tu programación semanal, cruces de horarios y disponibilidad.</p>
+    </div>
+
+   
+
+    <!-- Especialidades -->
+    <div class="card relative overflow-hidden group animate-fade-in-up" style="animation-delay: 0.4s">
+      <div class="absolute top-4 right-4">
+        <span class="badge bg-amber-500/10 text-amber-500 border-amber-500/20">Próximamente</span>
+      </div>
+      <div class="w-12 h-12 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <h3 class="text-lg font-bold text-slate-800 mb-2">Especialidades</h3>
+      <p class="text-sm text-slate-500">Administra tus competencias y especialidades técnicas.</p>
+    </div>
+
+  </div>
+</app-main-layout>

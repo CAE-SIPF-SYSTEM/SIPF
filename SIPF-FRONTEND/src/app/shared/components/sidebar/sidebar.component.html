@@ -1,0 +1,56 @@
+<aside class="sidebar transition-all duration-300 ease-in-out h-screen flex flex-col shrink-0"
+       [class.w-64]="!isCollapsed()" [class.w-20]="isCollapsed()">
+  
+  <!-- Logo Area -->
+  <div class="logo-area h-16 flex items-center justify-between px-4">
+    <div class="flex items-center gap-4 overflow-hidden">
+      <div class="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+      </div>
+      <span class="text-xl font-bold text-white whitespace-nowrap" *ngIf="!isCollapsed()">SIPF</span>
+    </div>
+    <button (click)="toggleCollapse()" class="text-slate-200 hover:text-white transition-colors focus:outline-none">
+      <svg *ngIf="!isCollapsed()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      <svg *ngIf="isCollapsed()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="flex-1 overflow-y-auto py-4 flex flex-col gap-2 px-3">
+    <!-- Admin Links -->
+    <ng-container *ngIf="role() === 'ADMINISTRADOR'">
+      <a routerLink="/admin/dashboard" routerLinkActive="active-nav" class="nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Dashboard</span>
+      </a>
+      <a routerLink="/admin/usuarios" routerLinkActive="active-nav" class="nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Gestión de Usuarios</span>
+      </a>
+    </ng-container>
+
+    <!-- Instructor Links -->
+    <ng-container *ngIf="role() === 'INSTRUCTOR'">
+      <a routerLink="/instructor/dashboard" routerLinkActive="active-nav" class="nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Dashboard</span>
+      </a>
+    </ng-container>
+
+    <!-- Coordinador Links -->
+    <ng-container *ngIf="role() === 'COORDINADOR'">
+      <a routerLink="/coordinador/dashboard" routerLinkActive="active-nav" class="nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Dashboard</span>
+      </a>
+    </ng-container>
+  </nav>
+
+  <!-- User Area / Logout -->
+  <div class="user-area p-4">
+    <button (click)="logout()" class="nav-item logout-btn w-full">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+      <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Cerrar Sesión</span>
+    </button>
+  </div>
+</aside>

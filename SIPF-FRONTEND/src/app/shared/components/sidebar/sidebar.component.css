@@ -1,0 +1,74 @@
+@reference "../../../../styles.css";
+
+/* --- SIDEBAR CONTAINER --- */
+.sidebar {
+  /* - background - */
+  background-color: #ffffff !important; 
+  /* - border - */
+  border-right: 1px solid #d4d4d4 !important; 
+  /* - height - */
+  height: 100vh;
+}
+
+/* --- LOGO SECTION (TOP AREA) --- */
+.logo-area {
+  /* - background - */
+  background-color: #127062 !important;
+  /* - border - */
+  border-bottom: 1px solid #0a473e !important;
+}
+
+/* --- BUTTONS & MENU ITEMS --- */
+.nav-item {
+  @apply flex items-center gap-3 px-3 py-2.5 rounded-lg;
+  
+  /* - colors - */
+  color: #ffffff;
+  /* - background - */
+  background-color: #0E7D6C;
+  /* - border - */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  
+  /* - separacion de items -
+  margin-bottom: 0.75rem; 
+  /* - transition - */
+  transition: all 0.2s ease-in-out;
+}
+
+/* --- HOVER STATE --- */
+.nav-item:hover {
+  /* - colors - */
+  color: #ffffff;
+  /* - background - */
+  background-color: #0E5046;
+}
+
+/* --- ACTIVE NAVIGATION ITEM --- */
+.active-nav {
+  /* - background - */
+  background-color: #0E5046 !important;
+  /* - border - */
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  /* - shadow - */
+  box-shadow: 0 0 12px rgba(14, 125, 108, 0.3);
+}
+
+/* --- LOGOUT BUTTON --- */
+.logout-btn {
+  /* - colors - */
+  color: #fb7185 !important;
+  /* - background - */
+  background-color: rgba(244, 63, 94, 0.1) !important;
+  /* - border - */
+  border: 1px solid rgba(244, 63, 94, 0.2) !important;
+}
+
+/* --- LOGOUT BUTTON HOVER --- */
+.logout-btn:hover {
+  /* - colors - */
+  color: #ffffff !important;
+  /* - background - */
+  background-color: #f43f5e !important;
+  /* - border - */
+  border-color: #e11d48 !important;
+}
