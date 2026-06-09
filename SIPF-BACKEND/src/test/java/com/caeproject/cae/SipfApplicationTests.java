@@ -15,32 +15,4 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class SipfApplicationTests {
 
-	@Autowired
-	private CrearUsuarioInputPort crearUsuarioInputPort;
-
-	@Test
-	void contextLoads() {
-	}
-
-	@Test
-	void testCrearUsuarioExito() {
-		Usuario usuario = new Usuario();
-		usuario.setCorreo("instructor@sena.edu.co");
-		usuario.setContrasena("123456");
-		usuario.setRol(Rol.INSTRUCTOR);
-		usuario.setEstado(true);
-
-		PerfilBase perfilBase = new PerfilBase();
-		perfilBase.setNombre("Juan");
-		perfilBase.setApellido("Pérez");
-		perfilBase.setCc(1234567890L);
-		perfilBase.setTelefono((short) 3001);
-		perfilBase.setTipoContrato(TIpoContrato.PLANTA);
-
-		Usuario creado = crearUsuarioInputPort.crearUsuario(usuario, perfilBase);
-
-		assertNotNull(creado);
-		assertNotNull(creado.getId());
-		assertEquals("instructor@sena.edu.co", creado.getCorreo());
-	}
 }

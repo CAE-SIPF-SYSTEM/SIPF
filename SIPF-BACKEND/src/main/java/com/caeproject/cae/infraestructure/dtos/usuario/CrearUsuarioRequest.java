@@ -11,7 +11,7 @@ public class CrearUsuarioRequest {
     private String nombre;
     private String apellido;
     private Long documentoIdentidad;
-    private Short telefono;
+    private Long telefono;
     private TIpoContrato tipoContrato;
 
     public String getCorreo() { return correo; }
@@ -32,8 +32,8 @@ public class CrearUsuarioRequest {
     public Long getDocumentoIdentidad() { return documentoIdentidad; }
     public void setDocumentoIdentidad(Long documentoIdentidad) { this.documentoIdentidad = documentoIdentidad; }
 
-    public Short getTelefono() { return telefono; }
-    public void setTelefono(Short telefono) { this.telefono = telefono; }
+    public Long getTelefono() { return telefono; }
+    public void setTelefono(Long telefono) { this.telefono = telefono; }
 
     public TIpoContrato getTipoContrato() { return tipoContrato; }
     public void setTipoContrato(TIpoContrato tipoContrato) { this.tipoContrato = tipoContrato; }

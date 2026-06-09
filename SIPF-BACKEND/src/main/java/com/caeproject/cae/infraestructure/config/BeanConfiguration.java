@@ -49,6 +49,11 @@ public class BeanConfiguration {
     }
 
     @Bean
+    public habilitarUsuarioInputPort habilitarUsuarioInputPort(UsuarioRepository usuarioRepository) {
+        return new habilitarUseCase(usuarioRepository);
+    }
+
+    @Bean
     public com.caeproject.cae.domain.ports.in.usuario.LoginInputPort loginInputPort(UsuarioRepository usuarioRepository, JwtUtil jwtUtil) {
         return new com.caeproject.cae.application.usecases.usuario.LoginUseCase(usuarioRepository,jwtUtil);
     }

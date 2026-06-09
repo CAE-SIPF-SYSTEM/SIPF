@@ -7,7 +7,7 @@ public class PerfilBase {
     private String nombre;
     private String apellido;
     private Long cc;
-    private Short telefono;
+    private Long telefono;
 
     private TIpoContrato tipoContrato;
     private Long usuarioId;
@@ -28,9 +28,9 @@ public class PerfilBase {
 
     public void setCc(Long cc) {this.cc = cc;}
 
-    public Short getTelefono() {return telefono;}
+    public Long getTelefono() {return telefono;}
 
-    public void setTelefono(Short telefono) {this.telefono = telefono;}
+    public void setTelefono(Long telefono) {this.telefono = telefono;}
 
     public TIpoContrato getTipoContrato() {return tipoContrato;}
 

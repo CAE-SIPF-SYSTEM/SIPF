@@ -17,7 +17,7 @@ public class habilitarUseCase implements habilitarUsuarioInputPort {
     public Usuario habilitarUsuario(Long id ) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new UsuarioNoEncontradoException(id));
-        usuario.setEstado(false);
+        usuario.setEstado(true);
         return usuarioRepository.saveUser(usuario);
     }
 }

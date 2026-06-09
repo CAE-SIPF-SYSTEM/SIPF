@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+##ignore persistence data h2##
+/data/
+*.mv.db
+*.trace.db

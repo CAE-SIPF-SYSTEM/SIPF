@@ -33,6 +33,7 @@ public class UsuarioController {
     private final EditarUsuarioInputPort editarUsuarioInputPort;
     private final EliminarUsuarioInputPort eliminarUsuarioInputPort;
     private final InhabilitarUsuarioInputPort inhabilitarUsuarioInputPort;
+    private final habilitarUsuarioInputPort habilitarUsuarioInputPort;
 
     public UsuarioController(
             CrearUsuarioInputPort crearUsuarioInputPort,
@@ -40,9 +41,11 @@ public class UsuarioController {
             ObtenerUsuarioInputPort obtenerUsuarioInputPort,
             EditarUsuarioInputPort editarUsuarioInputPort,
             EliminarUsuarioInputPort eliminarUsuarioInputPort,
-            InhabilitarUsuarioInputPort inhabilitarUsuarioInputPort) {
+            InhabilitarUsuarioInputPort inhabilitarUsuarioInputPort,
+            habilitarUsuarioInputPort habilitarUsuarioInputPort) {
 
         this.inhabilitarUsuarioInputPort = inhabilitarUsuarioInputPort;
+        this.habilitarUsuarioInputPort = habilitarUsuarioInputPort;
         this.crearUsuarioInputPort = crearUsuarioInputPort;
         this.listarUsuariosInputPort = listarUsuariosInputPort;
         this.obtenerUsuarioInputPort = obtenerUsuarioInputPort;
@@ -106,6 +109,12 @@ public class UsuarioController {
     @PostMapping ("/{id}/inhabilitar")
     public ResponseEntity<Void> inhabilitarUsuario(@PathVariable Long id){
         inhabilitarUsuarioInputPort.inhabilitarUsuario(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping ("/{id}/habilitar")
+    public ResponseEntity<Void> habilitarUsuario(@PathVariable Long id){
+        habilitarUsuarioInputPort.habilitarUsuario(id);
         return ResponseEntity.noContent().build();
     }
 
