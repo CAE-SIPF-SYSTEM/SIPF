@@ -1,1 +1,14 @@
-/* Header styles */
+@reference "../../../../styles.css";
+
+.header-bar {
+  @apply h-16 text-white flex items-center justify-between px-6 sticky top-0 z-30 shadow-md;
+  background-color: var(--color-primary-600);
+}
+
+.user-badge-container {
+  @apply hidden sm:flex flex-col items-end;
+}
+
+.avatar-circle {
+  @apply w-10 h-10 rounded-full bg-white/20 border border-white/30 flex items-center justify-center text-white font-bold;
+}

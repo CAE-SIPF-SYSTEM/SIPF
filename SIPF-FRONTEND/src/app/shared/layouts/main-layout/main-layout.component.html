@@ -1,0 +1,11 @@
+<div class="main-container">
+  <app-sidebar #sidebar></app-sidebar>
+  
+  <div class="content-wrapper">
+    <app-header [title]="pageTitle()"></app-header>
+    
+    <main class="main-content">
+      <ng-content></ng-content>
+    </main>
+  </div>
+</div>

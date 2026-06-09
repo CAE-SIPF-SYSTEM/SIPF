@@ -9,10 +9,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const token = authService.getToken();
 
-  const isLoginRequest = req.url.includes('/auth/login');
+  const isPublicAuthRequest = req.url.includes('/auth/');
 
   let authReq = req;
-  if (token && !isLoginRequest) {
+  if (token && !isPublicAuthRequest) {
     authReq = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`
@@ -22,7 +22,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(authReq).pipe(
     catchError((error) => {
-      if (error.status === 401 || error.status === 403) {
+      if ((error.status === 401 || error.status === 403) && !isPublicAuthRequest) {
         authService.logout();
       }
       return throwError(() => error);

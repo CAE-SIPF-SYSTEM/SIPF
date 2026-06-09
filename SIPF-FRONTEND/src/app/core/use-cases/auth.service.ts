@@ -23,15 +23,19 @@ export class AuthService {
   login(request: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/auth/login`, request).pipe(
       tap((response) => {
-        localStorage.setItem(this.TOKEN_KEY, response.token);
-        localStorage.setItem(this.USER_KEY, JSON.stringify(response));
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(this.TOKEN_KEY, response.token);
+          localStorage.setItem(this.USER_KEY, JSON.stringify(response));
+        }
       })
     );
   }
 
   logout(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
-    localStorage.removeItem(this.USER_KEY);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(this.TOKEN_KEY);
+      localStorage.removeItem(this.USER_KEY);
+    }
     this.router.navigate(['/login']);
   }
 
@@ -46,6 +50,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
+    if (typeof window === 'undefined') return false;
     return !!localStorage.getItem(this.TOKEN_KEY);
   }
 
@@ -55,6 +60,7 @@ export class AuthService {
   }
 
   getToken(): string | null {
+    if (typeof window === 'undefined') return null;
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
@@ -74,6 +80,7 @@ export class AuthService {
   }
 
   getUser(): LoginResponse | null {
+    if (typeof window === 'undefined') return null;
     const data = localStorage.getItem(this.USER_KEY);
     if (!data) return null;
     try {

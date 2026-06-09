@@ -1,12 +1,12 @@
-<header class="h-16 bg-[#136E61] text-white flex items-center justify-between px-6 sticky top-0 z-30 shadow-md">
+<header class="header-bar">
   <h1 class="text-xl font-semibold animate-fade-in">{{ title() }}</h1>
   
   <div class="flex items-center gap-4">
-    <div class="hidden sm:flex flex-col items-end">
+    <div class="user-badge-container">
       <span class="text-sm font-medium">{{ email }}</span>
       <span class="badge" [ngClass]="badgeClass">{{ role }}</span>
     </div>
-    <div class="w-10 h-10 rounded-full bg-white/20 border border-white/30 flex items-center justify-center text-white font-bold">
+    <div class="avatar-circle">
       {{ initial }}
     </div>
   </div>

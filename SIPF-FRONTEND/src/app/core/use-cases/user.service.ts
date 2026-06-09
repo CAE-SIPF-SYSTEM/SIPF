@@ -41,6 +41,10 @@ export class UserService {
     return this.http.post<void>(`${this.apiUrl}/usuarios/${id}/inhabilitar`, null);
   }
 
+  enable(id: number): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/usuarios/${id}/habilitar`, null);
+  }
+
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/usuarios/${id}`);
   }

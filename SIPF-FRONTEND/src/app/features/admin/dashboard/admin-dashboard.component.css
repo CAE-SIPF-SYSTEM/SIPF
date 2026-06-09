@@ -1,1 +1,3 @@
-/* Admin Dashboard styles */
+@reference "../../../../styles.css";
+
+/* Styles are inherited from the design system, but scoped here for future custom dashboards changes */
