@@ -27,7 +27,7 @@
             <input id="nuevaContrasena" type="password" formControlName="nuevaContrasena" class="input-field pl-10 pr-10 bg-slate-50" placeholder="Ingresa tu nueva contraseña">
           </div>
           <div *ngIf="form.get('nuevaContrasena')?.invalid && form.get('nuevaContrasena')?.touched" class="text-rose-500 text-xs mt-1 font-medium">
-            Debe tener al menos 6 caracteres
+            Mínimo 8 caracteres, mayúsculas, minúsculas, números y símbolos.
           </div>
         </div>
 

@@ -5,6 +5,8 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/use-cases/auth.service';
 import { AlertService } from '../../../core/use-cases/alert.service';
 
+import { passwordValidator } from '../../../core/validators/password.validator';
+
 function passwordsMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
   const newPassword = control.get('nuevaContrasena');
   const confirmPassword = control.get('confirmarContrasena');
@@ -31,7 +33,7 @@ export class RestablecerContrasenaComponent implements OnInit {
   token = '';
 
   form = this.fb.group({
-    nuevaContrasena: ['', [Validators.required, Validators.minLength(6)]],
+    nuevaContrasena: ['', [Validators.required, passwordValidator()]],
     confirmarContrasena: ['', [Validators.required]]
   }, { validators: passwordsMatchValidator });
 

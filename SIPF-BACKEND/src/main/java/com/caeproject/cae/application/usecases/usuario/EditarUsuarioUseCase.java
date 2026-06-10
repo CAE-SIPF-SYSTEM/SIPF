@@ -5,6 +5,11 @@ import com.caeproject.cae.domain.ports.in.usuario.EditarUsuarioInputPort;
 import com.caeproject.cae.domain.ports.model.usuario.Usuario;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;
 
+import com.caeproject.cae.application.utils.ValidacionContrasena;
+import com.caeproject.cae.domain.ports.exceptions.ContrasenaInvalidaException;
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
 public class EditarUsuarioUseCase implements EditarUsuarioInputPort {
     private final UsuarioRepository usuarioRepository;
 
@@ -21,6 +26,9 @@ public class EditarUsuarioUseCase implements EditarUsuarioInputPort {
             usuarioExistente.setCorreo(usuario.getCorreo());
         }
         if (usuario.getContrasena() != null) {
+            if (!ValidacionContrasena.esValida(usuario.getContrasena())) {
+                throw new ContrasenaInvalidaException("La contraseña debe tener mínimo 8 caracteres, al menos 1 mayúscula, 1 minúscula, 1 número y 1 símbolo.");
+            }
             usuarioExistente.setContrasena(usuario.getContrasena());
         }
         if (usuario.getRol() != null) {

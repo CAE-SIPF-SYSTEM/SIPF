@@ -1,44 +1,35 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-
-export interface Alert {
-  id: string;
-  type: 'success' | 'error' | 'warning' | 'info';
-  message: string;
-}
+import { Injectable, inject } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({ providedIn: 'root' })
 export class AlertService {
-  private readonly alertsSubject = new BehaviorSubject<Alert[]>([]);
-  readonly alerts$: Observable<Alert[]> = this.alertsSubject.asObservable();
+  private snackBar = inject(MatSnackBar);
 
   success(message: string): void {
-    this.addAlert('success', message, 4000);
+    this.snackBar.open(message, 'Cerrar', { 
+      duration: 4000,
+      panelClass: ['bg-green-600', 'text-white']
+    });
   }
 
   error(message: string): void {
-    this.addAlert('error', message, 5000);
+    this.snackBar.open(message, 'Cerrar', { 
+      duration: 5000,
+      panelClass: ['bg-red-600', 'text-white']
+    });
   }
 
   warning(message: string): void {
-    this.addAlert('warning', message, 4000);
+    this.snackBar.open(message, 'Cerrar', { 
+      duration: 4000,
+      panelClass: ['bg-yellow-500', 'text-white']
+    });
   }
 
   info(message: string): void {
-    this.addAlert('info', message, 4000);
-  }
-
-  remove(id: string): void {
-    const current = this.alertsSubject.getValue();
-    this.alertsSubject.next(current.filter((alert) => alert.id !== id));
-  }
-
-  private addAlert(type: Alert['type'], message: string, duration: number): void {
-    const id = crypto.randomUUID();
-    const alert: Alert = { id, type, message };
-    const current = this.alertsSubject.getValue();
-    this.alertsSubject.next([...current, alert]);
-
-    setTimeout(() => this.remove(id), duration);
+    this.snackBar.open(message, 'Cerrar', { 
+      duration: 4000,
+      panelClass: ['bg-blue-500', 'text-white']
+    });
   }
 }

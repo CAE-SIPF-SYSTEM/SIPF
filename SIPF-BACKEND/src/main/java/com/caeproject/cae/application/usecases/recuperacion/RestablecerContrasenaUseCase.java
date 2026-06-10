@@ -9,6 +9,9 @@ import com.caeproject.cae.domain.ports.model.usuario.Usuario;
 import com.caeproject.cae.domain.ports.out.TokenRecuperacionRepository;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;
 
+import com.caeproject.cae.application.utils.ValidacionContrasena;
+import com.caeproject.cae.domain.ports.exceptions.ContrasenaInvalidaException;
+
 public class RestablecerContrasenaUseCase implements RestablecerContrasenaInputPort {
 
     private final TokenRecuperacionRepository tokenRecuperacionRepository;
@@ -22,6 +25,10 @@ public class RestablecerContrasenaUseCase implements RestablecerContrasenaInputP
 
     @Override
     public void restablecerContrasena(String token, String nuevaContrasena) {
+        if (!ValidacionContrasena.esValida(nuevaContrasena)) {
+            throw new ContrasenaInvalidaException("La contraseña debe tener mínimo 8 caracteres, al menos 1 mayúscula, 1 minúscula, 1 número y 1 símbolo.");
+        }
+        
         // Buscar el token
         TokenRecuperacion tokenRecuperacion = tokenRecuperacionRepository
                 .buscarPorToken(token)

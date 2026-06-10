@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import '@angular/material/prebuilt-themes/azure-blue.css';
 
 /* Custom Theme */
 @theme {
@@ -41,6 +42,21 @@ body {
   background-color: #f4f7f6; /* Light gray background */
   color: #334155; /* slate-700 */
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+mat-icon, .mat-icon, .material-icons {
+  font-family: 'Material Symbols Outlined', 'Material Icons', sans-serif !important;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -1,15 +1,18 @@
-import { Component, OnInit, signal, inject } from '@angular/core';
+import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainLayoutComponent } from '../../../shared/layouts/main-layout/main-layout';
 import { UserService } from '../../../core/use-cases/user.service';
 import { UsuarioResponse } from '../../../core/entities/user.model';
 import { AlertService } from '../../../core/use-cases/alert.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-admin-dashboard',
-  imports: [CommonModule, MainLayoutComponent],
+  standalone: true,
+  imports: [CommonModule, MainLayoutComponent, MatCardModule, MatIconModule],
   templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.css']
+  styleUrl: './admin-dashboard.component.css'
 })
 export class AdminDashboardComponent implements OnInit {
   private userService = inject(UserService);

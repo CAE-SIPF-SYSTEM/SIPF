@@ -145,6 +145,15 @@ public class UsuarioController {
         response.setCorreo(usuario.getCorreo());
         response.setRol(usuario.getRol());
         response.setEstado(usuario.isEstado());
+        
+        if (usuario.getPerfilBase() != null) {
+            response.setNombre(usuario.getPerfilBase().getNombre());
+            response.setApellido(usuario.getPerfilBase().getApellido());
+            response.setDocumentoIdentidad(usuario.getPerfilBase().getCc());
+            response.setTelefono(usuario.getPerfilBase().getTelefono());
+            response.setTipoContrato(usuario.getPerfilBase().getTipoContrato());
+        }
+        
         return response;
     }
 

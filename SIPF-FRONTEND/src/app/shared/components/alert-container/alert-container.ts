@@ -1,13 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AlertService, Alert } from '../../../core/use-cases/alert.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-alert-container',
-  imports: [CommonModule],
-  templateUrl: './alert-container.component.html',
-  styleUrl: './alert-container.component.css'
+  standalone: true,
+  template: ''
 })
-export class AlertContainerComponent {
-  alertService = inject(AlertService);
-}
+export class AlertContainerComponent {}
