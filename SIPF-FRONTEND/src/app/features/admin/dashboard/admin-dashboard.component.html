@@ -13,7 +13,7 @@
         </div>
         <div>
           <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Total Usuarios</p>
-          <p class="text-3xl font-extrabold text-slate-800">{{ totalUsers() }}</p>
+          <p class="text-3xl font-extrabold text-slate-800 text-center">{{ totalUsers() }}</p>
         </div>
       </mat-card>
 
@@ -23,7 +23,7 @@
         </div>
         <div>
           <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Administradores</p>
-          <p class="text-3xl font-extrabold text-slate-800">{{ totalAdmins() }}</p>
+          <p class="text-3xl font-extrabold text-slate-800 text-center">{{ totalAdmins() }}</p>
         </div>
       </mat-card>
 
@@ -33,7 +33,7 @@
         </div>
         <div>
           <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Instructores</p>
-          <p class="text-3xl font-extrabold text-slate-800">{{ totalInstructors() }}</p>
+          <p class="text-3xl font-extrabold text-slate-800 text-center">{{ totalInstructors() }}</p>
         </div>
       </mat-card>
 
@@ -43,14 +43,14 @@
         </div>
         <div>
           <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Coordinadores</p>
-          <p class="text-3xl font-extrabold text-slate-800">{{ totalCoordinators() }}</p>
+          <p class="text-3xl font-extrabold text-slate-800  text-center">{{ totalCoordinators() }}</p>
         </div>
       </mat-card>
     </div>
 
     <div>
       <mat-card class="animate-fade-in-up shadow-sm rounded-2xl p-8" style="animation-delay: 0.5s">
-        <h3 class="text-xl font-bold text-slate-800 mb-6">Usuarios Recientes</h3>
+        <h3 class="text-xl font-bold text-slate-800 mb-6 text-center">Usuarios Recientes</h3>
         
         <div *ngIf="isLoading()" class="flex justify-center py-8">
           <div class="spinner border-t-primary-600"></div>
@@ -61,24 +61,24 @@
         </div>
 
         <div *ngIf="!isLoading() && recentUsers().length > 0" class="overflow-x-auto">
-          <table class="w-full text-left border-collapse">
+          <table class="w-full text-center border-collapse">
             <thead>
               <tr class="border-b border-slate-200">
-                <th class="py-3 px-4 font-semibold text-sm text-slate-500">ID</th>
-                <th class="py-3 px-4 font-semibold text-sm text-slate-500">Correo</th>
-                <th class="py-3 px-4 font-semibold text-sm text-slate-500">Rol</th>
-                <th class="py-3 px-4 font-semibold text-sm text-slate-500">Estado</th>
+                <th class="py-10 px-8 font-semibold text-sm text-slate-500">ID</th>
+                <th class="py-10 px-8 font-semibold text-sm text-slate-500">Correo</th>
+                <th class="py-10 px-8 font-semibold text-sm text-slate-500">Rol</th>
+                <th class="py-10 px-8 font-semibold text-sm text-slate-500">Estado</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let user of recentUsers()" class="border-b border-slate-100 hover:bg-slate-50">
-                <td class="py-3 px-4">{{ user.id }}</td>
-                <td class="py-3 px-4 font-medium text-slate-700">{{ user.correo }}</td>
-                <td class="py-3 px-4 capitalize">{{ user.rol?.toLowerCase() }}</td>
-                <td class="py-3 px-4">
-                  <div class="flex items-center gap-2">
+                <td class="py-0 px-8">{{ user.id }}</td>
+                <td class="py-0 px-8 font-medium text-slate-700">{{ user.correo }}</td>
+                <td class="py-0 px-8 capitalize">{{ user.rol?.toLowerCase() }}</td>
+                <td class="py-0 px-8">
+                  <div class="flex items-center gap-3">
                     <div class="w-2 h-2 rounded-full" [ngClass]="user.estado ? 'bg-green-500' : 'bg-red-500'"></div>
-                    <span class="text-sm">{{ user.estado ? 'Activo' : 'Inactivo' }}</span>
+                    <span class="text-center">{{ user.estado ? 'Activo' : 'Inactivo' }}</span>
                   </div>
                 </td>
               </tr>

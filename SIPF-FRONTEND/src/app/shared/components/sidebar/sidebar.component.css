@@ -8,6 +8,8 @@
   border-right: 1px solid #d4d4d4 !important; 
   /* - height - */
   height: 100vh;
+  
+  
 }
 
 /* --- LOGO SECTION (TOP AREA) --- */
@@ -20,7 +22,7 @@
 
 /* --- BUTTONS & MENU ITEMS --- */
 .nav-item {
-  @apply flex items-center gap-3 px-5 py-1.5 rounded-lg text-[13px] font-medium;
+  @apply flex items-center rounded-lg text-[13px] font-medium;
   
   /* - colors - */
   color: #ffffff;
@@ -28,11 +30,23 @@
   background-color: #0E7D6C;
   /* - border - */
   border: 1px solid rgba(255, 255, 255, 0.05);
-  
-  /* - separacion de items -
-  margin-bottom: 0.75rem; 
   /* - transition - */
   transition: all 0.2s ease-in-out;
+}
+
+/* --- EXPANDED STATE FOR ITEMS --- */
+.sidebar:not(.collapsed) .nav-item {
+  width: 176px;
+  padding: 10px 16px;
+  gap: 12px;
+}
+
+/* --- COLLAPSED STATE FOR ITEMS --- */
+.sidebar.collapsed .nav-item {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  justify-content: center;
 }
 
 /* --- HOVER STATE --- */

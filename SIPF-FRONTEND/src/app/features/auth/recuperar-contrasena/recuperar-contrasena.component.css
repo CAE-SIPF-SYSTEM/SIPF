@@ -25,7 +25,16 @@
 
 .auth-card {
   @apply w-full max-w-md relative z-10;
+  padding: 2rem !important;
+  border-radius: 20px !important;
   animation: fadeInUp 0.4s ease-out;
+}
+
+@media (min-width: 768px) {
+  .auth-card {
+    padding: 3rem !important; /* Spacious 48px padding for desktop */
+    border-radius: 24px !important;
+  }
 }
 
 .auth-title {
