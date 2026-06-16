@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.exceptions;
+package com.caeproject.cae.domain.ports.exceptions.instructorException;
 
 public class LimiteHorasSuperadasException extends RuntimeException {
     public LimiteHorasSuperadasException(Long usuarioId, Long horasMaximas) {

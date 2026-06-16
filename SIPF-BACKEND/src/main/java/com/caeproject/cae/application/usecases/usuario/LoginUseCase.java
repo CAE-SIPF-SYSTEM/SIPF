@@ -1,7 +1,7 @@
 package com.caeproject.cae.application.usecases.usuario;
 
-import com.caeproject.cae.domain.ports.exceptions.CredencialesIncorrectasException;
-import com.caeproject.cae.domain.ports.exceptions.UsuarioInhabilitadoException;
+import com.caeproject.cae.domain.ports.exceptions.usuarioExceptions.CredencialesIncorrectasException;
+import com.caeproject.cae.domain.ports.exceptions.usuarioExceptions.UsuarioInhabilitadoException;
 import com.caeproject.cae.domain.ports.in.usuario.LoginInputPort;
 import com.caeproject.cae.domain.ports.model.usuario.Usuario;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;

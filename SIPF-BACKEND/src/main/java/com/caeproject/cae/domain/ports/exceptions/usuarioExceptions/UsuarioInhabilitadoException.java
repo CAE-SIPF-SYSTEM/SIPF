@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.exceptions;
+package com.caeproject.cae.domain.ports.exceptions.usuarioExceptions;
 
 public class UsuarioInhabilitadoException extends RuntimeException {
     public UsuarioInhabilitadoException(Long usuarioId) {

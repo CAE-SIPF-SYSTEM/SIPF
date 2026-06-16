@@ -1,10 +1,8 @@
 package com.caeproject.cae.infraestructure.security;
 
-import com.caeproject.cae.domain.ports.exceptions.SesionCerradaException;
-import com.caeproject.cae.domain.ports.exceptions.UsuarioNoEncontradoException;
+import com.caeproject.cae.domain.ports.exceptions.sessionExceptions.SesionCerradaException;
 import com.caeproject.cae.domain.ports.model.usuario.Usuario;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;
-import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

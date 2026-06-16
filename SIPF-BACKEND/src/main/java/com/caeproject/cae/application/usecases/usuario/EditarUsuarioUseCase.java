@@ -1,12 +1,12 @@
 package com.caeproject.cae.application.usecases.usuario;
 
-import com.caeproject.cae.domain.ports.exceptions.UsuarioNoEncontradoException;
+import com.caeproject.cae.domain.ports.exceptions.usuarioExceptions.UsuarioNoEncontradoException;
 import com.caeproject.cae.domain.ports.in.usuario.EditarUsuarioInputPort;
 import com.caeproject.cae.domain.ports.model.usuario.Usuario;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;
 
 import com.caeproject.cae.application.utils.ValidacionContrasena;
-import com.caeproject.cae.domain.ports.exceptions.ContrasenaInvalidaException;
+import com.caeproject.cae.domain.ports.exceptions.sessionExceptions.ContrasenaInvalidaException;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional

@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.exceptions;
+package com.caeproject.cae.domain.ports.exceptions.instructorException;
 
 public class EspecialidadNoValidaException extends RuntimeException {
     public EspecialidadNoValidaException(Long usuarioId, String nombreCompetencia) {

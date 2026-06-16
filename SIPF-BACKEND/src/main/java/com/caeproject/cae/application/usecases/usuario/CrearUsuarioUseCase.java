@@ -1,7 +1,7 @@
 package com.caeproject.cae.application.usecases.usuario;
 
-import com.caeproject.cae.domain.ports.exceptions.CorreoYaRegistradoException;
-import com.caeproject.cae.domain.ports.exceptions.DocumentoYaRegistradoException;
+import com.caeproject.cae.domain.ports.exceptions.usuarioExceptions.CorreoYaRegistradoException;
+import com.caeproject.cae.domain.ports.exceptions.instructorException.DocumentoYaRegistradoException;
 import com.caeproject.cae.domain.ports.in.usuario.CrearUsuarioInputPort;
 import com.caeproject.cae.domain.ports.model.perfil_base.PerfilBase;
 import com.caeproject.cae.domain.ports.model.usuario.Usuario;
@@ -9,7 +9,7 @@ import com.caeproject.cae.domain.ports.out.PerfilBaseRepository;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;
 
 import com.caeproject.cae.application.utils.ValidacionContrasena;
-import com.caeproject.cae.domain.ports.exceptions.ContrasenaInvalidaException;
+import com.caeproject.cae.domain.ports.exceptions.sessionExceptions.ContrasenaInvalidaException;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
