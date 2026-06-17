@@ -72,4 +72,52 @@ public class BeanConfiguration {
             UsuarioRepository usuarioRepository) {
         return new RestablecerContrasenaUseCase(tokenRecuperacionRepository, usuarioRepository);
     }
+
+    // --- BEANS DE PROGRAMA ---
+    @Bean
+    public com.caeproject.cae.domain.ports.in.programa.CrearProgramaInputPort crearProgramaInputPort(com.caeproject.cae.domain.ports.out.ProgramaRepository programaRepository) {
+        return new com.caeproject.cae.application.usecases.programa.CrearProgramaUseCase(programaRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.programa.ListarProgramaInputPort listarProgramaInputPort(com.caeproject.cae.domain.ports.out.ProgramaRepository programaRepository) {
+        return new com.caeproject.cae.application.usecases.programa.ListarProgramaUseCase(programaRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.programa.ObtenerProgramaInputPort obtenerProgramaInputPort(com.caeproject.cae.domain.ports.out.ProgramaRepository programaRepository) {
+        return new com.caeproject.cae.application.usecases.programa.ObtenerProgramaUseCase(programaRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.programa.EditarProgramaInputPort editarProgramaInputPort(com.caeproject.cae.domain.ports.out.ProgramaRepository programaRepository) {
+        return new com.caeproject.cae.application.usecases.programa.EditarProgramaUseCase(programaRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.programa.EliminarProgramaInputPort eliminarProgramaInputPort(com.caeproject.cae.domain.ports.out.ProgramaRepository programaRepository) {
+        return new com.caeproject.cae.application.usecases.programa.EliminarProgramaUseCase(programaRepository);
+    }
+
+    // --- BEANS DE FICHA ---
+    @Bean
+    public com.caeproject.cae.domain.ports.in.ficha.RegistrarFichaInputPort registrarFichaInputPort(
+            com.caeproject.cae.domain.ports.out.FichaRepository fichaRepository,
+            com.caeproject.cae.domain.ports.out.ProgramaRepository programaRepository) {
+        return new com.caeproject.cae.application.usecases.ficha.CrearFichaUseCase(fichaRepository, programaRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.ficha.ListarFichasInputPort listarFichasInputPort(com.caeproject.cae.domain.ports.out.FichaRepository fichaRepository) {
+        return new com.caeproject.cae.application.usecases.ficha.ListarFichasUseCase(fichaRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.ficha.ObtenerFIchaInputPort obtenerFIchaInputPort(com.caeproject.cae.domain.ports.out.FichaRepository fichaRepository) {
+        return new com.caeproject.cae.application.usecases.ficha.ObtenerFichaUseCase(fichaRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.ficha.EditarFichaInputPort editarFichaInputPort(
+            com.caeproject.cae.domain.ports.out.FichaRepository fichaRepository,
+            com.caeproject.cae.domain.ports.out.ProgramaRepository programaRepository) {
+        return new com.caeproject.cae.application.usecases.ficha.EditarFichaUseCase(fichaRepository, programaRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.ficha.EliminarFichaInputPort eliminarFichaInputPort(com.caeproject.cae.domain.ports.out.FichaRepository fichaRepository) {
+        return new com.caeproject.cae.application.usecases.ficha.EliminarFichaUseCase(fichaRepository);
+    }
 }

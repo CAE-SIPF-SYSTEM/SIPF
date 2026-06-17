@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.exceptions;
+package com.caeproject.cae.domain.ports.exceptions.instructorException;
 
 public class CruceHorarioException extends RuntimeException {
     public CruceHorarioException(Long usuarioId, Long trimestreId, String diasDisponibles) {

@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.exceptions;
+package com.caeproject.cae.domain.ports.exceptions.tokensException;
 
 public class TokenNoEncontradoException extends RuntimeException {
 

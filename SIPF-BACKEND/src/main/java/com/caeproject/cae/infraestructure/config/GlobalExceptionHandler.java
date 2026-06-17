@@ -1,10 +1,21 @@
 package com.caeproject.cae.infraestructure.config;
 
-import com.caeproject.cae.domain.ports.exceptions.*;
+import com.caeproject.cae.domain.ports.exceptions.fichas_ProgramasException.*;
+import com.caeproject.cae.domain.ports.exceptions.instructorException.CruceHorarioException;
+import com.caeproject.cae.domain.ports.exceptions.instructorException.DocumentoYaRegistradoException;
+import com.caeproject.cae.domain.ports.exceptions.instructorException.EspecialidadNoValidaException;
+import com.caeproject.cae.domain.ports.exceptions.instructorException.LimiteHorasSuperadasException;
+import com.caeproject.cae.domain.ports.exceptions.sessionExceptions.ContrasenaInvalidaException;
+import com.caeproject.cae.domain.ports.exceptions.sessionExceptions.SesionCerradaException;
+import com.caeproject.cae.domain.ports.exceptions.tokensException.TokenExpiradoException;
+import com.caeproject.cae.domain.ports.exceptions.tokensException.TokenNoEncontradoException;
+import com.caeproject.cae.domain.ports.exceptions.usuarioExceptions.CorreoYaRegistradoException;
+import com.caeproject.cae.domain.ports.exceptions.usuarioExceptions.CredencialesIncorrectasException;
+import com.caeproject.cae.domain.ports.exceptions.usuarioExceptions.UsuarioInhabilitadoException;
+import com.caeproject.cae.domain.ports.exceptions.usuarioExceptions.UsuarioNoEncontradoException;
 import com.caeproject.cae.infraestructure.dtos.email.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -88,4 +99,34 @@ public class GlobalExceptionHandler {
         ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
+    @ExceptionHandler(ProgramaNoEncontradoException.class)
+    public ResponseEntity<ErrorResponse> handleProgramaNoEncontrado(ProgramaNoEncontradoException ex){
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(ProgramaDuplicadoException.class)
+    public ResponseEntity<ErrorResponse> handleProgramaDuplicado(ProgramaDuplicadoException ex){
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.CONFLICT.value());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
+    @ExceptionHandler(FichaNoEncontradaException.class)
+    public ResponseEntity<ErrorResponse> handleFichaNoEncontrada(FichaNoEncontradaException ex){
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(FichaDuplicadaException.class)
+    public ResponseEntity<ErrorResponse> handleFichaDuplicada(FichaDuplicadaException ex){
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.CONFLICT.value());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
+    @ExceptionHandler(FichaInvalidaException.class)
+    public ResponseEntity<ErrorResponse> handleFichaInvalida(FichaInvalidaException ex){
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
 }

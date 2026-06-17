@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.exceptions;
+package com.caeproject.cae.domain.ports.exceptions.instructorException;
 
 public class DocumentoYaRegistradoException extends RuntimeException {
     public DocumentoYaRegistradoException(Long documentoIdentidad) {
