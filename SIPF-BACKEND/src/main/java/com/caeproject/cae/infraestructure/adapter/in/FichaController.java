@@ -2,8 +2,7 @@ package com.caeproject.cae.infraestructure.adapter.in;
 
 import com.caeproject.cae.domain.ports.in.ficha.*;
 import com.caeproject.cae.domain.ports.model.ficha.Ficha;
-import com.caeproject.cae.infraestructure.dtos.ficha.RegistrarFichaRequest;
-import com.caeproject.cae.infraestructure.dtos.ficha.FichaResponse;
+import com.caeproject.cae.infraestructure.dtos.ficha.*;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,6 +55,23 @@ public class FichaController {
     public ResponseEntity<FichaResponse> obtenerFicha(@PathVariable Long id) {
         Ficha ficha = obtenerFichaPort.obtenerFicha(id);
         return ResponseEntity.ok(toResponse(ficha));
+    }
+
+    @GetMapping("/programaid/{programaId}")
+    public ResponseEntity<FichaResponse> ObtenerFichaPorProgramaId(@PathVariable Long programaId) {
+        Ficha ficha = obtenerFichaPort.obtenerFicha(programaId);
+        return ResponseEntity.ok(toResponse(ficha));
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<FichaResponse> editarFicha(@PathVariable Long id, @Valid @RequestBody EditarFichaRequest request) {
+        Ficha ficha = new Ficha();
+        ficha.setCodigoFicha(request.getCodigoFicha());
+        ficha.setProgramaId(request.getProgramaId());
+        ficha.setFechaInicio(request.getFechaInicio());
+        ficha.setFechaFin(request.getFechaFin());
+
+        Ficha editada = editarFichaPort.editarFicha(ficha, id);
+        return ResponseEntity.ok(toResponse(editada));
     }
 
     @DeleteMapping("/{id}")

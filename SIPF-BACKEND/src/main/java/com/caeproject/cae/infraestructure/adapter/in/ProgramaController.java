@@ -1,8 +1,11 @@
 package com.caeproject.cae.infraestructure.adapter.in;
 
 import com.caeproject.cae.domain.ports.in.programa.*;
+import com.caeproject.cae.domain.ports.model.enums.Jornada;
+import com.caeproject.cae.domain.ports.model.enums.NivelFormacion;
 import com.caeproject.cae.domain.ports.model.programa.Programa;
 import com.caeproject.cae.infraestructure.dtos.programa.CrearProgramaRequest;
+import com.caeproject.cae.infraestructure.dtos.programa.EditarProgramaRequest;
 import com.caeproject.cae.infraestructure.dtos.programa.ProgramaResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -42,9 +45,23 @@ public class ProgramaController {
         programa.setNivelFormacion(request.getNivelFormacion());
         programa.setJornada(request.getJornada());
         programa.setDuracionpracticas(request.getDuracionpracticas());
-
+        
         Programa creado = crearProgramaPort.crearPrograma(programa);
         return ResponseEntity.status(HttpStatus.CREATED).body(toResponse(creado));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProgramaResponse> editarPrograma(@PathVariable Long id, @Valid @RequestBody EditarProgramaRequest request){
+        Programa programa = new Programa();
+        programa.setId(id);
+        programa.setNombre(request.getNombre());
+        programa.setJornada(request.getJornada());
+        programa.setNivelFormacion(request.getNivelFormacion());
+        programa.setMunicipio(request.getMunicipio());
+        programa.setDuracionpracticas(request.getDuracionpracticas());
+
+        Programa programaeditado = editarProgramaPort.editarPrograma(programa , id);
+        return ResponseEntity.ok(toResponse(programaeditado));
     }
 
     @GetMapping
@@ -57,6 +74,24 @@ public class ProgramaController {
     public ResponseEntity<ProgramaResponse> obtenerPrograma(@PathVariable Long id) {
         Programa programa = obtenerProgramaPort.obtenerPrograma(id);
         return ResponseEntity.ok(toResponse(programa));
+    }
+
+    @GetMapping("/jornada/{jornada}")
+    public ResponseEntity<List<ProgramaResponse>> obtenerProgramaJornada(@PathVariable Jornada jornada) {
+        List<Programa> programas = obtenerProgramaPort.obtenerProgramaJornada(jornada);
+        List<ProgramaResponse> responses = programas.stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/nivelFOrmacion/{nivelFormacion}")
+    public ResponseEntity<List<ProgramaResponse>> obtenerProgramaNivelFormacion(@PathVariable NivelFormacion nivelFormacion) {
+        List<Programa> programas = obtenerProgramaPort.obtenerProgramaNivelFormacion(nivelFormacion);
+        List<ProgramaResponse> responses = programas.stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
     }
 
     @DeleteMapping("/{id}")

@@ -5,6 +5,8 @@ import com.caeproject.cae.domain.ports.out.FichaRepository;
 import com.caeproject.cae.domain.ports.model.ficha.Ficha;
 import com.caeproject.cae.domain.ports.exceptions.fichas_ProgramasException.FichaNoEncontradaException;
 
+import java.util.List;
+
 public class ObtenerFichaUseCase implements ObtenerFIchaInputPort {
     private final FichaRepository fichaRepository;
 
@@ -17,4 +19,15 @@ public class ObtenerFichaUseCase implements ObtenerFIchaInputPort {
         return fichaRepository.findById(id)
             .orElseThrow(() -> new FichaNoEncontradaException(id));
     }
+
+    @Override
+    public List<Ficha> ObtenerFichaPorProgramaId (Long programaId) {
+        List<Ficha> fichas = fichaRepository.findByProgramaId(programaId);
+
+        if (fichas == null ) {
+            throw new FichaNoEncontradaException(programaId);
+        }
+        return fichas;
+    }
+
 }

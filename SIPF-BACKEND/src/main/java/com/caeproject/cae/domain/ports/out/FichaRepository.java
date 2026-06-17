@@ -10,4 +10,5 @@ public interface FichaRepository {
     Optional<Ficha> findById(Long id);
     List<Ficha> findAll();
     void deleteFicha(Long id);
+    List<Ficha> findByProgramaId(Long programaId);
 }

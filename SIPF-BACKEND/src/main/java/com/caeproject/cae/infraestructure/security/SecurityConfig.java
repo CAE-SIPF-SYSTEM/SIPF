@@ -36,6 +36,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
 
+                        // ACCESO PÚBLICO TEMPORAL PARA PRUEBAS
+                        .requestMatchers("/api/programas/**").permitAll()
+                        .requestMatchers("/api/fichas/**").permitAll()
+
                         // EJEMPLO MOMENTANEO
                         .requestMatchers(HttpMethod.GET, "/api/usuarios").hasRole("ADMINISTRADOR")
 

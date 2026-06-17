@@ -46,4 +46,10 @@ public class FichaJpaAdapter implements FichaRepository {
     public void deleteFicha(Long id) {
         jpaRepository.deleteById(id);
     }
+
+    @Override
+    public List<Ficha> findByProgramaId(Long programaId) {
+        return jpaRepository.findByProgramaId(programaId).stream()
+                .map(mapper::toDomain).collect(Collectors.toList());
+    }
 }
