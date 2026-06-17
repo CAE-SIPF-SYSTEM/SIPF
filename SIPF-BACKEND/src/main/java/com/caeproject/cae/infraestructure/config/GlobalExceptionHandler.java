@@ -90,8 +90,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(SesionCerradaException.class)
     public ResponseEntity<ErrorResponse> handleSesionCerrada(SesionCerradaException ex) {
-        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.UNAUTHORIZED.value());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
     }
 
     @ExceptionHandler(ContrasenaInvalidaException.class)

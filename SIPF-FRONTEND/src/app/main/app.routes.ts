@@ -75,6 +75,20 @@ export const routes: Routes = [
             m => m.CoordinadorDashboardComponent
           ),
       },
+      {
+        path: 'programas',
+        loadComponent: () =>
+          import('../features/programas/listar-programas/listar-programas').then(
+            m => m.ListarProgramasComponent
+          ),
+      },
+      {
+        path: 'fichas',
+        loadComponent: () =>
+          import('../features/fichas/listar-fichas/listar-fichas').then(
+            m => m.ListarFichasComponent
+          ),
+      },
     ],
   },
 
