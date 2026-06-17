@@ -349,7 +349,7 @@ body,
 .mat-mdc-form-field {
   /* Sleek modern shape and heights for desktop */
   --mdc-outlined-text-field-container-shape: 6px !important; /* Sleek 6px corners */
-  --mdc-outlined-text-field-container-height: 38px !important; /* Very compact and elegant */
+  --mdc-outlined-text-field-container-height: 48px !important; /* Increased for better spacing */
   
   /* Outline borders (thin 1px, elegant colors) */
   --mdc-outlined-text-field-outline-width: 1px !important;
@@ -376,7 +376,7 @@ body,
 
 /* Adjust the text field wrapper and infix layout for vertical centering */
 .mat-mdc-text-field-wrapper {
-  height: 38px !important;
+  height: 48px !important;
   background-color: #ffffff !important;
   padding: 0 12px !important; /* Compact side padding */
 }
@@ -384,7 +384,7 @@ body,
 .mat-mdc-form-field-infix {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
-  min-height: 38px !important;
+  min-height: 48px !important;
   display: flex !important;
   align-items: center !important;
 }
@@ -401,14 +401,14 @@ body,
 
 /* Floating labels alignment - Perfect centering in resting & clean float above */
 .mat-mdc-form-field-label {
-  top: 19px !important; /* Centered perfectly for 38px container */
+  top: 24px !important; /* Centered perfectly for 48px container */
   font-size: 13px !important;
 }
 
 /* Float label position above the input */
 .mat-mdc-form-field-can-float.mat-form-field-should-float .mat-mdc-form-field-label,
 .mdc-floating-label--float-above {
-  transform: translateY(-26px) scale(0.75) !important; /* Sits nicely above the thin border */
+  transform: translateY(-28px) scale(0.75) !important; /* Sits nicely above the thin border */
   background-color: #ffffff !important; /* Masks the outline border */
   padding: 0 6px !important;
 }
@@ -421,14 +421,14 @@ body,
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  height: 38px !important;
+  height: 48px !important;
 }
 
 /* Dropdown select trigger alignment */
 .mat-mdc-select-trigger {
   display: flex !important;
   align-items: center !important;
-  height: 38px !important;
+  height: 48px !important;
 }
 
 .mat-mdc-select-value {

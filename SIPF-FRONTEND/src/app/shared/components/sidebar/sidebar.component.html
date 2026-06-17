@@ -43,6 +43,14 @@
         <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px]">dashboard</mat-icon>
         <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Dashboard</span>
       </a>
+      <a routerLink="/coordinador/programas" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px]">class</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Programas</span>
+      </a>
+      <a routerLink="/coordinador/fichas" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px]">school</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Fichas</span>
+      </a>
     </ng-container>
   </nav>
 
