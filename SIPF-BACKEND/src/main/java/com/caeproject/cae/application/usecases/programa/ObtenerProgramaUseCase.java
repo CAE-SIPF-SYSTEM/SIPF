@@ -1,6 +1,6 @@
 package com.caeproject.cae.application.usecases.programa;
 
-import com.caeproject.cae.domain.ports.exceptions.fichas_ProgramasException.ProgramaNoEncontradoException;
+import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.ProgramaNoEncontradoException;
 import com.caeproject.cae.domain.ports.in.programa.ObtenerProgramaInputPort;
 import com.caeproject.cae.domain.ports.model.enums.Jornada;
 import com.caeproject.cae.domain.ports.model.enums.NivelFormacion;

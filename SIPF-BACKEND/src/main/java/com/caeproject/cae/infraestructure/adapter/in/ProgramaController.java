@@ -4,6 +4,8 @@ import com.caeproject.cae.domain.ports.in.programa.*;
 import com.caeproject.cae.domain.ports.model.enums.Jornada;
 import com.caeproject.cae.domain.ports.model.enums.NivelFormacion;
 import com.caeproject.cae.domain.ports.model.programa.Programa;
+import com.caeproject.cae.application.usecases.programa.commands.CrearProgramaCommand;
+import com.caeproject.cae.application.usecases.programa.commands.EditarProgramaCommand;
 import com.caeproject.cae.infraestructure.dtos.programa.CrearProgramaRequest;
 import com.caeproject.cae.infraestructure.dtos.programa.EditarProgramaRequest;
 import com.caeproject.cae.infraestructure.dtos.programa.ProgramaResponse;
@@ -39,28 +41,27 @@ public class ProgramaController {
 
     @PostMapping
     public ResponseEntity<ProgramaResponse> crearPrograma(@Valid @RequestBody CrearProgramaRequest request) {
-        Programa programa = new Programa();
-        programa.setNombre(request.getNombre());
-        programa.setMunicipio(request.getMunicipio());
-        programa.setNivelFormacion(request.getNivelFormacion());
-        programa.setJornada(request.getJornada());
-        programa.setDuracionpracticas(request.getDuracionpracticas());
+        CrearProgramaCommand command = new CrearProgramaCommand();
+        command.setNombre(request.getNombre());
+        command.setMunicipio(request.getMunicipio());
+        command.setNivelFormacion(request.getNivelFormacion());
+        command.setJornada(request.getJornada());
+        command.setDuracionpracticas(request.getDuracionpracticas());
         
-        Programa creado = crearProgramaPort.crearPrograma(programa);
+        Programa creado = crearProgramaPort.crearPrograma(command);
         return ResponseEntity.status(HttpStatus.CREATED).body(toResponse(creado));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ProgramaResponse> editarPrograma(@PathVariable Long id, @Valid @RequestBody EditarProgramaRequest request){
-        Programa programa = new Programa();
-        programa.setId(id);
-        programa.setNombre(request.getNombre());
-        programa.setJornada(request.getJornada());
-        programa.setNivelFormacion(request.getNivelFormacion());
-        programa.setMunicipio(request.getMunicipio());
-        programa.setDuracionpracticas(request.getDuracionpracticas());
+        EditarProgramaCommand command = new EditarProgramaCommand();
+        command.setNombre(request.getNombre());
+        command.setJornada(request.getJornada());
+        command.setNivelFormacion(request.getNivelFormacion());
+        command.setMunicipio(request.getMunicipio());
+        command.setDuracionpracticas(request.getDuracionpracticas());
 
-        Programa programaeditado = editarProgramaPort.editarPrograma(programa , id);
+        Programa programaeditado = editarProgramaPort.editarPrograma(command, id);
         return ResponseEntity.ok(toResponse(programaeditado));
     }
 

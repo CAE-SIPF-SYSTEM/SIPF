@@ -49,8 +49,8 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public habilitarUsuarioInputPort habilitarUsuarioInputPort(UsuarioRepository usuarioRepository) {
-        return new habilitarUseCase(usuarioRepository);
+    public HabilitarUsuarioInputPort HabilitarUsuarioInputPort(UsuarioRepository usuarioRepository) {
+        return new HabilitarUseCase(usuarioRepository);
     }
 
     @Bean
@@ -119,5 +119,48 @@ public class BeanConfiguration {
     @Bean
     public com.caeproject.cae.domain.ports.in.ficha.EliminarFichaInputPort eliminarFichaInputPort(com.caeproject.cae.domain.ports.out.FichaRepository fichaRepository) {
         return new com.caeproject.cae.application.usecases.ficha.EliminarFichaUseCase(fichaRepository);
+    }
+
+    @Bean
+    public com.caeproject.cae.domain.ports.in.competencia.CrearCompetenciaInputPort crearCompetenciaInputPort(com.caeproject.cae.domain.ports.out.CompetenciaRepository competenciaRepository) {
+        return new com.caeproject.cae.application.usecases.competencia.CrearCompetenciaUseCase(competenciaRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.competencia.EditarCompetenciaInputPort editarCompetenciaInputPort(com.caeproject.cae.domain.ports.out.CompetenciaRepository competenciaRepository) {
+        return new com.caeproject.cae.application.usecases.competencia.EditarCompetenciaUseCase(competenciaRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.competencia.EliminarCompetenciaInputPort eliminarCompetenciaInputPort(com.caeproject.cae.domain.ports.out.CompetenciaRepository competenciaRepository) {
+        return new com.caeproject.cae.application.usecases.competencia.EliminarCompetenciaUseCase(competenciaRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.competencia.ListarCompetenciasInputPort listarCompetenciasInputPort(com.caeproject.cae.domain.ports.out.CompetenciaRepository competenciaRepository) {
+        return new com.caeproject.cae.application.usecases.competencia.ListarCompetenciasUseCase(competenciaRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.competencia.ObtenerCompetenciaInputPort obtenerCompetenciaInputPort(com.caeproject.cae.domain.ports.out.CompetenciaRepository competenciaRepository) {
+        return new com.caeproject.cae.application.usecases.competencia.ObtenerCompetenciaUseCase(competenciaRepository);
+    }
+
+
+    @Bean
+    public com.caeproject.cae.domain.ports.in.Rap.CrearRapInputPort crearRapInputPort(com.caeproject.cae.domain.ports.out.RapRepository rapRepository) {
+        return new com.caeproject.cae.application.usecases.rap.CrearRapUseCase(rapRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.Rap.EditarRapInputPort editarRapInputPort(com.caeproject.cae.domain.ports.out.RapRepository rapRepository) {
+        return new com.caeproject.cae.application.usecases.rap.EditarRapUseCase(rapRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.Rap.EliminarRapInputPort eliminarRapInputPort(com.caeproject.cae.domain.ports.out.RapRepository rapRepository) {
+        return new com.caeproject.cae.application.usecases.rap.EliminarRapUseCase(rapRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.Rap.ListarRapsInputPort listarRapsInputPort(com.caeproject.cae.domain.ports.out.RapRepository rapRepository) {
+        return new com.caeproject.cae.application.usecases.rap.ListarRapsUseCase(rapRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.Rap.ObtenerRapInputPort obtenerRapInputPort(com.caeproject.cae.domain.ports.out.RapRepository rapRepository) {
+        return new com.caeproject.cae.application.usecases.rap.ObtenerRapUseCase(rapRepository);
     }
 }

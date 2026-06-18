@@ -2,8 +2,10 @@ package com.caeproject.cae.infraestructure.adapter.in;
 
 import com.caeproject.cae.domain.ports.in.usuario.*;
 import com.caeproject.cae.domain.ports.model.enums.Rol;
-import com.caeproject.cae.domain.ports.model.perfil_base.PerfilBase;
+import com.caeproject.cae.domain.ports.model.perfilbase.PerfilBase;
 import com.caeproject.cae.domain.ports.model.usuario.Usuario;
+import com.caeproject.cae.application.usecases.usuario.commands.CrearUsuarioCommand;
+import com.caeproject.cae.application.usecases.usuario.commands.EditarUsuarioCommand;
 import com.caeproject.cae.infraestructure.dtos.usuario.CrearUsuarioRequest;
 import com.caeproject.cae.infraestructure.dtos.usuario.EditarUsuarioRequest;
 import com.caeproject.cae.infraestructure.dtos.usuario.UsuarioResponse;
@@ -33,7 +35,7 @@ public class UsuarioController {
     private final EditarUsuarioInputPort editarUsuarioInputPort;
     private final EliminarUsuarioInputPort eliminarUsuarioInputPort;
     private final InhabilitarUsuarioInputPort inhabilitarUsuarioInputPort;
-    private final habilitarUsuarioInputPort habilitarUsuarioInputPort;
+    private final HabilitarUsuarioInputPort HabilitarUsuarioInputPort;
 
     public UsuarioController(
             CrearUsuarioInputPort crearUsuarioInputPort,
@@ -42,10 +44,10 @@ public class UsuarioController {
             EditarUsuarioInputPort editarUsuarioInputPort,
             EliminarUsuarioInputPort eliminarUsuarioInputPort,
             InhabilitarUsuarioInputPort inhabilitarUsuarioInputPort,
-            habilitarUsuarioInputPort habilitarUsuarioInputPort) {
+            HabilitarUsuarioInputPort HabilitarUsuarioInputPort) {
 
         this.inhabilitarUsuarioInputPort = inhabilitarUsuarioInputPort;
-        this.habilitarUsuarioInputPort = habilitarUsuarioInputPort;
+        this.HabilitarUsuarioInputPort = HabilitarUsuarioInputPort;
         this.crearUsuarioInputPort = crearUsuarioInputPort;
         this.listarUsuariosInputPort = listarUsuariosInputPort;
         this.obtenerUsuarioInputPort = obtenerUsuarioInputPort;
@@ -56,22 +58,19 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<UsuarioResponse> crearUsuario(@RequestBody CrearUsuarioRequest request) {
-        Usuario usuario = new Usuario();
-        usuario.setCorreo(request.getCorreo());
-        usuario.setContrasena(request.getContrasena());
-        usuario.setRol(request.getRol());
-        usuario.setEstado(true);
+        CrearUsuarioCommand command = new CrearUsuarioCommand();
+        command.setCorreo(request.getCorreo());
+        command.setContrasena(request.getContrasena());
+        command.setRol(request.getRol());
+        command.setNombre(request.getNombre());
+        command.setApellido(request.getApellido());
+        command.setDocumentoIdentidad(request.getDocumentoIdentidad());
+        command.setTelefono(request.getTelefono());
+        command.setTipoContrato(request.getTipoContrato());
 
-        PerfilBase perfilBase = new PerfilBase();
-        perfilBase.setNombre(request.getNombre());
-        perfilBase.setApellido(request.getApellido());
-        perfilBase.setCc(request.getDocumentoIdentidad());
-        perfilBase.setTelefono(request.getTelefono());
-        perfilBase.setTipoContrato(request.getTipoContrato());
+        Usuario creado = crearUsuarioInputPort.crearUsuario(command);
 
-        Usuario creado = crearUsuarioInputPort.crearUsuario(usuario, perfilBase);
-
-        UsuarioResponse response = buildResponse(creado, perfilBase);
+        UsuarioResponse response = buildSimpleResponse(creado);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -114,22 +113,20 @@ public class UsuarioController {
 
     @PostMapping ("/{id}/habilitar")
     public ResponseEntity<Void> habilitarUsuario(@PathVariable Long id){
-        habilitarUsuarioInputPort.habilitarUsuario(id);
+        HabilitarUsuarioInputPort.habilitarUsuario(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioResponse> editarUsuario(@PathVariable Long id,
                                                           @RequestBody EditarUsuarioRequest request) {
-        Usuario usuario = new Usuario();
-        usuario.setCorreo(request.getCorreo());
-        usuario.setContrasena(request.getContrasena());
-        usuario.setRol(request.getRol());
-        if (request.getEstado() != null) {
-            usuario.setEstado(request.getEstado());
-        }
+        EditarUsuarioCommand command = new EditarUsuarioCommand();
+        command.setCorreo(request.getCorreo());
+        command.setContrasena(request.getContrasena());
+        command.setRol(request.getRol());
+        command.setEstado(request.getEstado());
 
-        Usuario editado = editarUsuarioInputPort.editarUsuario(usuario, id);
+        Usuario editado = editarUsuarioInputPort.editarUsuario(command, id);
         return ResponseEntity.ok(buildSimpleResponse(editado));
     }
 
@@ -154,16 +151,6 @@ public class UsuarioController {
             response.setTipoContrato(usuario.getPerfilBase().getTipoContrato());
         }
         
-        return response;
-    }
-
-    private UsuarioResponse buildResponse(Usuario usuario, PerfilBase perfilBase) {
-        UsuarioResponse response = buildSimpleResponse(usuario);
-        response.setNombre(perfilBase.getNombre());
-        response.setApellido(perfilBase.getApellido());
-        response.setDocumentoIdentidad(perfilBase.getCc());
-        response.setTelefono(perfilBase.getTelefono());
-        response.setTipoContrato(perfilBase.getTipoContrato());
         return response;
     }
 }

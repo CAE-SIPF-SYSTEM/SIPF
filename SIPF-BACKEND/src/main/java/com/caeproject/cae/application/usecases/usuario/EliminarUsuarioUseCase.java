@@ -1,6 +1,6 @@
 package com.caeproject.cae.application.usecases.usuario;
 
-import com.caeproject.cae.domain.ports.exceptions.usuarioExceptions.UsuarioNoEncontradoException;
+import com.caeproject.cae.domain.ports.exceptions.usuarioexceptions.UsuarioNoEncontradoException;
 import com.caeproject.cae.domain.ports.in.usuario.EliminarUsuarioInputPort;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;
 

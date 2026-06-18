@@ -1,8 +1,8 @@
 package com.caeproject.cae.application.usecases.recuperacion;
 
-import com.caeproject.cae.domain.ports.exceptions.tokensException.TokenExpiradoException;
-import com.caeproject.cae.domain.ports.exceptions.tokensException.TokenNoEncontradoException;
-import com.caeproject.cae.domain.ports.exceptions.usuarioExceptions.UsuarioNoEncontradoException;
+import com.caeproject.cae.domain.ports.exceptions.tokensexception.TokenExpiradoException;
+import com.caeproject.cae.domain.ports.exceptions.tokensexception.TokenNoEncontradoException;
+import com.caeproject.cae.domain.ports.exceptions.usuarioexceptions.UsuarioNoEncontradoException;
 import com.caeproject.cae.domain.ports.in.recuperacion.RestablecerContrasenaInputPort;
 import com.caeproject.cae.domain.ports.model.token.TokenRecuperacion;
 import com.caeproject.cae.domain.ports.model.usuario.Usuario;
@@ -10,7 +10,7 @@ import com.caeproject.cae.domain.ports.out.TokenRecuperacionRepository;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;
 
 import com.caeproject.cae.application.utils.ValidacionContrasena;
-import com.caeproject.cae.domain.ports.exceptions.sessionExceptions.ContrasenaInvalidaException;
+import com.caeproject.cae.domain.ports.exceptions.sessionexceptions.ContrasenaInvalidaException;
 
 public class RestablecerContrasenaUseCase implements RestablecerContrasenaInputPort {
 

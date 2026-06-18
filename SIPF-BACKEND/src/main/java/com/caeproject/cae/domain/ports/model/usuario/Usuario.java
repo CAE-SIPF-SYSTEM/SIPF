@@ -39,7 +39,7 @@ public class Usuario {
     public String getJwtToken() { return jwtToken; }
     public void setJwtToken(String jwtToken) { this.jwtToken = jwtToken; }
 
-    private com.caeproject.cae.domain.ports.model.perfil_base.PerfilBase perfilBase;
-    public com.caeproject.cae.domain.ports.model.perfil_base.PerfilBase getPerfilBase() { return perfilBase; }
-    public void setPerfilBase(com.caeproject.cae.domain.ports.model.perfil_base.PerfilBase perfilBase) { this.perfilBase = perfilBase; }
+    private com.caeproject.cae.domain.ports.model.perfilbase.PerfilBase perfilBase;
+    public com.caeproject.cae.domain.ports.model.perfilbase.PerfilBase getPerfilBase() { return perfilBase; }
+    public void setPerfilBase(com.caeproject.cae.domain.ports.model.perfilbase.PerfilBase perfilBase) { this.perfilBase = perfilBase; }
 }
