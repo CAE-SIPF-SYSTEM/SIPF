@@ -55,4 +55,9 @@ public class CompetenciaJpaAdapter implements CompetenciaRepository {
     public boolean existByName(String nombre) {
         return jpaRepository.existsByNombre(nombre);
     }
+
+    @Override
+    public Optional<Competencia> findByCodigo(String codigo) {
+        return jpaRepository.findByCodigo(codigo).map(mapper::toDomain);
+    }
 }

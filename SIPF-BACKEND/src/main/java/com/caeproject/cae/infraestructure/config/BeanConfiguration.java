@@ -1,5 +1,7 @@
 package com.caeproject.cae.infraestructure.config;
 
+import com.caeproject.cae.application.usecases.excel.AlimentacionCrUseCase;
+import com.caeproject.cae.domain.ports.out.AlimentacionCRRepository;
 import com.caeproject.cae.application.usecases.recuperacion.RestablecerContrasenaUseCase;
 import com.caeproject.cae.application.usecases.recuperacion.SolicitarRecuperacionUseCase;
 import com.caeproject.cae.application.usecases.usuario.*;
@@ -10,6 +12,8 @@ import com.caeproject.cae.domain.ports.out.EmailNotificationPort;
 import com.caeproject.cae.domain.ports.out.PerfilBaseRepository;
 import com.caeproject.cae.domain.ports.out.TokenRecuperacionRepository;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;
+import com.caeproject.cae.domain.ports.out.CompetenciaRepository;
+import com.caeproject.cae.domain.ports.out.RapRepository;
 import com.caeproject.cae.infraestructure.security.JwtUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -162,5 +166,12 @@ public class BeanConfiguration {
     @Bean
     public com.caeproject.cae.domain.ports.in.Rap.ObtenerRapInputPort obtenerRapInputPort(com.caeproject.cae.domain.ports.out.RapRepository rapRepository) {
         return new com.caeproject.cae.application.usecases.rap.ObtenerRapUseCase(rapRepository);
+    }
+
+    @Bean
+    public AlimentacionCrUseCase alimentacionCrUseCase(AlimentacionCRRepository alimentacionCRRepository,
+                                                       CompetenciaRepository competenciaRepository,
+                                                       RapRepository rapRepository) {
+        return new AlimentacionCrUseCase(alimentacionCRRepository, competenciaRepository, rapRepository);
     }
 }
