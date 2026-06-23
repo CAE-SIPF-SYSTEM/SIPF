@@ -30,9 +30,7 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
             "DENOMINACION COMPETENCIA",
             "TIPO COMPETENCIA",
             "CODIGO RAP",
-            "DESCRIPCION RESULTADO DE APRENDIZAJE (RAP)",
-            "INTENSIDAD HORARIA",
-            "ESTADO"
+            "DESCRIPCION RESULTADO DE APRENDIZAJE (RAP)"
     };
 
     @Override
@@ -94,7 +92,6 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
 
         String codigoCompetencia = obtenerValorCelda(row.getCell(columnas.get("CODIGO COMPETENCIA")));
         if (codigoCompetencia == null || codigoCompetencia.isEmpty()) {
-            log.warn(">>> Fila {} saltada: Código competencia está vacío", i);
             return null;
         }
 
@@ -138,8 +135,12 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
     private Rap construirRap(Row row, Map<String, Integer> columnas, int i) {
         String codigoRap = obtenerValorCelda(row.getCell(columnas.get("CODIGO RAP")));
         String descripcionRap = obtenerValorCelda(row.getCell(columnas.get("DESCRIPCION RESULTADO DE APRENDIZAJE (RAP)")));
-        String horasRapStr = obtenerValorCelda(row.getCell(columnas.get("INTENSIDAD HORARIA")));
-        String estado = obtenerValorCelda(row.getCell(columnas.get("ESTADO")));
+        
+        Integer idxHoras = columnas.get("INTENSIDAD HORARIA");
+        String horasRapStr = idxHoras != null ? obtenerValorCelda(row.getCell(idxHoras)) : null;
+        
+        Integer idxEstado = columnas.get("ESTADO");
+        String estado = idxEstado != null ? obtenerValorCelda(row.getCell(idxEstado)) : null;
 
         Rap rap = new Rap();
         if (codigoRap != null && !codigoRap.isEmpty()) {
@@ -152,9 +153,18 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
                 rap.setHorasPresenciales(Integer.parseInt(horasRapStr));
             } catch (NumberFormatException e) {
                 log.warn("Horas presenciales inválidas en fila {}: {}", i, horasRapStr);
+                rap.setHorasPresenciales(0);
             }
+        } else {
+            rap.setHorasPresenciales(0);
         }
-        rap.setEstado(Boolean.parseBoolean(estado) || "ACTIVO".equalsIgnoreCase(estado));
+        
+        if (estado != null && !estado.trim().isEmpty()) {
+            rap.setEstado(Boolean.parseBoolean(estado) || "ACTIVO".equalsIgnoreCase(estado));
+        } else {
+            rap.setEstado(true);
+        }
+        
         return rap;
     }
 

@@ -73,7 +73,8 @@ public class AlimentacionCrUseCase {
                 }
 
             } catch (Exception e) {
-                log.error(">>> UseCase Error procesando registro", e);
+                log.error(">>> UseCase Error procesando registro de competencia: {}", registro.competencia().getCodigo(), e);
+                throw new IllegalStateException("Error al guardar la competencia o sus RAPs: " + e.getMessage(), e);
             }
         }
     }

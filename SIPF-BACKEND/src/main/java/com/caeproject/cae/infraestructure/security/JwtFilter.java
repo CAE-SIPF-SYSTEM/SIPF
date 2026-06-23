@@ -76,7 +76,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
                 // Asignamos autoridades SOLO si el usuario fue validado correctamente
                 List<GrantedAuthority> authorities = role != null
-                        ? List.of(new SimpleGrantedAuthority("ROLE_" + role))
+                        ? List.of(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()))
                         : List.of();
 
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
