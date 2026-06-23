@@ -1,18 +1,22 @@
 package com.caeproject.cae.infraestructure.config;
 
-import com.caeproject.cae.domain.ports.exceptions.fichas_ProgramasException.*;
-import com.caeproject.cae.domain.ports.exceptions.instructorException.CruceHorarioException;
-import com.caeproject.cae.domain.ports.exceptions.instructorException.DocumentoYaRegistradoException;
-import com.caeproject.cae.domain.ports.exceptions.instructorException.EspecialidadNoValidaException;
-import com.caeproject.cae.domain.ports.exceptions.instructorException.LimiteHorasSuperadasException;
-import com.caeproject.cae.domain.ports.exceptions.sessionExceptions.ContrasenaInvalidaException;
-import com.caeproject.cae.domain.ports.exceptions.sessionExceptions.SesionCerradaException;
-import com.caeproject.cae.domain.ports.exceptions.tokensException.TokenExpiradoException;
-import com.caeproject.cae.domain.ports.exceptions.tokensException.TokenNoEncontradoException;
-import com.caeproject.cae.domain.ports.exceptions.usuarioExceptions.CorreoYaRegistradoException;
-import com.caeproject.cae.domain.ports.exceptions.usuarioExceptions.CredencialesIncorrectasException;
-import com.caeproject.cae.domain.ports.exceptions.usuarioExceptions.UsuarioInhabilitadoException;
-import com.caeproject.cae.domain.ports.exceptions.usuarioExceptions.UsuarioNoEncontradoException;
+import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.*;
+import com.caeproject.cae.domain.ports.exceptions.competenciaexception.CompetenciaNoEncontradaException;
+import com.caeproject.cae.domain.ports.exceptions.competenciaexception.CompetenciaDuplicadaException;
+import com.caeproject.cae.domain.ports.exceptions.rapexception.RapNoEncontradoException;
+import com.caeproject.cae.domain.ports.exceptions.rapexception.RapDuplicadoException;
+import com.caeproject.cae.domain.ports.exceptions.instructorexception.CruceHorarioException;
+import com.caeproject.cae.domain.ports.exceptions.instructorexception.DocumentoYaRegistradoException;
+import com.caeproject.cae.domain.ports.exceptions.instructorexception.EspecialidadNoValidaException;
+import com.caeproject.cae.domain.ports.exceptions.instructorexception.LimiteHorasSuperadasException;
+import com.caeproject.cae.domain.ports.exceptions.sessionexceptions.ContrasenaInvalidaException;
+import com.caeproject.cae.domain.ports.exceptions.sessionexceptions.SesionCerradaException;
+import com.caeproject.cae.domain.ports.exceptions.tokensexception.TokenExpiradoException;
+import com.caeproject.cae.domain.ports.exceptions.tokensexception.TokenNoEncontradoException;
+import com.caeproject.cae.domain.ports.exceptions.usuarioexceptions.CorreoYaRegistradoException;
+import com.caeproject.cae.domain.ports.exceptions.usuarioexceptions.CredencialesIncorrectasException;
+import com.caeproject.cae.domain.ports.exceptions.usuarioexceptions.UsuarioInhabilitadoException;
+import com.caeproject.cae.domain.ports.exceptions.usuarioexceptions.UsuarioNoEncontradoException;
 import com.caeproject.cae.infraestructure.dtos.email.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -129,4 +133,27 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
+    @ExceptionHandler(CompetenciaNoEncontradaException.class)
+    public ResponseEntity<ErrorResponse> handleCompetenciaNoEncontrada(CompetenciaNoEncontradaException ex){
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(CompetenciaDuplicadaException.class)
+    public ResponseEntity<ErrorResponse> handleCompetenciaDuplicada(CompetenciaDuplicadaException ex){
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.CONFLICT.value());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
+    @ExceptionHandler(RapNoEncontradoException.class)
+    public ResponseEntity<ErrorResponse> handleRapNoEncontrado(RapNoEncontradoException ex){
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(RapDuplicadoException.class)
+    public ResponseEntity<ErrorResponse> handleRapDuplicado(RapDuplicadoException ex){
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.CONFLICT.value());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
 }

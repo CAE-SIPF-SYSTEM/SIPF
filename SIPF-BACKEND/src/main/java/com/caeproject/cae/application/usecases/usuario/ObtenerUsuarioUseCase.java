@@ -1,6 +1,6 @@
 package com.caeproject.cae.application.usecases.usuario;
 
-import com.caeproject.cae.domain.ports.exceptions.usuarioExceptions.UsuarioNoEncontradoException;
+import com.caeproject.cae.domain.ports.exceptions.usuarioexceptions.UsuarioNoEncontradoException;
 import com.caeproject.cae.domain.ports.in.usuario.ObtenerUsuarioInputPort;
 import com.caeproject.cae.domain.ports.model.enums.Rol;
 import com.caeproject.cae.domain.ports.model.usuario.Usuario;

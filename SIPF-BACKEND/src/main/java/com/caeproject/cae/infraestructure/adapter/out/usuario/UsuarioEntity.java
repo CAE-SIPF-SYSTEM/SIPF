@@ -54,8 +54,8 @@ public class UsuarioEntity {
     public void setTokenSession(String tokenSession){this.tokenSession = tokenSession;}
 
     @jakarta.persistence.OneToOne(mappedBy = "usuario", cascade = jakarta.persistence.CascadeType.ALL, fetch = jakarta.persistence.FetchType.EAGER)
-    private com.caeproject.cae.infraestructure.adapter.out.perfil_base.PerfilBaseEntity perfilBase;
+    private com.caeproject.cae.infraestructure.adapter.out.perfilbase.PerfilBaseEntity perfilBase;
 
-    public com.caeproject.cae.infraestructure.adapter.out.perfil_base.PerfilBaseEntity getPerfilBase() { return perfilBase; }
-    public void setPerfilBase(com.caeproject.cae.infraestructure.adapter.out.perfil_base.PerfilBaseEntity perfilBase) { this.perfilBase = perfilBase; }
+    public com.caeproject.cae.infraestructure.adapter.out.perfilbase.PerfilBaseEntity getPerfilBase() { return perfilBase; }
+    public void setPerfilBase(com.caeproject.cae.infraestructure.adapter.out.perfilbase.PerfilBaseEntity perfilBase) { this.perfilBase = perfilBase; }
 }

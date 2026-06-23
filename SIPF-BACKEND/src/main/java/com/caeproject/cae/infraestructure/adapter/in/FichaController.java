@@ -1,5 +1,7 @@
 package com.caeproject.cae.infraestructure.adapter.in;
 
+import com.caeproject.cae.application.usecases.ficha.commands.RegistrarFichaCommand;
+import com.caeproject.cae.application.usecases.ficha.commands.EditarFichaCommand;
 import com.caeproject.cae.domain.ports.in.ficha.*;
 import com.caeproject.cae.domain.ports.model.ficha.Ficha;
 import com.caeproject.cae.infraestructure.dtos.ficha.*;
@@ -35,13 +37,13 @@ public class FichaController {
 
     @PostMapping
     public ResponseEntity<FichaResponse> registrarFicha(@Valid @RequestBody RegistrarFichaRequest request) {
-        Ficha ficha = new Ficha();
-        ficha.setCodigoFicha(request.getCodigoFicha());
-        ficha.setProgramaId(request.getProgramaId());
-        ficha.setFechaInicio(request.getFechaInicio());
-        ficha.setFechaFin(request.getFechaFin());
+        RegistrarFichaCommand command = new RegistrarFichaCommand();
+        command.setCodigoFicha(request.getCodigoFicha());
+        command.setProgramaId(request.getProgramaId());
+        command.setFechaInicio(request.getFechaInicio());
+        command.setFechaFin(request.getFechaFin());
 
-        Ficha registrada = registrarFichaPort.registrarFicha(ficha);
+        Ficha registrada = registrarFichaPort.registrarFicha(command);
         return ResponseEntity.status(HttpStatus.CREATED).body(toResponse(registrada));
     }
 
@@ -64,13 +66,13 @@ public class FichaController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<FichaResponse> editarFicha(@PathVariable Long id, @Valid @RequestBody EditarFichaRequest request) {
-        Ficha ficha = new Ficha();
-        ficha.setCodigoFicha(request.getCodigoFicha());
-        ficha.setProgramaId(request.getProgramaId());
-        ficha.setFechaInicio(request.getFechaInicio());
-        ficha.setFechaFin(request.getFechaFin());
+        EditarFichaCommand command = new EditarFichaCommand();
+        command.setCodigoFicha(request.getCodigoFicha());
+        command.setProgramaId(request.getProgramaId());
+        command.setFechaInicio(request.getFechaInicio());
+        command.setFechaFin(request.getFechaFin());
 
-        Ficha editada = editarFichaPort.editarFicha(ficha, id);
+        Ficha editada = editarFichaPort.editarFicha(command, id);
         return ResponseEntity.ok(toResponse(editada));
     }
 

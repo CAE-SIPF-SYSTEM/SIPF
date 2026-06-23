@@ -1,13 +1,14 @@
 package com.caeproject.cae.application.usecases.ficha;
 
+import com.caeproject.cae.application.usecases.ficha.commands.EditarFichaCommand;
 import com.caeproject.cae.domain.ports.in.ficha.EditarFichaInputPort;
 import com.caeproject.cae.domain.ports.out.FichaRepository;
 import com.caeproject.cae.domain.ports.out.ProgramaRepository;
 import com.caeproject.cae.domain.ports.model.ficha.Ficha;
-import com.caeproject.cae.domain.ports.exceptions.fichas_ProgramasException.FichaNoEncontradaException;
-import com.caeproject.cae.domain.ports.exceptions.fichas_ProgramasException.FichaDuplicadaException;
-import com.caeproject.cae.domain.ports.exceptions.fichas_ProgramasException.FichaInvalidaException;
-import com.caeproject.cae.domain.ports.exceptions.fichas_ProgramasException.ProgramaNoEncontradoException;
+import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.FichaNoEncontradaException;
+import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.FichaDuplicadaException;
+import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.FichaInvalidaException;
+import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.ProgramaNoEncontradoException;
 
 public class EditarFichaUseCase implements EditarFichaInputPort {
     
@@ -20,30 +21,30 @@ public class EditarFichaUseCase implements EditarFichaInputPort {
     }
 
     @Override
-    public Ficha editarFicha(Ficha ficha, Long id) {
+    public Ficha editarFicha(EditarFichaCommand command, Long id) {
 
         Ficha fichaExistente = fichaRepository.findById(id)
             .orElseThrow(() -> new FichaNoEncontradaException(id));
 
-        if (ficha.getFechaInicio() != null && ficha.getFechaFin() != null) {
-            if (ficha.getFechaFin().before(ficha.getFechaInicio())) {
+        if (command.getFechaInicio() != null && command.getFechaFin() != null) {
+            if (command.getFechaFin().before(command.getFechaInicio())) {
                 throw new FichaInvalidaException("El sistema impide la edición porque la fecha de fin es anterior a la fecha de inicio.");
             }
-            fichaExistente.setFechaInicio(ficha.getFechaInicio());
-            fichaExistente.setFechaFin(ficha.getFechaFin());
+            fichaExistente.setFechaInicio(command.getFechaInicio());
+            fichaExistente.setFechaFin(command.getFechaFin());
         }
 
-        if (ficha.getCodigoFicha() != null && !ficha.getCodigoFicha().equals(fichaExistente.getCodigoFicha())) {
-            if (fichaRepository.existByCodigoFicha(ficha.getCodigoFicha())) {
-                throw new FichaDuplicadaException(ficha.getCodigoFicha());
+        if (command.getCodigoFicha() != null && !command.getCodigoFicha().equals(fichaExistente.getCodigoFicha())) {
+            if (fichaRepository.existByCodigoFicha(command.getCodigoFicha())) {
+                throw new FichaDuplicadaException(command.getCodigoFicha());
             }
-            fichaExistente.setCodigoFicha(ficha.getCodigoFicha());
+            fichaExistente.setCodigoFicha(command.getCodigoFicha());
         }
 
-        if (ficha.getProgramaId() != null && !ficha.getProgramaId().equals(fichaExistente.getProgramaId())) {
-            programaRepository.findById(ficha.getProgramaId())
-                    .orElseThrow(() -> new ProgramaNoEncontradoException(ficha.getProgramaId()));
-            fichaExistente.setProgramaId(ficha.getProgramaId());
+        if (command.getProgramaId() != null && !command.getProgramaId().equals(fichaExistente.getProgramaId())) {
+            programaRepository.findById(command.getProgramaId())
+                    .orElseThrow(() -> new ProgramaNoEncontradoException(command.getProgramaId()));
+            fichaExistente.setProgramaId(command.getProgramaId());
         }
 
         return fichaRepository.saveFicha(fichaExistente);

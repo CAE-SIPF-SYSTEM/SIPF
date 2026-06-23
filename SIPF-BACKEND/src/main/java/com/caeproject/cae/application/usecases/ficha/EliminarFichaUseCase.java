@@ -2,7 +2,7 @@ package com.caeproject.cae.application.usecases.ficha;
 
 import com.caeproject.cae.domain.ports.in.ficha.EliminarFichaInputPort;
 import com.caeproject.cae.domain.ports.out.FichaRepository;
-import com.caeproject.cae.domain.ports.exceptions.fichas_ProgramasException.FichaNoEncontradaException;
+import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.FichaNoEncontradaException;
 
 public class EliminarFichaUseCase implements EliminarFichaInputPort {
     private final FichaRepository fichaRepository;

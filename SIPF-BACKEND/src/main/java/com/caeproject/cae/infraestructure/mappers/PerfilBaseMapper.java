@@ -1,7 +1,7 @@
 package com.caeproject.cae.infraestructure.mappers;
 
-import com.caeproject.cae.domain.ports.model.perfil_base.PerfilBase;
-import com.caeproject.cae.infraestructure.adapter.out.perfil_base.PerfilBaseEntity;
+import com.caeproject.cae.domain.ports.model.perfilbase.PerfilBase;
+import com.caeproject.cae.infraestructure.adapter.out.perfilbase.PerfilBaseEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

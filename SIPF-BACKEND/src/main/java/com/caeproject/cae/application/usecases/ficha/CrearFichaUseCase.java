@@ -1,12 +1,13 @@
 package com.caeproject.cae.application.usecases.ficha;
 
+import com.caeproject.cae.application.usecases.ficha.commands.RegistrarFichaCommand;
 import com.caeproject.cae.domain.ports.in.ficha.RegistrarFichaInputPort;
 import com.caeproject.cae.domain.ports.out.FichaRepository;
 import com.caeproject.cae.domain.ports.out.ProgramaRepository;
 import com.caeproject.cae.domain.ports.model.ficha.Ficha;
-import com.caeproject.cae.domain.ports.exceptions.fichas_ProgramasException.FichaInvalidaException;
-import com.caeproject.cae.domain.ports.exceptions.fichas_ProgramasException.FichaDuplicadaException;
-import com.caeproject.cae.domain.ports.exceptions.fichas_ProgramasException.ProgramaNoEncontradoException;
+import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.FichaInvalidaException;
+import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.FichaDuplicadaException;
+import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.ProgramaNoEncontradoException;
 
 public class CrearFichaUseCase implements RegistrarFichaInputPort {
 
@@ -19,28 +20,35 @@ public class CrearFichaUseCase implements RegistrarFichaInputPort {
     }
 
     @Override
-    public Ficha registrarFicha(Ficha ficha) {
+    public Ficha registrarFicha(RegistrarFichaCommand command) {
 
-        if (ficha.getFechaInicio() == null || ficha.getFechaFin() == null) {
+        if (command.getFechaInicio() == null || command.getFechaFin() == null) {
             throw new FichaInvalidaException("La fecha de inicio y la fecha de fin son obligatorias.");
         }
-        if (ficha.getFechaFin().before(ficha.getFechaInicio())) {
+        if (command.getFechaFin().before(command.getFechaInicio())) {
             throw new FichaInvalidaException("El sistema impide la creación de la ficha porque la fecha de fin es anterior a la fecha de inicio.");
         }
 
 
-        if (fichaRepository.existByCodigoFicha(ficha.getCodigoFicha())) {
-            throw new FichaDuplicadaException(ficha.getCodigoFicha());
+        if (fichaRepository.existByCodigoFicha(command.getCodigoFicha())) {
+            throw new FichaDuplicadaException(command.getCodigoFicha());
         }
 
 
-        if (ficha.getProgramaId() == null) {
+        if (command.getProgramaId() == null) {
             throw new FichaInvalidaException("La ficha debe estar vinculada obligatoriamente a un Programa de Formación.");
         }
         
 
-        programaRepository.findById(ficha.getProgramaId())
-                .orElseThrow(() -> new ProgramaNoEncontradoException(ficha.getProgramaId()));
+        programaRepository.findById(command.getProgramaId())
+                .orElseThrow(() -> new ProgramaNoEncontradoException(command.getProgramaId()));
+                
+        Ficha ficha = new Ficha();
+        ficha.setCodigoFicha(command.getCodigoFicha());
+        ficha.setFechaInicio(command.getFechaInicio());
+        ficha.setFechaFin(command.getFechaFin());
+        ficha.setProgramaId(command.getProgramaId());
+        
         return fichaRepository.saveFicha(ficha);
     }
 }
