@@ -13,5 +13,6 @@ public interface CompetenciaRepository {
     Competencia saveCompetencia(Competencia competencia);
     void eliminarCompetencia(Long id);
     boolean existByName(String nombre);
+    Optional<Competencia> findByCodigo(String codigo);
 
 }

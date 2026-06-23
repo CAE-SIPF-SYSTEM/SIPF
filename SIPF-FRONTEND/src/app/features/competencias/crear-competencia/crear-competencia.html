@@ -1,0 +1,32 @@
+<h2 mat-dialog-title class="!text-xl font-bold text-slate-800 flex items-center gap-2">
+  <mat-icon class="text-[#136E61]">school</mat-icon>
+  Crear Nueva Competencia
+</h2>
+
+<mat-dialog-content class="!pb-6">
+  <p class="text-slate-500 mb-6 text-sm">Ingresa los datos para registrar una nueva competencia en el sistema.</p>
+
+  <form class="flex flex-col gap-4">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Nombre de la Competencia</mat-label>
+      <input matInput [(ngModel)]="nuevaCompetencia.nombre" name="nombre" placeholder="Ej. Inglés Básico" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Tipo de Competencia</mat-label>
+      <mat-select [(ngModel)]="nuevaCompetencia.tipoCompetencia" name="tipoCompetencia" required>
+        <mat-option value="TRANSVERSAL">Transversal</mat-option>
+        <mat-option value="TECNICA">Tecnica</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="!px-6 !pb-6">
+  <button mat-button color="warn" (click)="onCancel()" [disabled]="isSubmitting" class="rounded-full px-6">
+    Cancelar
+  </button>
+  <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="isSubmitting" class="rounded-full px-6 bg-[#136E61] text-white">
+    {{ isSubmitting ? 'Guardando...' : 'Guardar' }}
+  </button>
+</mat-dialog-actions>

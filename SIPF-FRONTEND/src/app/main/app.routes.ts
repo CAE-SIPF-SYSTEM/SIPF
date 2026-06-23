@@ -43,10 +43,30 @@ export const routes: Routes = [
             m => m.UserManagementComponent
           ),
       },
+      {
+        path: 'alimentacion-sistema',
+        loadComponent: () =>
+          import('../features/admin/alimentacion-sistema/alimentacion-sistema').then(
+            m => m.AlimentacionSistemaComponent
+          ),
+      },
+      {
+        path: 'competencias',
+        loadComponent: () =>
+          import('../features/competencias/listar-competencias/listar-competencias').then(
+            m => m.ListarCompetenciasComponent
+          ),
+      },
+      {
+        path: 'raps',
+        loadComponent: () =>
+          import('../features/raps/listar-raps/listar-raps').then(
+            m => m.ListarRapsComponent
+          ),
+      },
     ],
   },
 
-  // Instructor routes
   {
     path: 'instructor',
     canActivate: [roleGuard('INSTRUCTOR')],
@@ -62,7 +82,6 @@ export const routes: Routes = [
     ],
   },
 
-  // Coordinador routes
   {
     path: 'coordinador',
     canActivate: [roleGuard('COORDINADOR')],
@@ -87,6 +106,20 @@ export const routes: Routes = [
         loadComponent: () =>
           import('../features/fichas/listar-fichas/listar-fichas').then(
             m => m.ListarFichasComponent
+          ),
+      },
+      {
+        path: 'competencias',
+        loadComponent: () =>
+          import('../features/competencias/listar-competencias/listar-competencias').then(
+            m => m.ListarCompetenciasComponent
+          ),
+      },
+      {
+        path: 'raps',
+        loadComponent: () =>
+          import('../features/raps/listar-raps/listar-raps').then(
+            m => m.ListarRapsComponent
           ),
       },
     ],

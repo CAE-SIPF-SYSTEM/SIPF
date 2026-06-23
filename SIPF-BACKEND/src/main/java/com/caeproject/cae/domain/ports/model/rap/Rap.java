@@ -6,7 +6,7 @@ public class Rap {
     private Long competenciaId;
     private String descripcion;
     private Integer horasPresenciales;
-
+    private Boolean estado;
 
     public Long getId() {
         return id;}
@@ -31,4 +31,10 @@ public class Rap {
 
     public void setHorasPresenciales(Integer horasPresenciales) {
         this.horasPresenciales = horasPresenciales;}
+
+    public Boolean getEstado() {
+        return estado;}
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;}
 }
