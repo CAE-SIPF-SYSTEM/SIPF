@@ -6,8 +6,15 @@
       <span class="text-sm font-medium">{{ email }}</span>
       <span class="badge" [ngClass]="badgeClass">{{ role }}</span>
     </div>
-    <div class="avatar-circle">
+    <button class="avatar-circle cursor-pointer hover:bg-white/30 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50" [matMenuTriggerFor]="profileMenu">
       {{ initial }}
-    </div>
+    </button>
+
+    <mat-menu #profileMenu="matMenu">
+      <button mat-menu-item (click)="goToProfile()">
+        <mat-icon>person</mat-icon>
+        <span>Editar Perfil</span>
+      </button>
+    </mat-menu>
   </div>
 </header>

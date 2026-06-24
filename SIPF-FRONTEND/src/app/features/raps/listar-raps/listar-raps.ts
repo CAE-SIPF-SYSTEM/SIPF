@@ -15,7 +15,7 @@ import { CompetenciaService } from '../../../core/use-cases/competencia.service'
 import { AlertService } from '../../../core/use-cases/alert.service';
 import { RapResponse } from '../../../core/entities/rap.model';
 import { CompetenciaResponse } from '../../../core/entities/competencia.model';
-import { CrearRapComponent } from '../crear-rap/crear-rap';
+
 
 @Component({
   selector: 'app-listar-raps',
@@ -43,7 +43,7 @@ export class ListarRapsComponent implements OnInit, AfterViewInit {
   private dialog = inject(MatDialog);
 
   dataSource = new MatTableDataSource<RapResponse>([]);
-  displayedColumns = ['id', 'competenciaId', 'descripcion', 'acciones'];
+  displayedColumns = ['id', 'competenciaId', 'descripcion'];
   
   competencias: CompetenciaResponse[] = [];
 
@@ -106,31 +106,9 @@ export class ListarRapsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  openCreateDialog() {
-    const dialogRef = this.dialog.open(CrearRapComponent, {
-      width: '550px',
-      disableClose: true,
-      data: { competencias: this.competencias } // Pasamos competencias al dialog
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.cargarDatos();
-      }
-    });
-  }
 
-  eliminarRap(id: number) {
-    if (confirm('¿Estás seguro de eliminar este resultado de aprendizaje?')) {
-      this.rapService.delete(id).subscribe({
-        next: () => {
-          this.alertService.success('RAP eliminado exitosamente');
-          this.cargarDatos();
-        },
-        error: () => this.alertService.error('No se pudo eliminar el RAP')
-      });
-    }
-  }
+
 
   getNombreCompetencia(id: number): string {
     const comp = this.competencias.find(c => c.id === id);

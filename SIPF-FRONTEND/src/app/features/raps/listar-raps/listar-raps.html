@@ -21,9 +21,6 @@
         </div>
       </div>
 
-      <button mat-flat-button color="primary" class="rounded-full px-6 h-10 text-sm bg-[#37CD2D] text-white font-medium shrink-0 shadow-sm hover:shadow transition-all w-full lg:w-auto mt-2 lg:mt-0" (click)="openCreateDialog()">
-        <mat-icon>add</mat-icon> Crear RAP
-      </button>
     </div>
 
     <!-- Table Container -->
@@ -52,14 +49,7 @@
             <td mat-cell *matCellDef="let r" class="px-4 py-3 text-slate-800"> {{r.descripcion}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="acciones">
-            <th mat-header-cell *matHeaderCellDef class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-center rounded-tr-lg w-24"> Acciones </th>
-            <td mat-cell *matCellDef="let r" class="px-4 py-3 text-center">
-              <button mat-icon-button color="warn" (click)="eliminarRap(r.id)">
-                <mat-icon>delete_outline</mat-icon>
-              </button>
-            </td>
-          </ng-container>
+         
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="!bg-[#136E61] h-12"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-slate-50 transition-colors border-b border-slate-100 h-12"></tr>

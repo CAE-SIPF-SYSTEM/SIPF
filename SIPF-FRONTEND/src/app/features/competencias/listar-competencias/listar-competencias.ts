@@ -13,7 +13,7 @@ import { MainLayoutComponent } from '../../../shared/layouts/main-layout/main-la
 import { CompetenciaService } from '../../../core/use-cases/competencia.service';
 import { AlertService } from '../../../core/use-cases/alert.service';
 import { CompetenciaResponse } from '../../../core/entities/competencia.model';
-import { CrearCompetenciaComponent } from '../crear-competencia/crear-competencia';
+
 
 @Component({
   selector: 'app-listar-competencias',
@@ -40,7 +40,7 @@ export class ListarCompetenciasComponent implements OnInit, AfterViewInit {
   private dialog = inject(MatDialog);
 
   dataSource = new MatTableDataSource<CompetenciaResponse>([]);
-  displayedColumns = ['id', 'nombre', 'tipoCompetencia', 'acciones'];
+  displayedColumns = ['id', 'nombre', 'tipoCompetencia'];
   
   isLoading = signal(true);
   searchTerm = signal('');
@@ -75,30 +75,7 @@ export class ListarCompetenciasComponent implements OnInit, AfterViewInit {
     });
   }
 
-  openCreateDialog() {
-    const dialogRef = this.dialog.open(CrearCompetenciaComponent, {
-      width: '500px',
-      disableClose: true
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.cargarCompetencias();
-      }
-    });
-  }
-
-  eliminarCompetencia(id: number) {
-    if (confirm('¿Estás seguro de eliminar esta competencia?')) {
-      this.competenciaService.delete(id).subscribe({
-        next: () => {
-          this.alertService.success('Competencia eliminada exitosamente');
-          this.cargarCompetencias();
-        },
-        error: () => this.alertService.error('No se pudo eliminar la competencia')
-      });
-    }
-  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
