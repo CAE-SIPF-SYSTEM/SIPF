@@ -125,6 +125,9 @@ public class UsuarioController {
         command.setContrasena(request.getContrasena());
         command.setRol(request.getRol());
         command.setEstado(request.getEstado());
+        command.setNombre(request.getNombre());
+        command.setApellido(request.getApellido());
+        command.setTelefono(request.getTelefono());
 
         Usuario editado = editarUsuarioInputPort.editarUsuario(command, id);
         return ResponseEntity.ok(buildSimpleResponse(editado));
