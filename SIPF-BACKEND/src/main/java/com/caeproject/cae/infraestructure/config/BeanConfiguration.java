@@ -28,8 +28,8 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public EditarUsuarioInputPort editarUsuarioInputPort(UsuarioRepository usuarioRepository) {
-        return new EditarUsuarioUseCase(usuarioRepository);
+    public EditarUsuarioInputPort editarUsuarioInputPort(UsuarioRepository usuarioRepository, com.caeproject.cae.domain.ports.out.AuditoriaPerfilRepository auditoriaPerfilRepository) {
+        return new EditarUsuarioUseCase(usuarioRepository, auditoriaPerfilRepository);
     }
 
     @Bean
