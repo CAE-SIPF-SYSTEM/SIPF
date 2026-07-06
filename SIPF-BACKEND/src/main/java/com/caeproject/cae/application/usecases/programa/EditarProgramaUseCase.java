@@ -3,7 +3,7 @@ package com.caeproject.cae.application.usecases.programa;
 import com.caeproject.cae.application.usecases.programa.commands.EditarProgramaCommand;
 import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.ProgramaNoEncontradoException;
 import com.caeproject.cae.domain.ports.in.programa.EditarProgramaInputPort;
-import com.caeproject.cae.domain.ports.model.programa.Programa;
+import com.caeproject.cae.domain.ports.model.Programa;
 import com.caeproject.cae.domain.ports.out.ProgramaRepository;
 
 public class EditarProgramaUseCase implements EditarProgramaInputPort {

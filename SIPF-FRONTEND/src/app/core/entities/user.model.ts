@@ -27,6 +27,11 @@ export interface EditarUsuarioRequest {
   contrasena?: string;
   rol?: string;
   estado?: boolean;
+  nombre?: string;
+  apellido?: string;
+  documentoIdentidad?: number;
+  telefono?: number;
+  tipoContrato?: string;
 }
 
 export interface UsuarioResponse {

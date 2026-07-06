@@ -1,6 +1,6 @@
 package com.caeproject.cae.infraestructure.adapter.out.perfilbase;
 
-import com.caeproject.cae.domain.ports.model.perfilbase.PerfilBase;
+import com.caeproject.cae.domain.ports.model.PerfilBase;
 import com.caeproject.cae.domain.ports.out.PerfilBaseRepository;
 import com.caeproject.cae.infraestructure.adapter.out.usuario.UsuarioEntity;
 import com.caeproject.cae.infraestructure.adapter.out.usuario.UsuarioJpaRepository;

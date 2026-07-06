@@ -4,8 +4,8 @@ import com.caeproject.cae.domain.ports.exceptions.tokensexception.TokenExpiradoE
 import com.caeproject.cae.domain.ports.exceptions.tokensexception.TokenNoEncontradoException;
 import com.caeproject.cae.domain.ports.exceptions.usuarioexceptions.UsuarioNoEncontradoException;
 import com.caeproject.cae.domain.ports.in.recuperacion.RestablecerContrasenaInputPort;
-import com.caeproject.cae.domain.ports.model.token.TokenRecuperacion;
-import com.caeproject.cae.domain.ports.model.usuario.Usuario;
+import com.caeproject.cae.domain.ports.model.TokenRecuperacion;
+import com.caeproject.cae.domain.ports.model.Usuario;
 import com.caeproject.cae.domain.ports.out.TokenRecuperacionRepository;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;
 

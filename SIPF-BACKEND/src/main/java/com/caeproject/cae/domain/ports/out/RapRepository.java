@@ -1,6 +1,6 @@
 package com.caeproject.cae.domain.ports.out;
 
-import com.caeproject.cae.domain.ports.model.rap.Rap;
+import com.caeproject.cae.domain.ports.model.Rap;
 
 import java.util.List;
 import java.util.Optional;

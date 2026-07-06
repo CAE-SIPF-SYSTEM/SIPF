@@ -2,14 +2,12 @@ package com.caeproject.cae.infraestructure.adapter.in;
 
 import com.caeproject.cae.domain.ports.in.usuario.*;
 import com.caeproject.cae.domain.ports.model.enums.Rol;
-import com.caeproject.cae.domain.ports.model.perfilbase.PerfilBase;
-import com.caeproject.cae.domain.ports.model.usuario.Usuario;
+import com.caeproject.cae.domain.ports.model.Usuario;
 import com.caeproject.cae.application.usecases.usuario.commands.CrearUsuarioCommand;
 import com.caeproject.cae.application.usecases.usuario.commands.EditarUsuarioCommand;
 import com.caeproject.cae.infraestructure.dtos.usuario.CrearUsuarioRequest;
 import com.caeproject.cae.infraestructure.dtos.usuario.EditarUsuarioRequest;
 import com.caeproject.cae.infraestructure.dtos.usuario.UsuarioResponse;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

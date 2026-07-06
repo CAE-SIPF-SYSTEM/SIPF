@@ -1,6 +1,6 @@
 package com.caeproject.cae.domain.ports.in.competencia;
 
-import com.caeproject.cae.domain.ports.model.competencia.Competencia;
+import com.caeproject.cae.domain.ports.model.Competencia;
 import com.caeproject.cae.domain.ports.model.enums.TipoCompetencia;
 
 import java.util.List;

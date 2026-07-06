@@ -64,6 +64,13 @@ export const routes: Routes = [
             m => m.ListarRapsComponent
           ),
       },
+      {
+        path: 'trimestres',
+        loadComponent: () =>
+          import('../features/admin/trimestres/admin-trimestres/admin-trimestres').then(
+            m => m.AdminTrimestresComponent
+          ),
+      },
     ],
   },
 
@@ -130,6 +137,14 @@ export const routes: Routes = [
     path: 'no-autorizado',
     loadComponent: () =>
       import('../features/auth/unauthorized/unauthorized').then(m => m.UnauthorizedComponent),
+  },
+
+  // Perfil
+  {
+    path: 'perfil',
+    canActivate: [roleGuard('COORDINADOR', 'INSTRUCTOR')],
+    loadComponent: () =>
+      import('../features/perfil/perfil/perfil').then(m => m.PerfilComponent),
   },
 
   // Default redirect

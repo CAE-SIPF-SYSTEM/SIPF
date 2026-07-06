@@ -1,8 +1,8 @@
 package com.caeproject.cae.application.usecases.excel;
 
-import com.caeproject.cae.domain.ports.model.competencia.Competencia;
+import com.caeproject.cae.domain.ports.model.Competencia;
 import com.caeproject.cae.domain.ports.model.enums.TipoCompetencia;
-import com.caeproject.cae.domain.ports.model.rap.Rap;
+import com.caeproject.cae.domain.ports.model.Rap;
 import com.caeproject.cae.domain.ports.out.AlimentacionCRRepository;
 import com.caeproject.cae.domain.ports.out.CompetenciaRepository;
 import com.caeproject.cae.domain.ports.out.RapRepository;
@@ -55,20 +55,32 @@ public class AlimentacionCrUseCase {
                     log.info("La competencia ya existe en la base de datos. DB ID: {}, Código: {}", competenciaGuardada.getId(), codigoCompetencia);
                 }
 
+                // duplicados
+                List<Rap> rapsExistentes = rapRepository.findByCompetencia(competenciaGuardada.getId());
+
                 for (Rap rap : raps) {
                     Long idcompetencia = competenciaGuardada.getId();
                     String descripcionRap = rap.getDescripcion();
+                    
+                    //verificacion de duplicacion rap x descripion
+                    boolean existeRap = rapsExistentes.stream()
+                        .anyMatch(r -> r.getDescripcion() != null && r.getDescripcion().equalsIgnoreCase(descripcionRap));
+
+                    if (existeRap) {
+                        log.info("   -> RAP omitido (ya existe): {}", descripcionRap);
+                        continue;
+                    }
+
                     Boolean estado = rap.getEstado();
                     Integer horasPresenciales = rap.getHorasPresenciales();
 
                     log.info("   -> Guardando RAP: {} {} {} {}", idcompetencia, descripcionRap, estado, horasPresenciales);
 
-                    // Enlazar al padre (competencia) usando el ID generado por la BD
+                    //setter a competencia
                     rap.setCompetenciaId(idcompetencia);
                     
-                    // Colocar id en null para que la BD genere el auto-incremental y no sobreescriba registros antiguos
                     rap.setId(null);
-                    
+
                     rapRepository.saveRap(rap);
                 }
 

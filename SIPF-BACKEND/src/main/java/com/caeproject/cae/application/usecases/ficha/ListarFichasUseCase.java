@@ -2,7 +2,7 @@ package com.caeproject.cae.application.usecases.ficha;
 
 import com.caeproject.cae.domain.ports.in.ficha.ListarFichasInputPort;
 import com.caeproject.cae.domain.ports.out.FichaRepository;
-import com.caeproject.cae.domain.ports.model.ficha.Ficha;
+import com.caeproject.cae.domain.ports.model.Ficha;
 
 import java.util.List;
 

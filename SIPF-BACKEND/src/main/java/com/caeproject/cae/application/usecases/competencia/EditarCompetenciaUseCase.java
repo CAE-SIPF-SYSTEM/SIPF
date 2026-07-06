@@ -3,7 +3,7 @@ package com.caeproject.cae.application.usecases.competencia;
 import com.caeproject.cae.application.usecases.competencia.commands.EditarCompetenciaCommand;
 import com.caeproject.cae.domain.ports.exceptions.competenciaexception.CompetenciaNoEncontradaException;
 import com.caeproject.cae.domain.ports.in.competencia.EditarCompetenciaInputPort;
-import com.caeproject.cae.domain.ports.model.competencia.Competencia;
+import com.caeproject.cae.domain.ports.model.Competencia;
 import com.caeproject.cae.domain.ports.out.CompetenciaRepository;
 
 public class EditarCompetenciaUseCase implements EditarCompetenciaInputPort {

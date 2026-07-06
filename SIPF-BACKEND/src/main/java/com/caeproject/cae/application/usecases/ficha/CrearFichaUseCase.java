@@ -4,7 +4,7 @@ import com.caeproject.cae.application.usecases.ficha.commands.RegistrarFichaComm
 import com.caeproject.cae.domain.ports.in.ficha.RegistrarFichaInputPort;
 import com.caeproject.cae.domain.ports.out.FichaRepository;
 import com.caeproject.cae.domain.ports.out.ProgramaRepository;
-import com.caeproject.cae.domain.ports.model.ficha.Ficha;
+import com.caeproject.cae.domain.ports.model.Ficha;
 import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.FichaInvalidaException;
 import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.FichaDuplicadaException;
 import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.ProgramaNoEncontradoException;

@@ -2,7 +2,7 @@ package com.caeproject.cae.infraestructure.adapter.out.programa;
 
 import com.caeproject.cae.domain.ports.model.enums.Jornada;
 import com.caeproject.cae.domain.ports.model.enums.NivelFormacion;
-import com.caeproject.cae.domain.ports.model.programa.Programa;
+import com.caeproject.cae.domain.ports.model.Programa;
 import com.caeproject.cae.domain.ports.out.ProgramaRepository;
 import com.caeproject.cae.infraestructure.mappers.ProgramaMapper;
 import org.springframework.stereotype.Component;

@@ -3,7 +3,7 @@ package com.caeproject.cae.application.usecases.usuario;
 import com.caeproject.cae.domain.ports.exceptions.usuarioexceptions.CredencialesIncorrectasException;
 import com.caeproject.cae.domain.ports.exceptions.usuarioexceptions.UsuarioInhabilitadoException;
 import com.caeproject.cae.domain.ports.in.usuario.LoginInputPort;
-import com.caeproject.cae.domain.ports.model.usuario.Usuario;
+import com.caeproject.cae.domain.ports.model.Usuario;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;
 import com.caeproject.cae.infraestructure.security.JwtUtil; // Asegura que este import esté correcto
 

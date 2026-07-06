@@ -1,6 +1,6 @@
 package com.caeproject.cae.domain.ports.out;
 
-import com.caeproject.cae.domain.ports.model.token.TokenRecuperacion;
+import com.caeproject.cae.domain.ports.model.TokenRecuperacion;
 
 import java.util.Optional;
 

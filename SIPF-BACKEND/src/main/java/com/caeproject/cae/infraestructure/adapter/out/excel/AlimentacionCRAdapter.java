@@ -1,8 +1,8 @@
 package com.caeproject.cae.infraestructure.adapter.out.excel;
 
-import com.caeproject.cae.domain.ports.model.competencia.Competencia;
+import com.caeproject.cae.domain.ports.model.Competencia;
 import com.caeproject.cae.domain.ports.model.enums.TipoCompetencia;
-import com.caeproject.cae.domain.ports.model.rap.Rap;
+import com.caeproject.cae.domain.ports.model.Rap;
 import com.caeproject.cae.domain.ports.out.AlimentacionCRRepository;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -26,10 +26,8 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
     private static final Logger log = LoggerFactory.getLogger(AlimentacionCRAdapter.class);
 
     private static final String[] COLUMNAS_REQUERIDAS = {
-            "CODIGO COMPETENCIA",
             "DENOMINACION COMPETENCIA",
             "TIPO COMPETENCIA",
-            "CODIGO RAP",
             "DESCRIPCION RESULTADO DE APRENDIZAJE (RAP)"
     };
 
@@ -90,12 +88,20 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
             return null;
         }
 
-        String codigoCompetencia = obtenerValorCelda(row.getCell(columnas.get("CODIGO COMPETENCIA")));
-        if (codigoCompetencia == null || codigoCompetencia.isEmpty()) {
+        String denominacionCompetencia = obtenerValorCelda(row.getCell(columnas.get("DENOMINACION COMPETENCIA")));
+        if (denominacionCompetencia == null || denominacionCompetencia.isEmpty()) {
             return null;
         }
 
-        Competencia competencia = construirCompetencia(row, columnas, codigoCompetencia, i);
+        String codigoCompetencia = "SIN_CODIGO";
+        String nombreCompetencia = denominacionCompetencia.trim();
+
+        if (denominacionCompetencia.contains("-")) {
+            codigoCompetencia = denominacionCompetencia.split("-")[0].trim();
+            nombreCompetencia = denominacionCompetencia.substring(denominacionCompetencia.indexOf("-") + 1).trim();
+        }
+
+        Competencia competencia = construirCompetencia(row, columnas, codigoCompetencia, nombreCompetencia, i);
         Rap rap = construirRap(row, columnas, i);
 
         log.info(">>> Fila {} leída: Competencia {} [{}], RAP {} ({}h)", i, 
@@ -105,8 +111,7 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
         return new CompetenciaRap(competencia, List.of(rap));
     }
 
-    private Competencia construirCompetencia(Row row, Map<String, Integer> columnas, String codigoCompetencia, int i) {
-        String nombreCompetencia = obtenerValorCelda(row.getCell(columnas.get("DENOMINACION COMPETENCIA")));
+    private Competencia construirCompetencia(Row row, Map<String, Integer> columnas, String codigoCompetencia, String nombreCompetencia, int i) {
         String tipoCompetenciaStr = obtenerValorCelda(row.getCell(columnas.get("TIPO COMPETENCIA")));
 
         Competencia competencia = new Competencia();
@@ -133,8 +138,15 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
     }
 
     private Rap construirRap(Row row, Map<String, Integer> columnas, int i) {
-        String codigoRap = obtenerValorCelda(row.getCell(columnas.get("CODIGO RAP")));
-        String descripcionRap = obtenerValorCelda(row.getCell(columnas.get("DESCRIPCION RESULTADO DE APRENDIZAJE (RAP)")));
+        String descripcionCompleta = obtenerValorCelda(row.getCell(columnas.get("DESCRIPCION RESULTADO DE APRENDIZAJE (RAP)")));
+        
+        String codigoRap = null;
+        String descripcionRap = descripcionCompleta;
+        
+        if (descripcionCompleta != null && descripcionCompleta.contains("-")) {
+            codigoRap = descripcionCompleta.split("-")[0].trim();
+            descripcionRap = descripcionCompleta.substring(descripcionCompleta.indexOf("-") + 1).trim();
+        }
         
         Integer idxHoras = columnas.get("INTENSIDAD HORARIA");
         String horasRapStr = idxHoras != null ? obtenerValorCelda(row.getCell(idxHoras)) : null;

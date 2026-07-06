@@ -1,8 +1,8 @@
 package com.caeproject.cae.application.usecases.recuperacion;
 
 import com.caeproject.cae.domain.ports.in.recuperacion.SolicitarRecuperacionInputPort;
-import com.caeproject.cae.domain.ports.model.token.TokenRecuperacion;
-import com.caeproject.cae.domain.ports.model.usuario.Usuario;
+import com.caeproject.cae.domain.ports.model.TokenRecuperacion;
+import com.caeproject.cae.domain.ports.model.Usuario;
 import com.caeproject.cae.domain.ports.out.EmailNotificationPort;
 import com.caeproject.cae.domain.ports.out.TokenRecuperacionRepository;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;

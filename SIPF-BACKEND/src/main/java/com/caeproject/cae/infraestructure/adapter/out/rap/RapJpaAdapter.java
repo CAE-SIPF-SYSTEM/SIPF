@@ -1,6 +1,6 @@
 package com.caeproject.cae.infraestructure.adapter.out.rap;
 
-import com.caeproject.cae.domain.ports.model.rap.Rap;
+import com.caeproject.cae.domain.ports.model.Rap;
 import com.caeproject.cae.domain.ports.out.RapRepository;
 import com.caeproject.cae.infraestructure.mappers.RapMapper;
 import org.springframework.stereotype.Component;

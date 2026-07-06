@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.model.competencia;
+package com.caeproject.cae.domain.ports.model;
 
 import com.caeproject.cae.domain.ports.model.enums.TipoCompetencia;
 

@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.model.perfilbase;
+package com.caeproject.cae.domain.ports.model;
 
 import com.caeproject.cae.domain.ports.model.enums.TIpoContrato;
 

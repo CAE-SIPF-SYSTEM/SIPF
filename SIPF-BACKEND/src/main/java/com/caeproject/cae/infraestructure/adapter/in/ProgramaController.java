@@ -3,7 +3,7 @@ package com.caeproject.cae.infraestructure.adapter.in;
 import com.caeproject.cae.domain.ports.in.programa.*;
 import com.caeproject.cae.domain.ports.model.enums.Jornada;
 import com.caeproject.cae.domain.ports.model.enums.NivelFormacion;
-import com.caeproject.cae.domain.ports.model.programa.Programa;
+import com.caeproject.cae.domain.ports.model.Programa;
 import com.caeproject.cae.application.usecases.programa.commands.CrearProgramaCommand;
 import com.caeproject.cae.application.usecases.programa.commands.EditarProgramaCommand;
 import com.caeproject.cae.infraestructure.dtos.programa.CrearProgramaRequest;

@@ -3,7 +3,7 @@ package com.caeproject.cae.application.usecases.programa;
 import com.caeproject.cae.application.usecases.programa.commands.CrearProgramaCommand;
 import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.ProgramaDuplicadoException;
 import com.caeproject.cae.domain.ports.in.programa.CrearProgramaInputPort;
-import com.caeproject.cae.domain.ports.model.programa.Programa;
+import com.caeproject.cae.domain.ports.model.Programa;
 import com.caeproject.cae.domain.ports.out.ProgramaRepository;
 
 public class CrearProgramaUseCase implements CrearProgramaInputPort {

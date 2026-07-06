@@ -3,7 +3,7 @@ package com.caeproject.cae.infraestructure.adapter.in;
 import com.caeproject.cae.application.usecases.ficha.commands.RegistrarFichaCommand;
 import com.caeproject.cae.application.usecases.ficha.commands.EditarFichaCommand;
 import com.caeproject.cae.domain.ports.in.ficha.*;
-import com.caeproject.cae.domain.ports.model.ficha.Ficha;
+import com.caeproject.cae.domain.ports.model.Ficha;
 import com.caeproject.cae.infraestructure.dtos.ficha.*;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
