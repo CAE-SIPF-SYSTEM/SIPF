@@ -1,7 +1,7 @@
 package com.caeproject.cae.application.usecases.competencia;
 
 import com.caeproject.cae.domain.ports.in.competencia.ListarCompetenciasInputPort;
-import com.caeproject.cae.domain.ports.model.competencia.Competencia;
+import com.caeproject.cae.domain.ports.model.Competencia;
 import com.caeproject.cae.domain.ports.out.CompetenciaRepository;
 
 import java.util.List;

@@ -174,4 +174,26 @@ public class BeanConfiguration {
                                                        RapRepository rapRepository) {
         return new AlimentacionCrUseCase(alimentacionCRRepository, competenciaRepository, rapRepository);
     }
+
+    // --- BEANS DE TRIMESTRE ---
+    @Bean
+    public com.caeproject.cae.domain.ports.in.trimestre.CrearTrimestreInputPort crearTrimestreInputPort(com.caeproject.cae.domain.ports.out.TrimestreRepository trimestreRepository) {
+        return new com.caeproject.cae.application.usecases.Trimestre.CrearTrimestreUseCase(trimestreRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.trimestre.EditarTrimestreInputPort editarTrimestreInputPort(com.caeproject.cae.domain.ports.out.TrimestreRepository trimestreRepository) {
+        return new com.caeproject.cae.application.usecases.Trimestre.EditarTrimestreUseCase(trimestreRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.trimestre.EliminarTrimestreInputPort eliminarTrimestreInputPort(com.caeproject.cae.domain.ports.out.TrimestreRepository trimestreRepository) {
+        return new com.caeproject.cae.application.usecases.Trimestre.EliminarTrimestreUseCase(trimestreRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.trimestre.ListarTrimestreInputPort listarTrimestreInputPort(com.caeproject.cae.domain.ports.out.TrimestreRepository trimestreRepository) {
+        return new com.caeproject.cae.application.usecases.Trimestre.ListarTrimestreUseCase(trimestreRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.trimestre.ObtenerTrimestreInputPort obtenerTrimestreInputPort(com.caeproject.cae.domain.ports.out.TrimestreRepository trimestreRepository) {
+        return new com.caeproject.cae.application.usecases.Trimestre.ObtenerTrimestreUseCase(trimestreRepository);
+    }
 }

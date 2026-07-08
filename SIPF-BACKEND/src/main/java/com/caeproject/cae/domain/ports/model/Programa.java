@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.model.programa;
+package com.caeproject.cae.domain.ports.model;
 
 import com.caeproject.cae.domain.ports.model.enums.Jornada;
 import com.caeproject.cae.domain.ports.model.enums.NivelFormacion;

@@ -1,7 +1,7 @@
 package com.caeproject.cae.domain.ports.in.usuario;
 
 import com.caeproject.cae.domain.ports.model.enums.Rol;
-import com.caeproject.cae.domain.ports.model.usuario.Usuario;
+import com.caeproject.cae.domain.ports.model.Usuario;
 
 import java.util.List;
 import java.util.Optional;

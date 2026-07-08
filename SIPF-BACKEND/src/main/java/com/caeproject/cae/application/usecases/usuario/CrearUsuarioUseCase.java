@@ -6,8 +6,8 @@ import com.caeproject.cae.domain.ports.exceptions.instructorexception.DocumentoY
 import com.caeproject.cae.domain.ports.exceptions.sessionexceptions.ContrasenaInvalidaException;
 import com.caeproject.cae.domain.ports.exceptions.usuarioexceptions.CorreoYaRegistradoException;
 import com.caeproject.cae.domain.ports.in.usuario.CrearUsuarioInputPort;
-import com.caeproject.cae.domain.ports.model.perfilbase.PerfilBase;
-import com.caeproject.cae.domain.ports.model.usuario.Usuario;
+import com.caeproject.cae.domain.ports.model.PerfilBase;
+import com.caeproject.cae.domain.ports.model.Usuario;
 import com.caeproject.cae.domain.ports.out.PerfilBaseRepository;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;
 import org.springframework.transaction.annotation.Transactional;

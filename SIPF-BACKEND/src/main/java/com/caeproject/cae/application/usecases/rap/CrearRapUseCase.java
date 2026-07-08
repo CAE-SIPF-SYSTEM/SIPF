@@ -2,7 +2,7 @@ package com.caeproject.cae.application.usecases.rap;
 
 import com.caeproject.cae.application.usecases.rap.commands.CrearRapCommand;
 import com.caeproject.cae.domain.ports.in.Rap.CrearRapInputPort;
-import com.caeproject.cae.domain.ports.model.rap.Rap;
+import com.caeproject.cae.domain.ports.model.Rap;
 import com.caeproject.cae.domain.ports.out.RapRepository;
 
 public class CrearRapUseCase implements CrearRapInputPort {

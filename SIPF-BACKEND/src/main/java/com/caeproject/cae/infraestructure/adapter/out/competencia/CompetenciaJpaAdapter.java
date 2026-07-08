@@ -1,6 +1,6 @@
 package com.caeproject.cae.infraestructure.adapter.out.competencia;
 
-import com.caeproject.cae.domain.ports.model.competencia.Competencia;
+import com.caeproject.cae.domain.ports.model.Competencia;
 import com.caeproject.cae.domain.ports.model.enums.TipoCompetencia;
 import com.caeproject.cae.domain.ports.out.CompetenciaRepository;
 import com.caeproject.cae.infraestructure.mappers.CompetenciaMapper;

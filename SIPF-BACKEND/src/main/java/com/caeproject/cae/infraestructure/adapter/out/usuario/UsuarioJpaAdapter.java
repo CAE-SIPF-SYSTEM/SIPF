@@ -1,7 +1,7 @@
 package com.caeproject.cae.infraestructure.adapter.out.usuario;
 
 import com.caeproject.cae.domain.ports.model.enums.Rol;
-import com.caeproject.cae.domain.ports.model.usuario.Usuario;
+import com.caeproject.cae.domain.ports.model.Usuario;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;
 import com.caeproject.cae.infraestructure.mappers.UsuarioMapper;
 import org.springframework.stereotype.Component;

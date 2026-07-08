@@ -1,0 +1,76 @@
+<app-main-layout pageTitle="Gestión de Trimestres">
+  <div class="max-w-7xl mx-auto px-6 pt-12 pb-12 w-full flex flex-col gap-6 animate-fade-in-up">
+    
+    <!-- Header -->
+    <div class="flex justify-between items-center bg-white shadow-sm rounded-t-2xl p-6 border-b border-slate-100">
+      <h2 class="text-lg font-bold text-slate-800 m-0">Lista de Trimestres</h2>
+      <button mat-flat-button color="primary" class="rounded-full px-6 h-10 text-sm bg-[#37CD2D] text-white font-medium shadow-sm hover:shadow transition-all" (click)="openDialog()">
+        Crear trimestre
+      </button>
+    </div>
+
+    <!-- Table Container -->
+    <div class="bg-white rounded-b-2xl shadow-sm overflow-hidden p-6 -mt-2">
+      <div class="overflow-x-auto">
+        <table mat-table [dataSource]="trimestres()" class="w-full text-sm">
+          
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-left rounded-tl-lg"> ID </th>
+            <td mat-cell *matCellDef="let element" class="px-4 py-3 text-slate-500"> {{element.id}} </td>
+          </ng-container>
+
+          <!-- Ficha ID Column -->
+          <ng-container matColumnDef="fichaId">
+            <th mat-header-cell *matHeaderCellDef class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-left"> Ficha ID </th>
+            <td mat-cell *matCellDef="let element" class="px-4 py-3 text-slate-500 font-medium"> {{element.fichaId}} </td>
+          </ng-container>
+
+          <!-- Año Column -->
+          <ng-container matColumnDef="anio">
+            <th mat-header-cell *matHeaderCellDef class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-left"> Año </th>
+            <td mat-cell *matCellDef="let element" class="px-4 py-3 text-slate-500"> {{element.anio}} </td>
+          </ng-container>
+
+          <!-- Número Trimestre Column -->
+          <ng-container matColumnDef="numeroTrimestre">
+            <th mat-header-cell *matHeaderCellDef class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-left"> Número </th>
+            <td mat-cell *matCellDef="let element" class="px-4 py-3 text-slate-500"> Trimestre {{element.numeroTrimestre}} </td>
+          </ng-container>
+
+          <!-- Fecha Inicio Column -->
+          <ng-container matColumnDef="fechaInicio">
+            <th mat-header-cell *matHeaderCellDef class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-left"> Fecha Inicio </th>
+            <td mat-cell *matCellDef="let element" class="px-4 py-3 text-slate-500"> {{element.fechaInicio | date:'shortDate'}} </td>
+          </ng-container>
+
+          <!-- Fecha Fin Column -->
+          <ng-container matColumnDef="fechaFin">
+            <th mat-header-cell *matHeaderCellDef class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-left"> Fecha Fin </th>
+            <td mat-cell *matCellDef="let element" class="px-4 py-3 text-slate-500"> {{element.fechaFin | date:'shortDate'}} </td>
+          </ng-container>
+
+          <!-- Acciones Column -->
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-right rounded-tr-lg"> Acciones </th>
+            <td mat-cell *matCellDef="let element" class="px-4 py-3 text-right">
+              <button mat-icon-button class="text-slate-500 hover:text-primary-600" (click)="openDialog(element)" title="Editar">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button class="text-slate-500 hover:text-red-600" (click)="deleteTrimestre(element.id!)" title="Eliminar">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns" class="h-12 !bg-[#136E61]"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-slate-50 transition-colors border-b border-slate-100 h-12"></tr>
+        </table>
+        
+        <div *ngIf="trimestres().length === 0" class="p-8 text-center text-slate-500">
+          No hay trimestres registrados.
+        </div>
+      </div>
+    </div>
+  </div>
+</app-main-layout>

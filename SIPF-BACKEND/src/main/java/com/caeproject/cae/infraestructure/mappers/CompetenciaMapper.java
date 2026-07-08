@@ -1,6 +1,6 @@
 package com.caeproject.cae.infraestructure.mappers;
 
-import com.caeproject.cae.domain.ports.model.competencia.Competencia;
+import com.caeproject.cae.domain.ports.model.Competencia;
 import com.caeproject.cae.infraestructure.adapter.out.competencia.CompetenciaEntity;
 import org.mapstruct.Mapper;
 

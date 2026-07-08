@@ -1,6 +1,6 @@
 package com.caeproject.cae.infraestructure.adapter.out.auditoria;
 
-import com.caeproject.cae.domain.ports.model.auditoria.AuditoriaPerfil;
+import com.caeproject.cae.domain.ports.model.AuditoriaPerfil;
 import com.caeproject.cae.domain.ports.out.AuditoriaPerfilRepository;
 import org.springframework.stereotype.Component;
 

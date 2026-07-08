@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.model.auditoria;
+package com.caeproject.cae.domain.ports.model;
 
 import java.time.LocalDateTime;
 

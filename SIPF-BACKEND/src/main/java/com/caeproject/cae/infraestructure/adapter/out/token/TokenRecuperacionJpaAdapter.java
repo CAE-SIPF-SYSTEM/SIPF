@@ -1,6 +1,6 @@
 package com.caeproject.cae.infraestructure.adapter.out.token;
 
-import com.caeproject.cae.domain.ports.model.token.TokenRecuperacion;
+import com.caeproject.cae.domain.ports.model.TokenRecuperacion;
 import com.caeproject.cae.domain.ports.out.TokenRecuperacionRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

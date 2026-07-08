@@ -3,7 +3,7 @@ package com.caeproject.cae.application.usecases.competencia;
 import com.caeproject.cae.application.usecases.competencia.commands.CrearCompetenciaCommand;
 import com.caeproject.cae.domain.ports.exceptions.competenciaexception.CompetenciaDuplicadaException;
 import com.caeproject.cae.domain.ports.in.competencia.CrearCompetenciaInputPort;
-import com.caeproject.cae.domain.ports.model.competencia.Competencia;
+import com.caeproject.cae.domain.ports.model.Competencia;
 import com.caeproject.cae.domain.ports.out.CompetenciaRepository;
 
 public class CrearCompetenciaUseCase implements CrearCompetenciaInputPort {

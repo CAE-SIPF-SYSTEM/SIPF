@@ -1,0 +1,5 @@
+/* Custom styles for dialog if needed */
+::ng-deep .custom-dialog-container .mat-mdc-dialog-surface {
+  border-radius: 1rem !important;
+  overflow: visible !important;
+}

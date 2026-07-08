@@ -1,6 +1,6 @@
 package com.caeproject.cae.infraestructure.adapter.out.ficha;
 
-import com.caeproject.cae.domain.ports.model.ficha.Ficha;
+import com.caeproject.cae.domain.ports.model.Ficha;
 import com.caeproject.cae.domain.ports.out.FichaRepository;
 import com.caeproject.cae.infraestructure.mappers.FichaMapper;
 import org.springframework.stereotype.Component;

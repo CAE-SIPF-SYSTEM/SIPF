@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.model.rap;
+package com.caeproject.cae.domain.ports.model;
 
 public class Rap {
 

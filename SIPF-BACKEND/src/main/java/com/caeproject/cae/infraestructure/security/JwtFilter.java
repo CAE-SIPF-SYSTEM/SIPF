@@ -1,7 +1,7 @@
 package com.caeproject.cae.infraestructure.security;
 
 import com.caeproject.cae.domain.ports.exceptions.sessionexceptions.SesionCerradaException;
-import com.caeproject.cae.domain.ports.model.usuario.Usuario;
+import com.caeproject.cae.domain.ports.model.Usuario;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

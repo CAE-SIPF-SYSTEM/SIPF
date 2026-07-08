@@ -5,10 +5,11 @@ import com.caeproject.cae.application.utils.ValidacionContrasena;
 import com.caeproject.cae.domain.ports.exceptions.sessionexceptions.ContrasenaInvalidaException;
 import com.caeproject.cae.domain.ports.exceptions.usuarioexceptions.UsuarioNoEncontradoException;
 import com.caeproject.cae.domain.ports.in.usuario.EditarUsuarioInputPort;
-import com.caeproject.cae.domain.ports.model.usuario.Usuario;
+import com.caeproject.cae.domain.ports.model.PerfilBase;
+import com.caeproject.cae.domain.ports.model.Usuario;
 import com.caeproject.cae.domain.ports.out.UsuarioRepository;
 import com.caeproject.cae.domain.ports.out.AuditoriaPerfilRepository;
-import com.caeproject.cae.domain.ports.model.auditoria.AuditoriaPerfil;
+import com.caeproject.cae.domain.ports.model.AuditoriaPerfil;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -62,7 +63,7 @@ public class EditarUsuarioUseCase implements EditarUsuarioInputPort {
 
         if (command.getNombre() != null || command.getApellido() != null || command.getTelefono() != null) {
             if (usuarioExistente.getPerfilBase() == null) {
-                com.caeproject.cae.domain.ports.model.perfilbase.PerfilBase perfil = new com.caeproject.cae.domain.ports.model.perfilbase.PerfilBase();
+                PerfilBase perfil = new PerfilBase();
                 perfil.setUsuarioId(usuarioExistente.getId());
                 usuarioExistente.setPerfilBase(perfil);
             }

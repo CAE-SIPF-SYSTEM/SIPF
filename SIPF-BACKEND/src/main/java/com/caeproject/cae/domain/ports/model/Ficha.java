@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.model.ficha;
+package com.caeproject.cae.domain.ports.model;
 
 import java.util.Date;
 

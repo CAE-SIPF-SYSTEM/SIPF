@@ -1,7 +1,7 @@
 package com.caeproject.cae.application.usecases.rap;
 
 import com.caeproject.cae.domain.ports.in.Rap.ListarRapsInputPort;
-import com.caeproject.cae.domain.ports.model.rap.Rap;
+import com.caeproject.cae.domain.ports.model.Rap;
 import com.caeproject.cae.domain.ports.out.RapRepository;
 
 import java.util.List;

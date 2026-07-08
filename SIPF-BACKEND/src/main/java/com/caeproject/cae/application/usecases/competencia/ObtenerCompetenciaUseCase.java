@@ -2,7 +2,7 @@ package com.caeproject.cae.application.usecases.competencia;
 
 import com.caeproject.cae.domain.ports.exceptions.competenciaexception.CompetenciaNoEncontradaException;
 import com.caeproject.cae.domain.ports.in.competencia.ObtenerCompetenciaInputPort;
-import com.caeproject.cae.domain.ports.model.competencia.Competencia;
+import com.caeproject.cae.domain.ports.model.Competencia;
 import com.caeproject.cae.domain.ports.model.enums.TipoCompetencia;
 import com.caeproject.cae.domain.ports.out.CompetenciaRepository;
 

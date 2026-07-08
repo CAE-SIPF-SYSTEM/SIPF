@@ -3,7 +3,7 @@ package com.caeproject.cae.infraestructure.adapter.in;
 import com.caeproject.cae.domain.ports.in.recuperacion.RestablecerContrasenaInputPort;
 import com.caeproject.cae.domain.ports.in.recuperacion.SolicitarRecuperacionInputPort;
 import com.caeproject.cae.domain.ports.in.usuario.LoginInputPort;
-import com.caeproject.cae.domain.ports.model.usuario.Usuario;
+import com.caeproject.cae.domain.ports.model.Usuario;
 import com.caeproject.cae.infraestructure.dtos.email.MensajeResponse;
 import com.caeproject.cae.infraestructure.dtos.email.RestablecerContrasenaRequest;
 import com.caeproject.cae.infraestructure.dtos.email.SolicitarRecuperacionRequest;

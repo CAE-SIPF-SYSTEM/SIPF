@@ -1,0 +1,76 @@
+<app-main-layout pageTitle="Mi perfil">
+  <div class="w-full px-6 pt-12 pb-12 flex flex-col items-center animate-fade-in-up">
+    
+    <div class="bg-white rounded-2xl shadow-sm w-full max-w-5xl overflow-hidden min-h-[500px] flex flex-col relative">
+      
+      <!-- Avatar Section -->
+      <div class="w-full flex justify-center mt-16 mb-12 relative">
+        <div class="w-48 h-48 rounded-full bg-slate-200 flex items-center justify-center relative shadow-sm">
+          <mat-icon style="font-size: 120px; width: 120px; height: 120px; line-height: 120px; display: block;" class="text-[#27AE60]">person</mat-icon>
+          
+          <!-- Edit badge -->
+          <div class="absolute top-2 right-2 bg-white rounded-full shadow-md border border-slate-100 p-2 flex items-center justify-center w-10 h-10">
+            <mat-icon class="text-[#27AE60] !w-5 !h-5 text-xl leading-none flex items-center justify-center">trending_up</mat-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Section -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-15 px-12 pb-24">
+        
+        <!-- Left Column: Datos institucionales -->
+        <div class="flex flex-col gap-6">
+          <h3 class="text-2xl font-medium text-[#136E61]">Datos institucionales</h3>
+          
+          <div class="flex flex-col">
+            <span class="text-sm text-slate-500 flex items-center gap-1"><mat-icon class="!text-[16px] !w-4 !h-4 flex items-center justify-center text-slate-400">lock</mat-icon> Cargo</span>
+            <span class="text-slate-800 font-medium">{{ cargo() }}</span>
+          </div>
+
+          <div class="flex flex-col">
+            <span class="text-sm text-slate-500 flex items-center gap-1"><mat-icon class="!text-[16px] !w-4 !h-4 flex items-center justify-center text-slate-400">lock</mat-icon> Centro de formacion</span>
+            <span class="text-slate-800 font-medium">{{ centroFormacion() }}</span>
+          </div>
+
+          <div class="flex flex-col">
+            <span class="text-sm text-slate-500 flex items-center gap-1"><mat-icon class="!text-[16px] !w-4 !h-4 flex items-center justify-center text-slate-400">lock</mat-icon> ID institucional</span>
+            <span class="text-slate-800 font-medium">{{ idInstitucional() }}</span>
+          </div>
+
+          <div class="flex flex-col">
+            <span class="text-sm text-slate-500 flex items-center gap-1"><mat-icon class="!text-[16px] !w-4 !h-4 flex items-center justify-center text-slate-400">lock</mat-icon> Especialidad</span>
+            <span class="text-slate-800 font-medium line-through decoration-slate-400">{{ especialidad() }}</span>
+          </div>
+        </div>
+
+        <!-- Right Column: Datos personales & contacto -->
+        <div class="flex flex-col gap-6">
+          <h3 class="text-2xl font-medium text-[#136E61]">Datos personales & contacto</h3>
+          
+          <div class="flex flex-col">
+            <span class="text-sm text-slate-500 flex items-center gap-1"><mat-icon class="!text-[16px] !w-4 !h-4 flex items-center justify-center text-emerald-500">edit</mat-icon> Nombre completo</span>
+            <span class="text-slate-800 font-medium">{{ nombreCompleto() }}</span>
+          </div>
+
+          <div class="flex flex-col">
+            <span class="text-sm text-slate-500 flex items-center gap-1"><mat-icon class="!text-[16px] !w-4 !h-4 flex items-center justify-center text-emerald-500">edit</mat-icon> Correo electronico</span>
+            <span class="text-slate-800 font-medium">{{ correoElectronico() }}</span>
+          </div>
+
+          <div class="flex flex-col">
+            <span class="text-sm text-slate-500 flex items-center gap-1"><mat-icon class="!text-[16px] !w-4 !h-4 flex items-center justify-center text-emerald-500">edit</mat-icon> Telefono</span>
+            <span class="text-slate-800 font-medium">{{ telefono() }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Button -->
+      <div class="absolute bottom-8 right-12">
+        <button mat-raised-button class="!bg-[#136E61] !text-white !rounded-full !px-6 !py-1" (click)="abrirModalEditar()">
+          Editar Perfil
+        </button>
+      </div>
+
+    </div>
+  </div>
+</app-main-layout>

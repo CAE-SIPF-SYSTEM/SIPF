@@ -3,7 +3,7 @@ package com.caeproject.cae.infraestructure.adapter.in;
 import com.caeproject.cae.application.usecases.rap.commands.CrearRapCommand;
 import com.caeproject.cae.application.usecases.rap.commands.EditarRapCommand;
 import com.caeproject.cae.domain.ports.in.Rap.*;
-import com.caeproject.cae.domain.ports.model.rap.Rap;
+import com.caeproject.cae.domain.ports.model.Rap;
 import com.caeproject.cae.infraestructure.dtos.rap.CrearRapRequest;
 import com.caeproject.cae.infraestructure.dtos.rap.EditarRapRequest;
 import com.caeproject.cae.infraestructure.dtos.rap.RapResponse;

@@ -1,6 +1,6 @@
 package com.caeproject.cae.domain.ports.in.programa;
 
-import com.caeproject.cae.domain.ports.model.programa.Programa;
+import com.caeproject.cae.domain.ports.model.Programa;
 
 import java.util.List;
 
