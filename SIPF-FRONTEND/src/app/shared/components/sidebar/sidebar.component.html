@@ -39,6 +39,10 @@
         <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] text-orange-500">date_range</mat-icon>
         <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Trimestres</span>
       </a>
+      <a routerLink="/admin/especialidades" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] text-teal-500">school</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Especialidades</span>
+      </a>
     </ng-container>
 
     <ng-container *ngIf="role() === 'INSTRUCTOR'">

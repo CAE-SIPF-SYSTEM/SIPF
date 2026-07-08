@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ExcelService } from '../../../core/use-cases/excel.service';
-import { AlertService } from '../../../core/use-cases/alert.service';
+import { SweetAlertService } from '../../../core/use-cases/sweet-alert.service';
 import { MainLayoutComponent } from '../../../shared/layouts/main-layout/main-layout';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -24,7 +24,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class AlimentacionSistemaComponent {
   private excelService = inject(ExcelService);
-  private alertService = inject(AlertService);
+  private sweetAlertService = inject(SweetAlertService);
   private cdr = inject(ChangeDetectorRef);
 
   isDragging = false;
@@ -66,7 +66,7 @@ export class AlimentacionSistemaComponent {
     if (validExtensions.includes(fileExtension)) {
       this.selectedFile = file;
     } else {
-      this.alertService.error('Archivo no válido: Por favor, selecciona un archivo Excel (.xlsx o .xls)');
+      this.sweetAlertService.error('Error', 'Archivo no válido: Por favor, selecciona un archivo Excel (.xlsx o .xls)');
       this.selectedFile = null;
     }
   }
@@ -85,13 +85,13 @@ export class AlimentacionSistemaComponent {
       next: (response) => {
         this.isUploading = false;
         this.selectedFile = null;
-        this.alertService.success('Carga Exitosa: La alimentación del sistema se ha completado exitosamente.');
+        this.sweetAlertService.success('¡Éxito!', 'Carga Exitosa: La alimentación del sistema se ha completado exitosamente.');
         this.cdr.detectChanges();
       },
       error: (error) => {
         this.isUploading = false;
         const errorMessage = error.error || 'Ocurrió un error inesperado al procesar el archivo.';
-        this.alertService.error('Error al subir: ' + errorMessage);
+        this.sweetAlertService.error('Error', 'Error al subir: ' + errorMessage);
         this.cdr.detectChanges();
       }
     });

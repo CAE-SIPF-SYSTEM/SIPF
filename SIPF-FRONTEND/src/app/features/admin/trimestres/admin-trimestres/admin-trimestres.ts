@@ -4,7 +4,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { SweetAlertService } from '../../../../core/use-cases/sweet-alert.service';
 import { TrimestreService } from '../../../../core/use-cases/trimestre.service';
 import { Trimestre } from '../../../../core/entities/trimestre.model';
 import { TrimestreDialogComponent } from '../trimestre-dialog/trimestre-dialog';
@@ -19,7 +19,7 @@ import { MainLayoutComponent } from '../../../../shared/layouts/main-layout/main
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    MatSnackBarModule,
+    MatDialogModule,
     MainLayoutComponent
   ],
   templateUrl: './admin-trimestres.html',
@@ -28,7 +28,7 @@ import { MainLayoutComponent } from '../../../../shared/layouts/main-layout/main
 export class AdminTrimestresComponent implements OnInit {
   private readonly trimestreService = inject(TrimestreService);
   private readonly dialog = inject(MatDialog);
-  private readonly snackBar = inject(MatSnackBar);
+  private readonly sweetAlertService = inject(SweetAlertService);
 
   trimestres = signal<Trimestre[]>([]);
   displayedColumns: string[] = ['id', 'fichaId', 'anio', 'numeroTrimestre', 'fechaInicio', 'fechaFin', 'acciones'];
@@ -40,7 +40,7 @@ export class AdminTrimestresComponent implements OnInit {
   loadTrimestres(): void {
     this.trimestreService.getAll().subscribe({
       next: (data) => this.trimestres.set(data),
-      error: (err) => this.showError('Error al cargar los trimestres')
+      error: (err) => this.sweetAlertService.error('Error al cargar los trimestres')
     });
   }
 
@@ -55,41 +55,38 @@ export class AdminTrimestresComponent implements OnInit {
         if (trimestre && trimestre.id) {
           this.trimestreService.update(trimestre.id, result).subscribe({
             next: () => {
-              this.showSuccess('Trimestre actualizado correctamente');
+              this.sweetAlertService.success('Trimestre actualizado correctamente');
               this.loadTrimestres();
             },
-            error: () => this.showError('Error al actualizar el trimestre')
+            error: () => this.sweetAlertService.error('Error al actualizar el trimestre')
           });
         } else {
           this.trimestreService.create(result).subscribe({
             next: () => {
-              this.showSuccess('Trimestre creado correctamente');
+              this.sweetAlertService.success('Trimestre creado correctamente');
               this.loadTrimestres();
             },
-            error: () => this.showError('Error al crear el trimestre')
+            error: () => this.sweetAlertService.error('Error al crear el trimestre')
           });
         }
       }
     });
   }
 
-  deleteTrimestre(id: number): void {
-    if (confirm('¿Está seguro de eliminar este trimestre?')) {
+  async deleteTrimestre(id: number): Promise<void> {
+    const confirmed = await this.sweetAlertService.confirmDelete(
+      '¿Eliminar Trimestre?',
+      'Esta acción no se puede deshacer.'
+    );
+
+    if (confirmed) {
       this.trimestreService.delete(id).subscribe({
         next: () => {
-          this.showSuccess('Trimestre eliminado correctamente');
+          this.sweetAlertService.success('Trimestre eliminado correctamente');
           this.loadTrimestres();
         },
-        error: () => this.showError('Error al eliminar el trimestre')
+        error: () => this.sweetAlertService.error('Error al eliminar el trimestre')
       });
     }
-  }
-
-  private showSuccess(message: string): void {
-    this.snackBar.open(message, 'Cerrar', { duration: 3000, panelClass: ['success-snackbar'] });
-  }
-
-  private showError(message: string): void {
-    this.snackBar.open(message, 'Cerrar', { duration: 3000, panelClass: ['error-snackbar'] });
   }
 }

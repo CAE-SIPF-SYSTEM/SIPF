@@ -15,7 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { SweetAlertService } from '../../../core/use-cases/sweet-alert.service';
 import { FichaFormDialogComponent } from './ficha-form-dialog.component';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-modal/confirm-modal';
 
@@ -26,7 +26,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-modal
     CommonModule, FormsModule, ReactiveFormsModule, MainLayoutComponent,
     MatTableModule, MatPaginatorModule, MatSortModule,
     MatFormFieldModule, MatInputModule, MatSelectModule,
-    MatButtonModule, MatIconModule, MatDialogModule, MatSnackBarModule
+    MatButtonModule, MatIconModule, MatDialogModule
   ],
   templateUrl: './listar-fichas.component.html',
   styleUrl: './listar-fichas.component.css'
@@ -35,7 +35,7 @@ export class ListarFichasComponent implements OnInit {
   private fichaService = inject(FichaService);
   private programaService = inject(ProgramaService);
   private dialog = inject(MatDialog);
-  private snackBar = inject(MatSnackBar);
+  private sweetAlertService = inject(SweetAlertService);
 
   fichas = signal<FichaResponse[]>([]);
   programas = signal<ProgramaResponse[]>([]);
@@ -80,7 +80,7 @@ export class ListarFichasComponent implements OnInit {
   loadProgramas() {
     this.programaService.getAll().subscribe({
       next: (data) => this.programas.set(data),
-      error: () => this.showMessage('Error al cargar programas')
+      error: () => this.sweetAlertService.error('Error', 'Error al cargar programas')
     });
   }
 
@@ -98,7 +98,7 @@ export class ListarFichasComponent implements OnInit {
       },
       error: () => {
         this.isLoading.set(false);
-        this.showMessage('Error al cargar la lista de fichas');
+        this.sweetAlertService.error('Error', 'Error al cargar la lista de fichas');
       }
     });
   }
@@ -141,11 +141,11 @@ export class ListarFichasComponent implements OnInit {
   onCreateSubmit(formValue: any) {
     this.fichaService.create(formValue).subscribe({
       next: () => {
-        this.showMessage('Ficha creada exitosamente');
+        this.sweetAlertService.success('¡Éxito!', 'Ficha creada exitosamente');
         this.loadFichas();
       },
       error: (err) => {
-        this.showMessage(err.error?.mensaje || 'Error al crear ficha');
+        this.sweetAlertService.error('Error', err.error?.mensaje || 'Error al crear ficha');
       }
     });
   }
@@ -153,41 +153,31 @@ export class ListarFichasComponent implements OnInit {
   onEditSubmit(ficha: FichaResponse, formValue: any) {
     this.fichaService.update(ficha.id, formValue).subscribe({
       next: () => {
-        this.showMessage('Ficha actualizada exitosamente');
+        this.sweetAlertService.success('¡Actualizado!', 'Ficha actualizada exitosamente');
         this.loadFichas();
       },
       error: (err) => {
-        this.showMessage(err.error?.mensaje || 'Error al actualizar ficha');
+        this.sweetAlertService.error('Error', err.error?.mensaje || 'Error al actualizar ficha');
       }
     });
   }
 
-  onDeleteConfirm(ficha: FichaResponse) {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '400px',
-      data: {
-        title: 'Eliminar Ficha',
-        message: `¿Estás seguro de que deseas eliminar la ficha "${ficha.codigoFicha}"? Esta acción no se puede deshacer.`,
-        confirmText: 'Eliminar'
-      }
-    });
+  async onDeleteConfirm(ficha: FichaResponse) {
+    const confirmed = await this.sweetAlertService.confirmDelete(
+      'Eliminar Ficha',
+      `¿Estás seguro de que deseas eliminar la ficha "${ficha.codigoFicha}"? Esta acción no se puede deshacer.`
+    );
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.fichaService.delete(ficha.id).subscribe({
-          next: () => {
-            this.showMessage('Ficha eliminada exitosamente');
-            this.loadFichas();
-          },
-          error: (err) => {
-            this.showMessage(err.error?.mensaje || 'Error al eliminar ficha');
-          }
-        });
-      }
-    });
-  }
-
-  showMessage(msg: string) {
-    this.snackBar.open(msg, 'Cerrar', { duration: 3000 });
+    if (confirmed) {
+      this.fichaService.delete(ficha.id).subscribe({
+        next: () => {
+          this.sweetAlertService.success('¡Eliminado!', 'Ficha eliminada exitosamente');
+          this.loadFichas();
+        },
+        error: (err) => {
+          this.sweetAlertService.error('Error', err.error?.mensaje || 'Error al eliminar ficha');
+        }
+      });
+    }
   }
 }

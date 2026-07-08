@@ -1,4 +1,4 @@
-package com.caeproject.cae.application.usecases.Trimestre.commands;
+package com.caeproject.cae.application.usecases.trimestre.commands;
 
 import java.util.Date;
 
