@@ -13,10 +13,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { SweetAlertService } from '../../../core/use-cases/sweet-alert.service';
 import { MatCardModule } from '@angular/material/card';
 import { UserFormDialogComponent } from './user-form-dialog.component';
-import { ConfirmDialogComponent } from '../../../shared/components/confirm-modal/confirm-modal';
 
 @Component({
   selector: 'app-user-management',
@@ -25,7 +24,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-modal
     CommonModule, FormsModule, ReactiveFormsModule, MainLayoutComponent,
     MatTableModule, MatPaginatorModule, MatSortModule,
     MatFormFieldModule, MatInputModule, MatSelectModule,
-    MatButtonModule, MatIconModule, MatDialogModule, MatSnackBarModule,
+    MatButtonModule, MatIconModule, MatDialogModule,
     MatCardModule
   ],
   templateUrl: './user-management.component.html',
@@ -34,7 +33,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-modal
 export class UserManagementComponent implements OnInit {
   private userService = inject(UserService);
   private dialog = inject(MatDialog);
-  private snackBar = inject(MatSnackBar);
+  private sweetAlertService = inject(SweetAlertService);
 
   users = signal<UsuarioResponse[]>([]);
   searchTerm = signal('');
@@ -97,7 +96,7 @@ export class UserManagementComponent implements OnInit {
       },
       error: (err: any) => {
         this.isLoading.set(false);
-        this.showMessage('Error al cargar la lista de usuarios');
+        this.sweetAlertService.error('Error', 'Error al cargar la lista de usuarios');
       }
     });
   }
@@ -157,16 +156,16 @@ export class UserManagementComponent implements OnInit {
       next: (newUser: any) => {
         if (formValue.estado === false && newUser && newUser.id) {
            this.userService.disable(newUser.id).subscribe(() => {
-             this.showMessage('Usuario creado exitosamente');
+             this.sweetAlertService.success('¡Éxito!', 'Usuario creado exitosamente');
              this.loadUsers();
            });
         } else {
-           this.showMessage('Usuario creado exitosamente');
+           this.sweetAlertService.success('¡Éxito!', 'Usuario creado exitosamente');
            this.loadUsers();
         }
       },
       error: (err: any) => {
-        this.showMessage(err.error?.mensaje || 'Error al crear usuario');
+        this.sweetAlertService.error('Error', err.error?.mensaje || 'Error al crear usuario');
       }
     });
   }
@@ -185,51 +184,41 @@ export class UserManagementComponent implements OnInit {
       next: () => {
         if (wasActive && !isNowActive) {
           this.userService.disable(user.id).subscribe(() => {
-            this.showMessage('Usuario actualizado exitosamente');
+            this.sweetAlertService.success('¡Actualizado!', 'Usuario actualizado exitosamente');
             this.loadUsers();
           });
         } else if (!wasActive && isNowActive) {
           this.userService.enable(user.id).subscribe(() => {
-            this.showMessage('Usuario actualizado exitosamente');
+            this.sweetAlertService.success('¡Actualizado!', 'Usuario actualizado exitosamente');
             this.loadUsers();
           });
         } else {
-          this.showMessage('Usuario actualizado exitosamente');
+          this.sweetAlertService.success('¡Actualizado!', 'Usuario actualizado exitosamente');
           this.loadUsers();
         }
       },
       error: (err: any) => {
-        this.showMessage(err.error?.mensaje || 'Error al actualizar usuario');
+        this.sweetAlertService.error('Error', err.error?.mensaje || 'Error al actualizar usuario');
       }
     });
   }
 
-  onDeleteConfirm(user: UsuarioResponse) {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '400px',
-      data: {
-        title: 'Eliminar Usuario',
-        message: `¿Estás seguro de que deseas eliminar al usuario ${user.correo}? Esta acción no se puede deshacer.`,
-        confirmText: 'Eliminar'
-      }
-    });
+  async onDeleteConfirm(user: UsuarioResponse) {
+    const confirmed = await this.sweetAlertService.confirmDelete(
+      'Eliminar Usuario',
+      `¿Estás seguro de que deseas eliminar al usuario ${user.correo}? Esta acción no se puede deshacer.`
+    );
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.userService.delete(user.id).subscribe({
-          next: () => {
-            this.showMessage('Usuario eliminado exitosamente');
-            this.loadUsers();
-          },
-          error: (err: any) => {
-            this.showMessage(err.error?.mensaje || 'Error al eliminar usuario');
-          }
-        });
-      }
-    });
-  }
-
-  showMessage(msg: string) {
-    this.snackBar.open(msg, 'Cerrar', { duration: 3000 });
+    if (confirmed) {
+      this.userService.delete(user.id).subscribe({
+        next: () => {
+          this.sweetAlertService.success('¡Eliminado!', 'Usuario eliminado exitosamente');
+          this.loadUsers();
+        },
+        error: (err: any) => {
+          this.sweetAlertService.error('Error', err.error?.mensaje || 'Error al eliminar usuario');
+        }
+      });
+    }
   }
 }

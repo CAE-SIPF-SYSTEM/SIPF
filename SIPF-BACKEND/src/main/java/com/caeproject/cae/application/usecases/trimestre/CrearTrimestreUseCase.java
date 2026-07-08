@@ -1,6 +1,6 @@
-package com.caeproject.cae.application.usecases.Trimestre;
+package com.caeproject.cae.application.usecases.trimestre;
 
-import com.caeproject.cae.application.usecases.Trimestre.commands.CrearTrimestreCommand;
+import com.caeproject.cae.application.usecases.trimestre.commands.CrearTrimestreCommand;
 import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.FichaDuplicadaException;
 import com.caeproject.cae.domain.ports.in.trimestre.CrearTrimestreInputPort;
 import com.caeproject.cae.domain.ports.model.Trimestre;

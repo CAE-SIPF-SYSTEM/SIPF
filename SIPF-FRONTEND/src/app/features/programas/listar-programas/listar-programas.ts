@@ -13,7 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { SweetAlertService } from '../../../core/use-cases/sweet-alert.service';
 import { ProgramaFormDialogComponent } from './programa-form-dialog.component';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-modal/confirm-modal';
 
@@ -24,7 +24,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-modal
     CommonModule, FormsModule, ReactiveFormsModule, MainLayoutComponent,
     MatTableModule, MatPaginatorModule, MatSortModule,
     MatFormFieldModule, MatInputModule, MatSelectModule,
-    MatButtonModule, MatIconModule, MatDialogModule, MatSnackBarModule
+    MatButtonModule, MatIconModule, MatDialogModule
   ],
   templateUrl: './listar-programas.component.html',
   styleUrl: './listar-programas.component.css'
@@ -32,7 +32,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-modal
 export class ListarProgramasComponent implements OnInit {
   private programaService = inject(ProgramaService);
   private dialog = inject(MatDialog);
-  private snackBar = inject(MatSnackBar);
+  private sweetAlertService = inject(SweetAlertService);
 
   programas = signal<ProgramaResponse[]>([]);
   searchTerm = signal('');
@@ -93,7 +93,7 @@ export class ListarProgramasComponent implements OnInit {
       },
       error: () => {
         this.isLoading.set(false);
-        this.showMessage('Error al cargar la lista de programas');
+        this.sweetAlertService.error('Error', 'Error al cargar la lista de programas');
       }
     });
   }
@@ -131,11 +131,11 @@ export class ListarProgramasComponent implements OnInit {
   onCreateSubmit(formValue: any) {
     this.programaService.create(formValue).subscribe({
       next: () => {
-        this.showMessage('Programa creado exitosamente');
+        this.sweetAlertService.success('¡Éxito!', 'Programa creado exitosamente');
         this.loadProgramas();
       },
       error: (err) => {
-        this.showMessage(err.error?.mensaje || 'Error al crear programa');
+        this.sweetAlertService.error('Error', err.error?.mensaje || 'Error al crear programa');
       }
     });
   }
@@ -143,41 +143,31 @@ export class ListarProgramasComponent implements OnInit {
   onEditSubmit(programa: ProgramaResponse, formValue: any) {
     this.programaService.update(programa.id, formValue).subscribe({
       next: () => {
-        this.showMessage('Programa actualizado exitosamente');
+        this.sweetAlertService.success('¡Actualizado!', 'Programa actualizado exitosamente');
         this.loadProgramas();
       },
       error: (err) => {
-        this.showMessage(err.error?.mensaje || 'Error al actualizar programa');
+        this.sweetAlertService.error('Error', err.error?.mensaje || 'Error al actualizar programa');
       }
     });
   }
 
-  onDeleteConfirm(programa: ProgramaResponse) {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '400px',
-      data: {
-        title: 'Eliminar Programa',
-        message: `¿Estás seguro de que deseas eliminar el programa "${programa.nombre}"? Esta acción no se puede deshacer.`,
-        confirmText: 'Eliminar'
-      }
-    });
+  async onDeleteConfirm(programa: ProgramaResponse) {
+    const confirmed = await this.sweetAlertService.confirmDelete(
+      'Eliminar Programa',
+      `¿Estás seguro de que deseas eliminar el programa "${programa.nombre}"? Esta acción no se puede deshacer.`
+    );
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.programaService.delete(programa.id).subscribe({
-          next: () => {
-            this.showMessage('Programa eliminado exitosamente');
-            this.loadProgramas();
-          },
-          error: (err) => {
-            this.showMessage(err.error?.mensaje || 'Error al eliminar programa');
-          }
-        });
-      }
-    });
-  }
-
-  showMessage(msg: string) {
-    this.snackBar.open(msg, 'Cerrar', { duration: 3000 });
+    if (confirmed) {
+      this.programaService.delete(programa.id).subscribe({
+        next: () => {
+          this.sweetAlertService.success('¡Eliminado!', 'Programa eliminado exitosamente');
+          this.loadProgramas();
+        },
+        error: (err) => {
+          this.sweetAlertService.error('Error', err.error?.mensaje || 'Error al eliminar programa');
+        }
+      });
+    }
   }
 }

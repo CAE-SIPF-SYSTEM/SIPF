@@ -1,6 +1,6 @@
-package com.caeproject.cae.application.usecases.Trimestre;
+package com.caeproject.cae.application.usecases.trimestre;
 
-import com.caeproject.cae.application.usecases.Trimestre.commands.EditarTrimestreCommand;
+import com.caeproject.cae.application.usecases.trimestre.commands.EditarTrimestreCommand;
 import com.caeproject.cae.domain.ports.in.trimestre.EditarTrimestreInputPort;
 import com.caeproject.cae.domain.ports.model.Trimestre;
 import com.caeproject.cae.domain.ports.out.TrimestreRepository;

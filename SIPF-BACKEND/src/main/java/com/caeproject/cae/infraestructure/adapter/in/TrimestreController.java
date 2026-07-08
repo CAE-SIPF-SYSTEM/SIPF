@@ -1,7 +1,7 @@
 package com.caeproject.cae.infraestructure.adapter.in;
 
-import com.caeproject.cae.application.usecases.Trimestre.commands.CrearTrimestreCommand;
-import com.caeproject.cae.application.usecases.Trimestre.commands.EditarTrimestreCommand;
+import com.caeproject.cae.application.usecases.trimestre.commands.CrearTrimestreCommand;
+import com.caeproject.cae.application.usecases.trimestre.commands.EditarTrimestreCommand;
 import com.caeproject.cae.domain.ports.in.trimestre.*;
 import com.caeproject.cae.domain.ports.model.Trimestre;
 import com.caeproject.cae.infraestructure.dtos.trimestre.TrimestreRequestDTO;

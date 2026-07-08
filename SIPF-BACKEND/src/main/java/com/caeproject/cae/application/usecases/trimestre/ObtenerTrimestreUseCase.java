@@ -1,4 +1,4 @@
-package com.caeproject.cae.application.usecases.Trimestre;
+package com.caeproject.cae.application.usecases.trimestre;
 
 import com.caeproject.cae.domain.ports.in.trimestre.ObtenerTrimestreInputPort;
 import com.caeproject.cae.domain.ports.model.Trimestre;

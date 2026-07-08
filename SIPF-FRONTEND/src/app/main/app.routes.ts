@@ -71,6 +71,13 @@ export const routes: Routes = [
             m => m.AdminTrimestresComponent
           ),
       },
+      {
+        path: 'especialidades',
+        loadComponent: () =>
+          import('../features/admin/especialidades/admin-especialidades/admin-especialidades').then(
+            m => m.AdminEspecialidadesComponent
+          ),
+      },
     ],
   },
 
