@@ -218,4 +218,22 @@ public class BeanConfiguration {
     public com.caeproject.cae.domain.ports.in.Especialidad.ObtenerEspecialidadInputPort obtenerEspecialidadInputPort(com.caeproject.cae.domain.ports.out.EspecialidadRepository repository) {
         return new com.caeproject.cae.application.usecases.especialidad.ObtenerEspecialidadUseCase(repository);
     }
+
+    // --- BEANS DE INSTRUCTOR ESPECIALIDAD ---
+    @Bean
+    public com.caeproject.cae.domain.ports.in.InstructorEspecialidad.AsignarEspecialidadInstructorInputPort asignarEspecialidadInstructorInputPort(com.caeproject.cae.domain.ports.out.InstructorEspecialidadRepository repository) {
+        return new com.caeproject.cae.application.usecases.EspecialidadInstructor.AsignarEspecialidadInstructorUseCase(repository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.InstructorEspecialidad.EditarEspecialidadInstructorInputPort editarEspecialidadInstructorInputPort(com.caeproject.cae.domain.ports.out.InstructorEspecialidadRepository repository) {
+        return new com.caeproject.cae.application.usecases.EspecialidadInstructor.EditarEspecialidadInstructorUseCase(repository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.InstructorEspecialidad.DesasignarEspecialidadInstructorInputPort desasignarEspecialidadInstructorInputPort(com.caeproject.cae.domain.ports.out.InstructorEspecialidadRepository repository) {
+        return new com.caeproject.cae.application.usecases.EspecialidadInstructor.DesasignarEspecialidadInstructorUseCase(repository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.InstructorEspecialidad.ListarInstructoresEspecialidadesInputPort listarInstructoresEspecialidadesInputPort(com.caeproject.cae.domain.ports.out.InstructorEspecialidadRepository repository) {
+        return new com.caeproject.cae.application.usecases.EspecialidadInstructor.ListarInstructoresEspecialidadesUseCase(repository);
+    }
 }

@@ -41,6 +41,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/fichas/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
                         .requestMatchers("/api/trimestres/**").hasRole("ADMINISTRADOR")
                         .requestMatchers("/api/especialidades/**").hasRole("ADMINISTRADOR")
+                        .requestMatchers("/api/instructor-especialidad/**").hasRole("ADMINISTRADOR")
                         .requestMatchers("/api/excel/alimentacion").hasRole("ADMINISTRADOR")
                         .requestMatchers("/api/raps/**").hasRole("COORDINADOR")
                         .requestMatchers("/api/competencias/**").hasRole("COORDINADOR")
