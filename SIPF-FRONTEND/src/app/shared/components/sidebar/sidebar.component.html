@@ -43,6 +43,10 @@
         <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] text-teal-500">school</mat-icon>
         <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Especialidades</span>
       </a>
+      <a routerLink="/admin/instructor-especialidad" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] text-blue-500">assignment_ind</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Asignar Especialidad</span>
+      </a>
     </ng-container>
 
     <ng-container *ngIf="role() === 'INSTRUCTOR'">
