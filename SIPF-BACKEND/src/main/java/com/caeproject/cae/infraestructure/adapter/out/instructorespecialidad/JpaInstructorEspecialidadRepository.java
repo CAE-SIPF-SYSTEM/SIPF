@@ -1,6 +1,5 @@
-package com.caeproject.cae.infraestructure.adapter.out.persistence;
+package com.caeproject.cae.infraestructure.adapter.out.instructorespecialidad;
 
-import com.caeproject.cae.infraestructure.entities.InstructorEspecialidadEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
-package com.caeproject.cae.infraestructure.adapter.in.dtos;
+package com.caeproject.cae.infraestructure.dtos.instructorespecialidad;
 
-public class InstructorEspecialidadRequestDTO {
+public class InstructorEspecialidadResponseDTO {
     private Long usuarioId;
     private Long especialidadId;
 

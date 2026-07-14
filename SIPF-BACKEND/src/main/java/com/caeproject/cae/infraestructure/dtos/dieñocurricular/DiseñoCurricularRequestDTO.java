@@ -1,0 +1,16 @@
+package com.caeproject.cae.infraestructure.dtos.dieñocurricular;
+
+public class DiseñoCurricularRequestDTO {
+    private Long programaId;
+    private Integer numeroTrimestre;
+    private Long rapId;
+
+    public Long getProgramaId() {return programaId;}
+    public void setProgramaId(Long programaId) {this.programaId = programaId;}
+
+    public Integer getNumeroTrimestre() {return numeroTrimestre;}
+    public void setNumeroTrimestre(Integer numeroTrimestre) {this.numeroTrimestre = numeroTrimestre;}
+
+    public Long getRapId() {return rapId;}
+    public void setRapId(Long rapId) {this.rapId = rapId;}
+}

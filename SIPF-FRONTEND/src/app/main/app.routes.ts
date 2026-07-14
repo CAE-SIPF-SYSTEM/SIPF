@@ -85,6 +85,13 @@ export const routes: Routes = [
             m => m.AdminInstructorEspecialidadComponent
           ),
       },
+      {
+        path: 'competencia-especialidad',
+        loadComponent: () =>
+          import('../features/admin/competencia-especialidad/admin-competencia-especialidad/admin-competencia-especialidad.component').then(
+            m => m.AdminCompetenciaEspecialidadComponent
+          ),
+      },
     ],
   },
 

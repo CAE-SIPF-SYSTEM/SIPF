@@ -4,7 +4,7 @@ import com.caeproject.cae.application.usecases.especialidad.commands.CrearEspeci
 import com.caeproject.cae.application.usecases.especialidad.commands.EditarEspecialidadCommand;
 import com.caeproject.cae.domain.ports.in.Especialidad.*;
 import com.caeproject.cae.domain.ports.model.Especialidad;
-import com.caeproject.cae.infraestructure.adapter.in.dtos.EspecialidadResponseDTO;
+import com.caeproject.cae.infraestructure.dtos.especialidad.EspecialidadResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

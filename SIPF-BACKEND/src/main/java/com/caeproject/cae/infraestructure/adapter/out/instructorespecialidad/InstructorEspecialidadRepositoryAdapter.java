@@ -1,8 +1,7 @@
-package com.caeproject.cae.infraestructure.adapter.out;
+package com.caeproject.cae.infraestructure.adapter.out.instructorespecialidad;
 
 import com.caeproject.cae.domain.ports.model.InstructorEspecialidad;
 import com.caeproject.cae.domain.ports.out.InstructorEspecialidadRepository;
-import com.caeproject.cae.infraestructure.adapter.out.persistence.JpaInstructorEspecialidadRepository;
 import com.caeproject.cae.infraestructure.mappers.InstructorEspecialidadMapper;
 import org.springframework.stereotype.Component;
 

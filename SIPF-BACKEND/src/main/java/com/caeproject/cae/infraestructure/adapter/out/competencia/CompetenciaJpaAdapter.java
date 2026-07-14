@@ -60,4 +60,9 @@ public class CompetenciaJpaAdapter implements CompetenciaRepository {
     public Optional<Competencia> findByCodigo(String codigo) {
         return jpaRepository.findByCodigo(codigo).map(mapper::toDomain);
     }
+
+    @Override
+    public Optional<Competencia> findByNombre(String nombre) {
+        return jpaRepository.findFirstByNombre(nombre).map(mapper::toDomain);
+    }
 }

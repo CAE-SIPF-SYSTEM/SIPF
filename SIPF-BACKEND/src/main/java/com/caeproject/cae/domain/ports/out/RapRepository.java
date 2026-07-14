@@ -8,8 +8,8 @@ import java.util.Optional;
 public interface RapRepository {
     List<Rap> findAll();
     Optional<Rap> findById(Long id);
-    void eliminarRap(Long id);
-    List<Rap>findByCompetencia(Long competenciaId);
-    boolean existByCompetenciaId(Long competenciaId);
+    List<Rap> findByCompetencia(Long competenciaId);
     Rap saveRap(Rap rap);
+    void eliminarRap(Long id);
+    boolean existByCompetenciaId(Long competenciaId);
 }

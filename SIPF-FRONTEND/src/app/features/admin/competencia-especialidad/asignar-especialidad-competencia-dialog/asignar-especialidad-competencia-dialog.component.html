@@ -1,0 +1,42 @@
+<div class="p-6">
+  <div class="flex items-center gap-3 mb-4">
+    <mat-icon class="text-teal-600 !w-8 !h-8 !text-[32px]">school</mat-icon>
+    <h2 class="text-2xl font-semibold text-slate-800 m-0">
+      {{ data.isEdit ? 'Cambiar Especialidad' : 'Asignar Especialidad' }}
+    </h2>
+  </div>
+
+  <p class="text-sm text-slate-500 mb-6">
+    Selecciona la especialidad técnica requerida para la competencia <span class="font-semibold text-slate-700">{{ data.nombreCompetencia }}</span>.
+  </p>
+
+  <div *ngIf="isLoading()" class="flex justify-center py-8">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading()" class="flex flex-col gap-4">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Especialidad</mat-label>
+      <mat-select [(ngModel)]="selectedEspecialidadId" [disabled]="isSaving()">
+        <mat-option *ngFor="let especialidad of especialidades()" [value]="especialidad.id">
+          {{ especialidad.nombreEspecialidad }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="flex justify-end gap-3 mt-6">
+    <button mat-button (click)="onCancel()" [disabled]="isSaving()" class="text-slate-600">
+      Cancelar
+    </button>
+    <button
+      mat-flat-button
+      class="!bg-teal-600 !text-white hover:!bg-teal-700 disabled:opacity-50"
+      (click)="onSave()"
+      [disabled]="isSaving() || !selectedEspecialidadId"
+    >
+      <mat-icon *ngIf="isSaving()"><mat-spinner diameter="20"></mat-spinner></mat-icon>
+      {{ isSaving() ? 'Guardando...' : 'Guardar' }}
+    </button>
+  </div>
+</div>

@@ -1,9 +1,8 @@
 package com.caeproject.cae.infraestructure.mappers;
 
 import com.caeproject.cae.domain.ports.model.Especialidad;
-import com.caeproject.cae.infraestructure.entities.EspecialidadEntity;
+import com.caeproject.cae.infraestructure.adapter.out.especialidad.EspecialidadEntity;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 import java.util.List;
 

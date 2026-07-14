@@ -26,9 +26,11 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
     private static final Logger log = LoggerFactory.getLogger(AlimentacionCRAdapter.class);
 
     private static final String[] COLUMNAS_REQUERIDAS = {
+            "CODIGO COMPETENCIA",
             "DENOMINACION COMPETENCIA",
             "TIPO COMPETENCIA",
-            "DESCRIPCION RESULTADO DE APRENDIZAJE (RAP)"
+            "DESCRIPCION RESULTADO DE APRENDIZAJE (RAP)",
+            "TRIMESTRE"
     };
 
     @Override
@@ -88,27 +90,32 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
             return null;
         }
 
-        String denominacionCompetencia = obtenerValorCelda(row.getCell(columnas.get("DENOMINACION COMPETENCIA")));
-        if (denominacionCompetencia == null || denominacionCompetencia.isEmpty()) {
+        String codigoCompetencia = obtenerValorCelda(row.getCell(columnas.get("CODIGO COMPETENCIA")));
+        String nombreCompetencia = obtenerValorCelda(row.getCell(columnas.get("DENOMINACION COMPETENCIA")));
+
+        if (nombreCompetencia == null || nombreCompetencia.isEmpty()) {
             return null;
-        }
-
-        String codigoCompetencia = "SIN_CODIGO";
-        String nombreCompetencia = denominacionCompetencia.trim();
-
-        if (denominacionCompetencia.contains("-")) {
-            codigoCompetencia = denominacionCompetencia.split("-")[0].trim();
-            nombreCompetencia = denominacionCompetencia.substring(denominacionCompetencia.indexOf("-") + 1).trim();
         }
 
         Competencia competencia = construirCompetencia(row, columnas, codigoCompetencia, nombreCompetencia, i);
         Rap rap = construirRap(row, columnas, i);
+        
+        Integer idxTrimestre = columnas.get("TRIMESTRE");
+        String trimestreStr = idxTrimestre != null ? obtenerValorCelda(row.getCell(idxTrimestre)) : null;
+        Integer trimestre = 1; // Default
+        if (trimestreStr != null && !trimestreStr.isEmpty()) {
+            try {
+                trimestre = Integer.parseInt(trimestreStr);
+            } catch (NumberFormatException e) {
+                log.warn("Trimestre inválido en fila {}: {}", i, trimestreStr);
+            }
+        }
 
-        log.info(">>> Fila {} leída: Competencia {} [{}], RAP {} ({}h)", i, 
+        log.info(">>> Fila {} leída: Competencia {} [{}], RAP {} ({}h), Trimestre: {}", i, 
                  codigoCompetencia, competencia.getTipoCompetencia(), 
-                 rap.getId(), rap.getHorasPresenciales());
+                 rap.getId(), rap.getHorasPresenciales(), trimestre);
 
-        return new CompetenciaRap(competencia, List.of(rap));
+        return new CompetenciaRap(competencia, List.of(rap), trimestre);
     }
 
     private Competencia construirCompetencia(Row row, Map<String, Integer> columnas, String codigoCompetencia, String nombreCompetencia, int i) {
@@ -138,15 +145,10 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
     }
 
     private Rap construirRap(Row row, Map<String, Integer> columnas, int i) {
-        String descripcionCompleta = obtenerValorCelda(row.getCell(columnas.get("DESCRIPCION RESULTADO DE APRENDIZAJE (RAP)")));
+        String descripcionRap = obtenerValorCelda(row.getCell(columnas.get("DESCRIPCION RESULTADO DE APRENDIZAJE (RAP)")));
         
-        String codigoRap = null;
-        String descripcionRap = descripcionCompleta;
-        
-        if (descripcionCompleta != null && descripcionCompleta.contains("-")) {
-            codigoRap = descripcionCompleta.split("-")[0].trim();
-            descripcionRap = descripcionCompleta.substring(descripcionCompleta.indexOf("-") + 1).trim();
-        }
+        Integer idxCodigoRap = columnas.get("CODIGO RAP");
+        String codigoRap = idxCodigoRap != null ? obtenerValorCelda(row.getCell(idxCodigoRap)) : null;
         
         Integer idxHoras = columnas.get("INTENSIDAD HORARIA");
         String horasRapStr = idxHoras != null ? obtenerValorCelda(row.getCell(idxHoras)) : null;

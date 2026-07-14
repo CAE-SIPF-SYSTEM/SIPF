@@ -1,4 +1,4 @@
-package com.caeproject.cae.infraestructure.adapter.in.dtos;
+package com.caeproject.cae.infraestructure.dtos.especialidad;
 
 public class EspecialidadResponseDTO {
     private Long id;

@@ -1,10 +1,8 @@
-package com.caeproject.cae.infraestructure.adapter.out;
+package com.caeproject.cae.infraestructure.adapter.out.especialidad;
 
 import com.caeproject.cae.domain.ports.model.Especialidad;
 import com.caeproject.cae.domain.ports.out.EspecialidadRepository;
-import com.caeproject.cae.infraestructure.entities.EspecialidadEntity;
 import com.caeproject.cae.infraestructure.mappers.EspecialidadMapper;
-import com.caeproject.cae.infraestructure.repositories.JpaEspecialidadRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

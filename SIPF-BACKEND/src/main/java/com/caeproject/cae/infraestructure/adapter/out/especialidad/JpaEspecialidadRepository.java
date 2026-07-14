@@ -1,6 +1,5 @@
-package com.caeproject.cae.infraestructure.repositories;
+package com.caeproject.cae.infraestructure.adapter.out.especialidad;
 
-import com.caeproject.cae.infraestructure.entities.EspecialidadEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

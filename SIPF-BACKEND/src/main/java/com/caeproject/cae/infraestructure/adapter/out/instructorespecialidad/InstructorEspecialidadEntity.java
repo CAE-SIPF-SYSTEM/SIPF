@@ -1,4 +1,4 @@
-package com.caeproject.cae.infraestructure.entities;
+package com.caeproject.cae.infraestructure.adapter.out.instructorespecialidad;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
