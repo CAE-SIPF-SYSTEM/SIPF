@@ -259,4 +259,40 @@ public class BeanConfiguration {
     public com.caeproject.cae.domain.ports.in.diseñoCurricular.ListarDiseñoCurricularInputPort listarDiseñoCurricularInputPort (DiseñoCurricularRepository diseñoCurricularRepository){
         return new com.caeproject.cae.application.usecases.diseñoCurricular.LIstarDiseñoCurricularUseCase(diseñoCurricularRepository);
     }
+
+    // --- DISPONIBILIDAD INSTRUCTOR ---
+    @Bean
+    public com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.CrearDisponibilidadInstructorInputPort crearDisponibilidadInstructorInputPort(
+            DisponibilidadInstructorRepository disponibilidadInstructorRepository,
+            UsuarioRepository usuarioRepository,
+            PerfilBaseRepository perfilBaseRepository) {
+
+        return new com.caeproject.cae.application.usecases.disponibilidadInstructor.CrearDisponibilidadInstructorUseCase(
+                disponibilidadInstructorRepository,
+                usuarioRepository,
+                perfilBaseRepository
+        );
+    }
+
+    @Bean
+    public com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.EditarDisponibilidadInstructorInputPort editarDisponibilidadInstructorInputPort(
+            DisponibilidadInstructorRepository disponibilidadInstructorRepository
+    ){
+        return new com.caeproject.cae.application.usecases.disponibilidadInstructor.EditarDisponibilidadInstructorUseCase(disponibilidadInstructorRepository);
+    }
+
+    @Bean
+    public com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.EliminarDisponibilidadInputPort eliminarDisponibilidadInputPort(DisponibilidadInstructorRepository disponibilidadInstructorRepository){
+        return new com.caeproject.cae.application.usecases.disponibilidadInstructor.EliminarDisponibilidadInstructorUseCase(disponibilidadInstructorRepository);
+    }
+
+    @Bean com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.ListarDisponibilidadInstructorInputPort listarDisponibilidadInstructorInputPort(DisponibilidadInstructorRepository disponibilidadInstructorRepository){
+        return  new com.caeproject.cae.application.usecases.disponibilidadInstructor.ListarDisponibilidadInstructorUseCase(disponibilidadInstructorRepository);
+    }
+
+    @Bean com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.ObtenerDisponibilidadInstructorInputPort obtenerDisponibilidadInstructorInputPort (DisponibilidadInstructorRepository disponibilidadInstructorRepository){
+        return new com.caeproject.cae.application.usecases.disponibilidadInstructor.ObtenerDisponibilidadInstructorUseCase(disponibilidadInstructorRepository);
+    }
+
+
 }

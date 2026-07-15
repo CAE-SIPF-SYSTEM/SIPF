@@ -7,4 +7,5 @@ import java.util.Optional;
 public interface PerfilBaseRepository {
     Optional<PerfilBase> findByCC(Long cc);
     PerfilBase save (PerfilBase perfilBase);
+    Optional<PerfilBase> findById(Long id);
 }
