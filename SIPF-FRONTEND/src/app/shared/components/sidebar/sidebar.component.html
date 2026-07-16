@@ -58,7 +58,14 @@
         <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] ">dashboard</mat-icon>
         <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Dashboard</span>
       </a>
+      <a routerLink="/instructor/disponibilidad" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] text-blue-500">event_available</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Disponibilidad</span>
+      </a>
+       
     </ng-container>
+
+
     <ng-container *ngIf="role() === 'COORDINADOR'">
       <a routerLink="/coordinador/dashboard" routerLinkActive="active-nav" class="nav-item">
         <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px]">dashboard</mat-icon>

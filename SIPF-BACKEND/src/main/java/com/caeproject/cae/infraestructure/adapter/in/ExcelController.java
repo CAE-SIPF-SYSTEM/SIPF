@@ -19,7 +19,7 @@ public class ExcelController {
     }
 
     @PostMapping("/alimentacion")
-    public ResponseEntity<String> subirAlimentacion(@RequestParam("file") MultipartFile file, @RequestParam("programaId") Long programaId) {
+    public ResponseEntity<String> subirAlimentacion(@RequestParam("file") MultipartFile file) {
         try {
             //validacion de tipo de documento
             String nombreArchivo = file.getOriginalFilename();
@@ -28,7 +28,7 @@ public class ExcelController {
                         .body("El archivo debe ser un Excel (.xlsx o .xls)");
             }
 
-            alimentacionCrUseCase.ejecutar(file.getInputStream(), programaId);
+            alimentacionCrUseCase.ejecutar(file.getInputStream());
             return ResponseEntity.ok("Alimentacion subida");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

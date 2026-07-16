@@ -8,6 +8,10 @@ public class UsuarioLoginResponse {
     private String correo;
     private Rol rol;
     private String tokenSession; //token para session unica
+    private String nombre;
+
+    public String getNombre() {return  nombre;}
+    public void setNombre(String nombre){this.nombre = nombre;}
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

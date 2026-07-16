@@ -9,6 +9,7 @@ export interface LoginResponse {
   rol: 'COORDINADOR' | 'ADMINISTRADOR' | 'INSTRUCTOR';
   token: string;
   estado: boolean
+  nombre : string
 }
 
 export interface CrearUsuarioRequest {

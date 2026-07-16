@@ -6,8 +6,6 @@ import com.caeproject.cae.domain.ports.model.Rap;
 import com.caeproject.cae.domain.ports.out.AlimentacionCRRepository;
 import com.caeproject.cae.domain.ports.out.CompetenciaRepository;
 import com.caeproject.cae.domain.ports.out.RapRepository;
-import com.caeproject.cae.domain.ports.model.DiseñoCurricular;
-import com.caeproject.cae.domain.ports.out.DiseñoCurricularRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.InputStream;
@@ -17,20 +15,17 @@ public class AlimentacionCrUseCase {
     private final AlimentacionCRRepository alimentacionCRRepository;
     private final CompetenciaRepository competenciaRepository;
     private final RapRepository rapRepository;
-    private final DiseñoCurricularRepository diseñoCurricularRepository;
     private static final Logger log = LoggerFactory.getLogger(AlimentacionCrUseCase.class);
 
     public AlimentacionCrUseCase(AlimentacionCRRepository alimentacionCRRepository,
                                  CompetenciaRepository competenciaRepository,
-                                 RapRepository rapRepository,
-                                 DiseñoCurricularRepository diseñoCurricularRepository) {
+                                 RapRepository rapRepository) {
         this.alimentacionCRRepository = alimentacionCRRepository;
         this.competenciaRepository = competenciaRepository;
         this.rapRepository = rapRepository;
-        this.diseñoCurricularRepository = diseñoCurricularRepository;
     }
 
-    public void ejecutar(InputStream alimentacionExcel, Long programaId) {
+    public void ejecutar(InputStream alimentacionExcel) {
 
         List<AlimentacionCRRepository.CompetenciaRap> competenciaRaps = alimentacionCRRepository.extraerAlimentacion(alimentacionExcel);
 
@@ -93,13 +88,6 @@ public class AlimentacionCrUseCase {
 
                     Rap rapGuardado = rapRepository.saveRap(rap);
 
-                    // --- NUEVO: Guardar en Diseño Curricular ---
-                    DiseñoCurricular dc = new DiseñoCurricular();
-                    dc.setProgramaId(programaId);
-                    dc.setRapId(rapGuardado.getId());
-                    dc.setNumeroTrimestre(registro.trimestre());
-                    diseñoCurricularRepository.saveDiseñoCurricular(dc);
-                    log.info("     -> Plantilla Diseño Curricular guardada (Programa: {}, Trimestre: {}, RAP: {})", programaId, registro.trimestre(), rapGuardado.getId());
                 }
 
             } catch (Exception e) {

@@ -1,0 +1,47 @@
+<h2 mat-dialog-title class="text-xl font-bold bg-[#158e80] text-white p-4 m-0 flex justify-between items-center">
+  {{ isEditMode ? 'Editar Disponibilidad' : 'Crear Disponibilidad' }}
+  <button mat-icon-button (click)="onCancel()" class="text-white hover:bg-white/20 rounded-full p-1 transition-colors focus:outline-none">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+</h2>
+
+<mat-dialog-content class="p-6 mat-typography">
+  <form [formGroup]="form" class="flex flex-col gap-4 mt-2">
+    
+    <div class="bg-blue-50 border border-blue-100 p-4 rounded-lg text-blue-800 text-sm mb-2" *ngIf="isEditMode">
+      <div class="flex items-start gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p>Solo puedes modificar los días disponibles. Para cambiar tus horas máximas, comunícate con el administrador.</p>
+      </div>
+    </div>
+
+    <!-- Días Disponibles -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Días Disponibles</mat-label>
+      <mat-select formControlName="diasDisponibles" multiple>
+        <mat-option *ngFor="let dia of diasSemanas" [value]="dia">{{ dia }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('diasDisponibles')?.hasError('required')">
+        Debes seleccionar al menos un día
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="p-4 border-t border-gray-100">
+  <button mat-button (click)="onCancel()" class="text-gray-600 font-medium px-4 py-2 hover:bg-gray-100 rounded-lg transition-colors">
+    Cancelar
+  </button>
+  <button 
+    mat-raised-button 
+    class="bg-[#0078cd] hover:bg-blue-700 text-white font-medium ml-2 shadow-sm rounded-lg"
+    [disabled]="form.invalid || isSubmitting()"
+    (click)="onSubmit()">
+    {{ isSubmitting() ? 'Guardando...' : 'Guardar' }}
+  </button>
+</mat-dialog-actions>

@@ -59,6 +59,12 @@ export class AuthService {
     return user ? user.estado : null
   }
 
+  getNombre(): String | null {
+    const user = this.getUser();
+    return user ? user.nombre : null;
+  }
+  
+
   getToken(): string | null {
     if (typeof window === 'undefined') return null;
     return localStorage.getItem(this.TOKEN_KEY);

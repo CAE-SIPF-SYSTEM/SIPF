@@ -165,9 +165,8 @@ public class BeanConfiguration {
     @Bean
     public AlimentacionCrUseCase alimentacionCrUseCase(AlimentacionCRRepository alimentacionCRRepository,
                                                        CompetenciaRepository competenciaRepository,
-                                                       RapRepository rapRepository,
-                                                       DiseñoCurricularRepository diseñoCurricularRepository) {
-        return new AlimentacionCrUseCase(alimentacionCRRepository, competenciaRepository, rapRepository, diseñoCurricularRepository);
+                                                       RapRepository rapRepository) {
+        return new AlimentacionCrUseCase(alimentacionCRRepository, competenciaRepository, rapRepository);
     }
 
     // --- BEANS DE TRIMESTRE ---

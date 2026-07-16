@@ -107,6 +107,20 @@ export const routes: Routes = [
             m => m.InstructorDashboardComponent
           ),
       },
+      {
+        path: 'disponibilidad',
+        loadComponent: () =>
+          import('../features/instructor/disponibilidad-instructor/disponibilidad-instructor.component').then(
+            m => m.DisponibilidadInstructorComponent
+          ),
+      },
+       {
+        path: 'instructor-especialidad',
+        loadComponent: () =>
+          import('../features/admin/instructor-especialidad/admin-instructor-especialidad/admin-instructor-especialidad').then(
+            m => m.AdminInstructorEspecialidadComponent
+          ),
+      },
     ],
   },
 
