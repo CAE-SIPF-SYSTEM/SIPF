@@ -44,7 +44,8 @@ export class DisponibilidadFormDialogComponent implements OnInit {
     this.isEditMode = !!this.data.disponibilidad;
     
     this.form = this.fb.group({
-      diasDisponibles: [this.data.disponibilidad?.diasDisponibles || [], [Validators.required]]
+      diasDisponibles: [this.data.disponibilidad?.diasDisponibles || [], [Validators.required]],
+      jornada: [this.data.disponibilidad?.jornada || '', [Validators.required]]
     });
   }
 
@@ -55,7 +56,7 @@ export class DisponibilidadFormDialogComponent implements OnInit {
     const formValue = this.form.getRawValue();
 
     if (this.isEditMode) {
-      this.disponibilidadService.update(this.data.usuarioId, { diasDisponibles: formValue.diasDisponibles }).subscribe({
+      this.disponibilidadService.update(this.data.usuarioId, { diasDisponibles: formValue.diasDisponibles, jornada: formValue.jornada }).subscribe({
         next: () => {
           this.sweetAlertService.success('Disponibilidad actualizada exitosamente');
           this.dialogRef.close(true);
@@ -70,7 +71,8 @@ export class DisponibilidadFormDialogComponent implements OnInit {
       const createData = {
         usuarioId: this.data.usuarioId,
         diasDisponibles: formValue.diasDisponibles,
-        horasMaximas: 144
+        horasMaximas: 144,
+        jornada: formValue.jornada
       };
       this.disponibilidadService.create(createData).subscribe({
         next: () => {

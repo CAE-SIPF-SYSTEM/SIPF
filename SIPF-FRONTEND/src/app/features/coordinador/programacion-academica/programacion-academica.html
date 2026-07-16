@@ -1,0 +1,135 @@
+<div class="glass-container">
+  <h1 class="page-title">Programación Académica</h1>
+  <p class="page-subtitle">Asigna instructores a los Resultados de Aprendizaje (RAPs) sin generar cruces de horario.</p>
+
+  <!-- Selectores -->
+  <div class="glass-card">
+    <div class="selector-group">
+      <select class="custom-select" [(ngModel)]="selectedFicha">
+        <option [ngValue]="null" disabled selected>Seleccione una Ficha</option>
+        <option *ngFor="let f of fichas" [ngValue]="f.id">{{ f.nombre }}</option>
+      </select>
+
+      <select class="custom-select" [(ngModel)]="selectedTrimestre">
+        <option [ngValue]="null" disabled selected>Seleccione el Trimestre</option>
+        <option *ngFor="let t of trimestres" [ngValue]="t.id">{{ t.nombre }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Tabla de RAPs -->
+  <div class="glass-card" *ngIf="selectedFicha && selectedTrimestre">
+    <div class="rap-table-container">
+      <table class="rap-table">
+        <thead>
+          <tr>
+            <th>Competencia (Especialidad)</th>
+            <th>Descripción del RAP</th>
+            <th>Horas</th>
+            <th>Estado</th>
+            <th>Instructor</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rap of raps">
+            <td>
+              <div style="font-weight: 600; color: #111827; margin-bottom: 0.25rem;">{{ rap.competencia }}</div>
+              <div style="font-size: 0.85rem; color: #6b7280;">{{ rap.especialidad }}</div>
+            </td>
+            <td>{{ rap.descripcion }}</td>
+            <td style="font-weight: 600;">{{ rap.horas }}h</td>
+            <td>
+              <span class="badge" 
+                    [ngClass]="rap.estado === 'Asignado' ? 'badge-assigned' : 'badge-pending'">
+                {{ rap.estado }}
+              </span>
+            </td>
+            <td>
+              <span *ngIf="rap.instructor" style="font-weight: 500; color: #374151;">{{ rap.instructor }}</span>
+              <span *ngIf="!rap.instructor" style="color: #9ca3af; font-style: italic;">Sin asignar</span>
+            </td>
+            <td>
+              <button class="btn-primary" 
+                      *ngIf="rap.estado !== 'Asignado'"
+                      (click)="seleccionarRap(rap)">
+                Asignar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal / Panel Lateral de Asignación -->
+<div class="side-panel-overlay" *ngIf="selectedRap">
+  <div class="side-panel">
+    <div class="panel-header">
+      <div>
+        <h2 class="panel-title">Asignar Instructor</h2>
+        <p style="color: #6b7280; font-size: 0.9rem; margin-top: 0.25rem;">
+          RAP: {{ selectedRap.descripcion }} ({{ selectedRap.horas }}h)
+        </p>
+      </div>
+      <button class="close-btn" (click)="selectedRap = null">✕</button>
+    </div>
+
+    <div class="panel-body">
+      <!-- Filtros -->
+      <div class="filter-row">
+        <input type="text" class="search-input" placeholder="Buscar por nombre..." [(ngModel)]="searchTerm">
+        <select class="custom-select" style="flex: 0.5" [(ngModel)]="filterJornada">
+          <option value="">Todas las jornadas</option>
+          <option value="MAÑANA">Mañana</option>
+          <option value="TARDE">Tarde</option>
+        </select>
+      </div>
+
+      <!-- Lista de Instructores -->
+      <div class="instructor-card" *ngFor="let instructor of filteredInstructores">
+        <div class="instructor-header">
+          <div>
+            <div class="instructor-name">{{ instructor.nombre }}</div>
+            <div class="instructor-specialty">{{ instructor.especialidad }} • {{ instructor.jornada }}</div>
+          </div>
+          <span class="badge" style="background: #f3f4f6; color: #374151;">
+            Disp: {{ instructor.horasMaximas - instructor.horasAsignadas }}h
+          </span>
+        </div>
+
+        <!-- Barra de Progreso (Banco de Horas) -->
+        <div class="progress-container">
+          <div class="progress-labels">
+            <span>Horas Asignadas</span>
+            <span>{{ instructor.horasAsignadas }} / {{ instructor.horasMaximas }}h</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" 
+                 [style.width.%]="calcularPorcentajeHoras(instructor.horasAsignadas, instructor.horasMaximas)"
+                 [ngClass]="{
+                   'progress-safe': calcularPorcentajeHoras(instructor.horasAsignadas, instructor.horasMaximas) < 70,
+                   'progress-warning': calcularPorcentajeHoras(instructor.horasAsignadas, instructor.horasMaximas) >= 70 && calcularPorcentajeHoras(instructor.horasAsignadas, instructor.horasMaximas) < 90,
+                   'progress-danger': calcularPorcentajeHoras(instructor.horasAsignadas, instructor.horasMaximas) >= 90
+                 }">
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-primary" style="width: 100%;" 
+                *ngIf="puedeAsignar(instructor)"
+                (click)="asignarInstructor(instructor)">
+          Seleccionar Instructor
+        </button>
+        <div class="unavailable-text" *ngIf="!puedeAsignar(instructor)">
+          No tiene horas suficientes para este RAP (Requiere {{ selectedRap.horas }}h)
+        </div>
+      </div>
+      
+      <div *ngIf="filteredInstructores.length === 0" style="text-align: center; color: #6b7280; padding: 2rem;">
+        No hay instructores disponibles que coincidan con los filtros.
+      </div>
+    </div>
+  </div>
+</div>

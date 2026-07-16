@@ -18,5 +18,9 @@ public class EditarDisponibilidadCommand {
     public void setDiasDisponibles(List<DiasDisponibles> diasDisponibles) {
         this.diasDisponibles = diasDisponibles;
     }
-   }
+
+    private com.caeproject.cae.domain.ports.model.enums.Jornada jornada;
+    public com.caeproject.cae.domain.ports.model.enums.Jornada getJornada() {return jornada;}
+    public void setJornada(com.caeproject.cae.domain.ports.model.enums.Jornada jornada) {this.jornada = jornada;}
+}
 

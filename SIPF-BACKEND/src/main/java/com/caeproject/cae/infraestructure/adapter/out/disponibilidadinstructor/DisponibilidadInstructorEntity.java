@@ -23,6 +23,10 @@ public class DisponibilidadInstructorEntity {
     @Column (name = "HorasMaximas", nullable = false)
     private Long horasMaximas;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "jornada")
+    private com.caeproject.cae.domain.ports.model.enums.Jornada jornada;
+
     public Long getUsuarioId() {return usuarioId;}
     public void setUsuarioId(Long usuarioId) {this.usuarioId = usuarioId;}
 
@@ -31,4 +35,7 @@ public class DisponibilidadInstructorEntity {
 
     public Long getHorasMaximas() {return horasMaximas;}
     public void setHorasMaximas(Long horasMaximas) {this.horasMaximas = horasMaximas;}
+
+    public com.caeproject.cae.domain.ports.model.enums.Jornada getJornada() {return jornada;}
+    public void setJornada(com.caeproject.cae.domain.ports.model.enums.Jornada jornada) {this.jornada = jornada;}
 }
