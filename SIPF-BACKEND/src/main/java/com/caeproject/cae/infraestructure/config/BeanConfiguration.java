@@ -1,19 +1,13 @@
 package com.caeproject.cae.infraestructure.config;
 
 import com.caeproject.cae.application.usecases.excel.AlimentacionCrUseCase;
-import com.caeproject.cae.domain.ports.out.AlimentacionCRRepository;
+import com.caeproject.cae.domain.ports.out.*;
 import com.caeproject.cae.application.usecases.recuperacion.RestablecerContrasenaUseCase;
 import com.caeproject.cae.application.usecases.recuperacion.SolicitarRecuperacionUseCase;
 import com.caeproject.cae.application.usecases.usuario.*;
 import com.caeproject.cae.domain.ports.in.recuperacion.RestablecerContrasenaInputPort;
 import com.caeproject.cae.domain.ports.in.recuperacion.SolicitarRecuperacionInputPort;
 import com.caeproject.cae.domain.ports.in.usuario.*;
-import com.caeproject.cae.domain.ports.out.EmailNotificationPort;
-import com.caeproject.cae.domain.ports.out.PerfilBaseRepository;
-import com.caeproject.cae.domain.ports.out.TokenRecuperacionRepository;
-import com.caeproject.cae.domain.ports.out.UsuarioRepository;
-import com.caeproject.cae.domain.ports.out.CompetenciaRepository;
-import com.caeproject.cae.domain.ports.out.RapRepository;
 import com.caeproject.cae.infraestructure.security.JwtUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -236,4 +230,68 @@ public class BeanConfiguration {
     public com.caeproject.cae.domain.ports.in.InstructorEspecialidad.ListarInstructoresEspecialidadesInputPort listarInstructoresEspecialidadesInputPort(com.caeproject.cae.domain.ports.out.InstructorEspecialidadRepository repository) {
         return new com.caeproject.cae.application.usecases.EspecialidadInstructor.ListarInstructoresEspecialidadesUseCase(repository);
     }
+
+    // --- BEANS DE COMPETENCIA ESPECIALIDAD ---
+    @Bean
+    public com.caeproject.cae.domain.ports.in.CompetenciaEspecialidad.AsignarEspecialidadCompetenciaInputPort asignarEspecialidadCompetenciaInputPort(CompetenciaEspecialidadRepository repository) {
+        return new com.caeproject.cae.application.usecases.CompetenciaEspecialidad.AsignarEspecialidadCompetenciaUseCase(repository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.CompetenciaEspecialidad.EditarEspecialidadCompetenciaInputPort editarEspecialidadCompetenciaInputPort(CompetenciaEspecialidadRepository repository) {
+        return new com.caeproject.cae.application.usecases.CompetenciaEspecialidad.EditarEspecialidadCompetenciaUseCase(repository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.CompetenciaEspecialidad.DesasignarEspecialidadCompetenciaInputPort desasignarEspecialidadCompetenciaInputPort(CompetenciaEspecialidadRepository repository) {
+        return new com.caeproject.cae.application.usecases.CompetenciaEspecialidad.DesasignarEspecialidadCompetenciaUseCase(repository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.CompetenciaEspecialidad.ListarEspecialidadesCompetenciaInputPort listarEspecialidadesCompetenciaInputPort(CompetenciaEspecialidadRepository repository) {
+        return new com.caeproject.cae.application.usecases.CompetenciaEspecialidad.ListarEspecialidadesCompetenciaUseCase(repository);
+    }
+
+    // -- BEANS DE DISEÑOCURRICULAR --
+    @Bean
+    public com.caeproject.cae.domain.ports.in.diseñoCurricular.EliminarDiseñoCurricularInputPort eliminarDiseñoCurricularInputPort (DiseñoCurricularRepository diseñoCurricularRepository){
+        return new com.caeproject.cae.application.usecases.diseñoCurricular.EliminarDiseñoCurricularUseCase(diseñoCurricularRepository);
+    }
+    @Bean
+    public com.caeproject.cae.domain.ports.in.diseñoCurricular.ListarDiseñoCurricularInputPort listarDiseñoCurricularInputPort (DiseñoCurricularRepository diseñoCurricularRepository){
+        return new com.caeproject.cae.application.usecases.diseñoCurricular.LIstarDiseñoCurricularUseCase(diseñoCurricularRepository);
+    }
+
+    // --- DISPONIBILIDAD INSTRUCTOR ---
+    @Bean
+    public com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.CrearDisponibilidadInstructorInputPort crearDisponibilidadInstructorInputPort(
+            DisponibilidadInstructorRepository disponibilidadInstructorRepository,
+            UsuarioRepository usuarioRepository,
+            PerfilBaseRepository perfilBaseRepository) {
+
+        return new com.caeproject.cae.application.usecases.disponibilidadInstructor.CrearDisponibilidadInstructorUseCase(
+                disponibilidadInstructorRepository,
+                usuarioRepository,
+                perfilBaseRepository
+        );
+    }
+
+    @Bean
+    public com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.EditarDisponibilidadInstructorInputPort editarDisponibilidadInstructorInputPort(
+            DisponibilidadInstructorRepository disponibilidadInstructorRepository
+    ){
+        return new com.caeproject.cae.application.usecases.disponibilidadInstructor.EditarDisponibilidadInstructorUseCase(disponibilidadInstructorRepository);
+    }
+
+    @Bean
+    public com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.EliminarDisponibilidadInputPort eliminarDisponibilidadInputPort(DisponibilidadInstructorRepository disponibilidadInstructorRepository){
+        return new com.caeproject.cae.application.usecases.disponibilidadInstructor.EliminarDisponibilidadInstructorUseCase(disponibilidadInstructorRepository);
+    }
+
+    @Bean com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.ListarDisponibilidadInstructorInputPort listarDisponibilidadInstructorInputPort(DisponibilidadInstructorRepository disponibilidadInstructorRepository){
+        return  new com.caeproject.cae.application.usecases.disponibilidadInstructor.ListarDisponibilidadInstructorUseCase(disponibilidadInstructorRepository);
+    }
+
+    @Bean com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.ObtenerDisponibilidadInstructorInputPort obtenerDisponibilidadInstructorInputPort (DisponibilidadInstructorRepository disponibilidadInstructorRepository){
+        return new com.caeproject.cae.application.usecases.disponibilidadInstructor.ObtenerDisponibilidadInstructorUseCase(disponibilidadInstructorRepository);
+    }
+
+
 }

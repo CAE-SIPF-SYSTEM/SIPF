@@ -85,6 +85,13 @@ export const routes: Routes = [
             m => m.AdminInstructorEspecialidadComponent
           ),
       },
+      {
+        path: 'competencia-especialidad',
+        loadComponent: () =>
+          import('../features/admin/competencia-especialidad/admin-competencia-especialidad/admin-competencia-especialidad.component').then(
+            m => m.AdminCompetenciaEspecialidadComponent
+          ),
+      },
     ],
   },
 
@@ -98,6 +105,20 @@ export const routes: Routes = [
         loadComponent: () =>
           import('../features/instructor/dashboard/instructor-dashboard').then(
             m => m.InstructorDashboardComponent
+          ),
+      },
+      {
+        path: 'disponibilidad',
+        loadComponent: () =>
+          import('../features/instructor/disponibilidad-instructor/disponibilidad-instructor.component').then(
+            m => m.DisponibilidadInstructorComponent
+          ),
+      },
+       {
+        path: 'instructor-especialidad',
+        loadComponent: () =>
+          import('../features/admin/instructor-especialidad/admin-instructor-especialidad/admin-instructor-especialidad').then(
+            m => m.AdminInstructorEspecialidadComponent
           ),
       },
     ],

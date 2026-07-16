@@ -10,4 +10,5 @@ public interface CompetenciaJpaRepository extends JpaRepository<CompetenciaEntit
     List<CompetenciaEntity> findByTipoCompetencia(TipoCompetencia tipoCompetencia);
     boolean existsByNombre(String nombre);
     Optional<CompetenciaEntity> findByCodigo(String codigo);
+    Optional<CompetenciaEntity> findFirstByNombre(String nombre);
 }

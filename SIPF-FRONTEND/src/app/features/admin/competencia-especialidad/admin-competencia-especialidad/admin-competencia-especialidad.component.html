@@ -1,0 +1,137 @@
+<app-main-layout pageTitle="Especialidades de Competencia">
+<div class="p-8 max-w-7xl mx-auto min-h-[calc(100vh-80px)]">
+  <!-- Header -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+    <div>
+      <h1 class="text-3xl font-bold text-slate-800 tracking-tight flex items-center gap-3">
+        <mat-icon class="text-teal-600 !w-8 !h-8 !text-[32px]">extension</mat-icon>
+        Especialidades de Competencia
+      </h1>
+      <p class="text-slate-500 mt-2 text-sm max-w-2xl">
+        Asigna la especialidad técnica que requiere cada competencia para la correcta programación de instructores.
+      </p>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading()" class="flex flex-col items-center justify-center py-20 bg-white rounded-2xl shadow-sm border border-slate-100">
+    <mat-spinner diameter="48" class="mb-4"></mat-spinner>
+    <p class="text-slate-500 font-medium">Cargando competencias y especialidades...</p>
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="!isLoading()" class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+    
+    <div class="overflow-x-auto">
+      <table mat-table [dataSource]="paginatedCompetencias()" class="w-full">
+        
+        <!-- Código Column -->
+        <ng-container matColumnDef="codigo">
+          <th mat-header-cell *matHeaderCellDef class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-left">
+            Código
+          </th>
+          <td mat-cell *matCellDef="let element" class="px-4 py-4 text-slate-700 font-medium">
+            {{ element.codigo }}
+          </td>
+        </ng-container>
+
+        <!-- Nombre Column -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-left">
+            Nombre de la Competencia
+          </th>
+          <td mat-cell *matCellDef="let element" class="px-4 py-4">
+            <div class="text-slate-700 font-medium line-clamp-2" [title]="element.nombre">{{ element.nombre }}</div>
+          </td>
+        </ng-container>
+
+        <!-- Tipo Column -->
+        <ng-container matColumnDef="tipo">
+          <th mat-header-cell *matHeaderCellDef class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-left">
+            Tipo
+          </th>
+          <td mat-cell *matCellDef="let element" class="px-4 py-4">
+            <span class="px-2.5 py-1 rounded-full text-xs font-semibold"
+              [ngClass]="element.tipoCompetencia === 'TECNICA' ? 'bg-indigo-100 text-indigo-700' : 'bg-slate-100 text-slate-700'">
+              {{ element.tipoCompetencia }}
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Especialidad Column -->
+        <ng-container matColumnDef="especialidad">
+          <th mat-header-cell *matHeaderCellDef class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-left">
+            Especialidad Requerida
+          </th>
+          <td mat-cell *matCellDef="let element" class="px-4 py-4">
+            <ng-container *ngIf="getEspecialidadNombre(element.id) as nombreEsp; else noEsp">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 text-teal-700 font-medium text-sm border border-teal-200">
+                <mat-icon class="!w-4 !h-4 text-[16px]">verified</mat-icon>
+                {{ nombreEsp }}
+              </span>
+            </ng-container>
+            <ng-template #noEsp>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-50 text-slate-500 font-medium text-sm border border-slate-200">
+                <mat-icon class="!w-4 !h-4 text-[16px]">help_outline</mat-icon>
+                Sin asignar
+              </span>
+            </ng-template>
+          </td>
+        </ng-container>
+
+        <!-- Acciones Column -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-right">
+            Acciones
+          </th>
+          <td mat-cell *matCellDef="let element" class="px-4 py-4 text-right">
+            <div class="flex items-center justify-end gap-2">
+              <button *ngIf="!getEspecialidadNombre(element.id)" 
+                mat-button 
+                class="!text-teal-600 !bg-teal-50 hover:!bg-teal-100"
+                (click)="openAsignarDialog(element)">
+                <mat-icon>add_circle</mat-icon>
+                Asignar
+              </button>
+
+              <button *ngIf="getEspecialidadNombre(element.id)" 
+                mat-icon-button 
+                class="!text-indigo-600 hover:!bg-indigo-50"
+                matTooltip="Cambiar especialidad"
+                (click)="openAsignarDialog(element)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              
+              <button *ngIf="getEspecialidadNombre(element.id)" 
+                mat-icon-button 
+                class="!text-red-500 hover:!bg-red-50"
+                matTooltip="Remover especialidad"
+                (click)="removeAsignacion(element)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-slate-50 transition-colors border-b border-slate-100"></tr>
+      </table>
+      
+      <!-- Empty State -->
+      <div *ngIf="competencias().length === 0" class="flex flex-col items-center justify-center py-16 text-slate-500">
+        <mat-icon class="!w-12 !h-12 !text-[48px] text-slate-300 mb-4">inbox</mat-icon>
+        <p class="text-lg font-medium text-slate-600">No hay competencias registradas</p>
+      </div>
+
+    </div>
+    
+    <mat-paginator [length]="competencias().length"
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+                   (page)="onPageChange($event)"
+                   class="border-t border-slate-100">
+    </mat-paginator>
+
+  </div>
+</div>
+</app-main-layout>

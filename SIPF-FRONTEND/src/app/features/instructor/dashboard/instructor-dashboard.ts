@@ -12,4 +12,5 @@ import { AuthService } from '../../../core/use-cases/auth.service';
 export class InstructorDashboardComponent {
   authService = inject(AuthService);
   email = this.authService.getUserEmail();
+  nombre = this.authService.getNombre();
 }

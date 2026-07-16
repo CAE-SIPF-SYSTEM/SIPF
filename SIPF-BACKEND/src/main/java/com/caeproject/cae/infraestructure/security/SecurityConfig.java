@@ -35,16 +35,19 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll() //MOMENTANEO H2
 
 
                         .requestMatchers("/api/programas/**").hasRole("COORDINADOR")
                         .requestMatchers("/api/fichas/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
                         .requestMatchers("/api/trimestres/**").hasRole("ADMINISTRADOR")
-                        .requestMatchers("/api/especialidades/**").hasRole("ADMINISTRADOR")
-                        .requestMatchers("/api/instructor-especialidad/**").hasRole("ADMINISTRADOR")
+                        .requestMatchers("/api/especialidades/**").hasAnyRole("ADMINISTRADOR", "INSTRUCTOR")
+                        .requestMatchers("/api/instructor-especialidad/**").hasAnyRole("ADMINISTRADOR", "INSTRUCTOR")
+                        .requestMatchers("/api/competencia-especialidad/**").hasRole("ADMINISTRADOR")
                         .requestMatchers("/api/excel/alimentacion").hasRole("ADMINISTRADOR")
-                        .requestMatchers("/api/raps/**").hasRole("COORDINADOR")
-                        .requestMatchers("/api/competencias/**").hasRole("COORDINADOR")
+                        .requestMatchers("/api/raps/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
+                        .requestMatchers("/api/competencias/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
+                        .requestMatchers("/api/disponibilidadinstructor").hasRole("INSTRUCTOR")
                         // EJEMPLO MOMENTANEO
                         .requestMatchers(HttpMethod.GET, "/api/usuarios").hasRole("ADMINISTRADOR")
 
@@ -52,8 +55,13 @@ public class SecurityConfig {
                         // Cualquier otra petición requiere autenticación
                         .anyRequest().authenticated()
                 )
-                // Registra tu filtro JWT personalizado
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .headers(headers -> headers
+                        .frameOptions(frame -> frame.sameOrigin())
+                );
+
+
 
         return http.build();
     }

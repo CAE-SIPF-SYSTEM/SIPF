@@ -1,0 +1,132 @@
+<app-main-layout title="Gestión de Disponibilidad">
+  <div class="p-6">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-xl font-bold text-gray-800">Mi Disponibilidad</h2>
+      <button 
+        (click)="openManageDialog()"
+        class="bg-[#0078cd] hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition-colors flex items-center gap-2 shadow-md">
+        <span>Gestionar Disponibilidad</span>
+      </button>
+    </div>
+
+    <!-- Spinner -->
+    <div *ngIf="isLoading()" class="flex justify-center items-center py-12">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#158e80]"></div>
+    </div>
+
+    <div *ngIf="!isLoading()">
+      <!-- Si no hay disponibilidad creada -->
+      <div *ngIf="!disponibilidad()" class="bg-white rounded-xl shadow-sm border border-gray-100 p-8 text-center">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 text-blue-500 mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-medium text-gray-900 mb-2">No has configurado tu disponibilidad</h3>
+        <p class="text-gray-500 mb-6 max-w-md mx-auto">Aún no tienes días ni horas registradas en el sistema. Haz clic en el botón de "Gestionar Disponibilidad" para configurarlos.</p>
+        <button (click)="openManageDialog()" class="text-[#0078cd] font-medium hover:underline">Configurar ahora</button>
+      </div>
+
+      <!-- Si hay disponibilidad creada -->
+      <!-- Si hay disponibilidad creada -->
+      <div *ngIf="disponibilidad()" class="grid grid-cols-1 md:grid-cols-3" style="gap: 1rem; margin-top: 1rem;">
+        
+        <!-- Tarjeta Horas Máximas -->
+        <div class="card flex items-center" style="padding: 1rem !important; border-radius: 1rem; background-color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+          <div class="bg-indigo-50 p-3 rounded-full mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-1">Horas Máximas</p>
+            <p class="text-3xl font-bold text-gray-900">{{ disponibilidad()?.horasMaximas }} <span class="text-base font-normal text-gray-500">hrs</span></p>
+          </div>
+        </div>
+
+        <!-- Tarjeta Días Disponibles -->
+        <div class="card col-span-1 md:col-span-2 flex flex-col justify-center" style="padding: 1rem !important; border-radius: 1rem; background-color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+          <p class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3 border-b pb-2">Días Habilitados</p>
+          
+          <div *ngIf="disponibilidad()?.diasDisponibles?.length === 0" class="text-gray-400 py-1">
+            No hay días seleccionados.
+          </div>
+          
+          <div class="flex flex-wrap" style="gap: 0.5rem; margin-top: 0.25rem;">
+            <span *ngFor="let dia of disponibilidad()?.diasDisponibles" 
+                  class="bg-[#158e80]/10 text-[#158e80] font-medium rounded-lg border border-[#158e80]/20 flex items-center"
+                  style="padding: 0.4rem 1rem; gap: 0.4rem; font-size: 0.875rem;">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              {{ dia }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Tarjeta Especialidad -->
+        <div class="card col-span-1 md:col-span-1 flex flex-col justify-center" style="padding: 1rem !important; border-radius: 1rem; background-color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+          <p class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2 border-b pb-1">Especialidad</p>
+          <div style="margin-top: 0.25rem;">
+            <span class="text-lg font-bold text-gray-800">{{ nombreEspecialidad() }}</span>
+          </div>
+        </div>
+        
+        <!-- Tarjeta Horario de Clase -->
+        <div class="card col-span-1 md:col-span-3" style="padding: 1rem !important; margin-top: 0.5rem; border-radius: 1rem; background-color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+          <div class="flex items-center gap-2 mb-4 border-b pb-2">
+            <div class="bg-blue-50 p-2 rounded-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h3 class="text-base font-bold text-gray-800 uppercase">Horario de Clase</h3>
+          </div>
+          
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse border border-gray-200" style="min-width: 600px;">
+              <thead>
+                <tr class="bg-gray-50">
+                  <th class="font-semibold text-gray-600 text-sm border border-gray-200" style="padding: 0.75rem; width: 100px;">Hora</th>
+                  <th class="font-semibold text-gray-600 text-sm text-center border border-gray-200" style="padding: 0.75rem; width: 20%;">Lunes</th>
+                  <th class="font-semibold text-gray-600 text-sm text-center border border-gray-200" style="padding: 0.75rem; width: 20%;">Martes</th>
+                  <th class="font-semibold text-gray-600 text-sm text-center border border-gray-200" style="padding: 0.75rem; width: 20%;">Miércoles</th>
+                  <th class="font-semibold text-gray-600 text-sm text-center border border-gray-200" style="padding: 0.75rem; width: 20%;">Jueves</th>
+                  <th class="font-semibold text-gray-600 text-sm text-center border border-gray-200" style="padding: 0.75rem; width: 20%;">Viernes</th>
+                </tr>
+              </thead>
+              <tbody class="text-sm text-gray-700">
+                <!-- Filas vacías para el horario -->
+                <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors" style="height: 3rem;">
+                  <td class="font-medium text-gray-500 border-r border-gray-200 text-center" style="padding: 0.5rem;"></td>
+                  <td class="border border-gray-200" style="padding: 0.5rem;"></td>
+                  <td class="border border-gray-200" style="padding: 0.5rem;"></td>
+                  <td class="border border-gray-200" style="padding: 0.5rem;"></td>
+                  <td class="border border-gray-200" style="padding: 0.5rem;"></td>
+                  <td class="border border-gray-200" style="padding: 0.5rem;"></td>
+                </tr>
+                <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors" style="height: 3rem;">
+                  <td class="font-medium text-gray-500 border-r border-gray-200 text-center" style="padding: 0.5rem;"></td>
+                  <td class="border border-gray-200" style="padding: 0.5rem;"></td>
+                  <td class="border border-gray-200" style="padding: 0.5rem;"></td>
+                  <td class="border border-gray-200" style="padding: 0.5rem;"></td>
+                  <td class="border border-gray-200" style="padding: 0.5rem;"></td>
+                  <td class="border border-gray-200" style="padding: 0.5rem;"></td>
+                </tr>
+                 <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors" style="height: 3rem;">
+                  <td class="font-medium text-gray-500 border-r border-gray-200 text-center" style="padding: 0.5rem;"></td>
+                  <td class="border border-gray-200" style="padding: 0.5rem;"></td>
+                  <td class="border border-gray-200" style="padding: 0.5rem;"></td>
+                  <td class="border border-gray-200" style="padding: 0.5rem;"></td>
+                  <td class="border border-gray-200" style="padding: 0.5rem;"></td>
+                  <td class="border border-gray-200" style="padding: 0.5rem;"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+          
+      </div>
+    </div>
+  </div>
+</app-main-layout>

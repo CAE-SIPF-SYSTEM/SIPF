@@ -41,6 +41,13 @@ public class AuthController {
         response.setCorreo(usuarioValidado.getCorreo());
         response.setRol(usuarioValidado.getRol());
         response.setToken(usuarioValidado.getJwtToken());
+        if (usuarioValidado.getPerfilBase() != null) {
+            String nombreCompleto = usuarioValidado.getPerfilBase().getNombre();
+            if (usuarioValidado.getPerfilBase().getApellido() != null) {
+                nombreCompleto += " " + usuarioValidado.getPerfilBase().getApellido();
+            }
+            response.setNombre(nombreCompleto);
+        }
 
         return ResponseEntity.ok(response);
     }

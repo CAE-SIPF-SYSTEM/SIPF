@@ -45,7 +45,13 @@ public class AlimentacionCrUseCase {
 
                 // Guardar la competencia si no existe
                 Competencia competenciaGuardada;
-                java.util.Optional<Competencia> existente = competenciaRepository.findByCodigo(codigoCompetencia);
+                java.util.Optional<Competencia> existente;
+                
+                if (codigoCompetencia == null || codigoCompetencia.trim().isEmpty() || "SIN_CODIGO".equals(codigoCompetencia)) {
+                    existente = competenciaRepository.findByNombre(nombreCompetencia);
+                } else {
+                    existente = competenciaRepository.findByCodigo(codigoCompetencia);
+                }
                 
                 if (existente.isEmpty()) {
                     competenciaGuardada = competenciaRepository.saveCompetencia(competencia);
@@ -76,12 +82,12 @@ public class AlimentacionCrUseCase {
 
                     log.info("   -> Guardando RAP: {} {} {} {}", idcompetencia, descripcionRap, estado, horasPresenciales);
 
-                    //setter a competencia
                     rap.setCompetenciaId(idcompetencia);
                     
                     rap.setId(null);
 
-                    rapRepository.saveRap(rap);
+                    Rap rapGuardado = rapRepository.saveRap(rap);
+
                 }
 
             } catch (Exception e) {

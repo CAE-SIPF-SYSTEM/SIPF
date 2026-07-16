@@ -7,8 +7,8 @@ import com.caeproject.cae.domain.ports.in.InstructorEspecialidad.DesasignarEspec
 import com.caeproject.cae.domain.ports.in.InstructorEspecialidad.EditarEspecialidadInstructorInputPort;
 import com.caeproject.cae.domain.ports.in.InstructorEspecialidad.ListarInstructoresEspecialidadesInputPort;
 import com.caeproject.cae.domain.ports.model.InstructorEspecialidad;
-import com.caeproject.cae.infraestructure.adapter.in.dtos.InstructorEspecialidadRequestDTO;
-import com.caeproject.cae.infraestructure.adapter.in.dtos.InstructorEspecialidadResponseDTO;
+import com.caeproject.cae.infraestructure.dtos.instructorespecialidad.InstructorEspecialidadRequestDTO;
+import com.caeproject.cae.infraestructure.dtos.instructorespecialidad.InstructorEspecialidadResponseDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

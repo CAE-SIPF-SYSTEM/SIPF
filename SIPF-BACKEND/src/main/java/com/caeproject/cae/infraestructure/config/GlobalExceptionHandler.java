@@ -7,6 +7,8 @@ import com.caeproject.cae.domain.ports.exceptions.rapexception.RapNoEncontradoEx
 import com.caeproject.cae.domain.ports.exceptions.rapexception.RapDuplicadoException;
 import com.caeproject.cae.domain.ports.exceptions.instructorexception.CruceHorarioException;
 import com.caeproject.cae.domain.ports.exceptions.instructorexception.DocumentoYaRegistradoException;
+import com.caeproject.cae.domain.ports.exceptions.competenciaespecialidadexception.CompetenciaEspecialidadDuplicadaException;
+import com.caeproject.cae.domain.ports.exceptions.competenciaespecialidadexception.CompetenciaEspecialidadNoEncontradaException;
 import com.caeproject.cae.domain.ports.exceptions.instructorexception.EspecialidadNoValidaException;
 import com.caeproject.cae.domain.ports.exceptions.instructorexception.LimiteHorasSuperadasException;
 import com.caeproject.cae.domain.ports.exceptions.sessionexceptions.ContrasenaInvalidaException;
@@ -131,6 +133,16 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleFichaInvalida(FichaInvalidaException ex){
         ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(CompetenciaEspecialidadNoEncontradaException.class)
+    public ResponseEntity<ErrorResponse> handleCompetenciaEspecialidadNoEncontradaException(CompetenciaEspecialidadNoEncontradaException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value()));
+    }
+
+    @ExceptionHandler(CompetenciaEspecialidadDuplicadaException.class)
+    public ResponseEntity<ErrorResponse> handleCompetenciaEspecialidadDuplicadaException(CompetenciaEspecialidadDuplicadaException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value()));
     }
 
     @ExceptionHandler(CompetenciaNoEncontradaException.class)

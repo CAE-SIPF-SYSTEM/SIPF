@@ -44,4 +44,9 @@ public class PerfilBaseJpaAdapter implements PerfilBaseRepository {
         PerfilBaseEntity saved = jpaRepository.save(entity);
         return mapper.toDomain(saved);
     }
+
+    @Override
+    public Optional<PerfilBase> findById(Long id) {
+        return jpaRepository.findById(id).map(mapper::toDomain);
+    }
 }
