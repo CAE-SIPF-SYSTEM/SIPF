@@ -30,6 +30,18 @@
       </mat-error>
     </mat-form-field>
 
+    <!-- Jornada -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Jornada</mat-label>
+      <mat-select formControlName="jornada">
+        <mat-option value="MAÑANA">Mañana</mat-option>
+        <mat-option value="TARDE">Tarde</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('jornada')?.hasError('required')">
+        La jornada es requerida
+      </mat-error>
+    </mat-form-field>
+
   </form>
 </mat-dialog-content>
 

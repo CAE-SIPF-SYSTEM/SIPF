@@ -17,4 +17,8 @@ public class CrearDisponibilidadCommand {
 
     public Long getHorasMaximas() {return horasMaximas;}
     public void setHorasMaximas(Long horasMaximas) {this.horasMaximas = horasMaximas;}
+
+    private com.caeproject.cae.domain.ports.model.enums.Jornada jornada;
+    public com.caeproject.cae.domain.ports.model.enums.Jornada getJornada() {return jornada;}
+    public void setJornada(com.caeproject.cae.domain.ports.model.enums.Jornada jornada) {this.jornada = jornada;}
 }
