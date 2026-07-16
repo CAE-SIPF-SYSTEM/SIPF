@@ -29,6 +29,7 @@
             DisponibilidadInstructor disponibilidad = new DisponibilidadInstructor();
             disponibilidad.setUsuarioId(command.getUsuarioId());
             disponibilidad.setDiasDisponibles(command.getDiasDisponibles());
+            disponibilidad.setJornada(command.getJornada());
 
             if (perfil.getTipoContrato() == TIpoContrato.PLANTA){
                 disponibilidad.setHorasMaximas(144L);

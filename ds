@@ -1,0 +1,256 @@
+[33mcommit 25ab448b3ef84b6a1c12176e10b80916cb7f05af[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m, [m[1;32mFeature-DisponibilidadInstructores[m[33m)[m
+Merge: 21a8661 0303cf7
+Author: Runny <fadeslol222@gmail.com>
+Date:   Thu Jul 16 15:29:17 2026 -0500
+
+    Merge pull request #9 from CAE-SIPF-SYSTEM/Feature-DisponibilidadInstructores
+    
+    Feature disponibilidad instructores
+
+[33mcommit 0303cf72cfb143d0cec2cedd992d05bbf01c4238[m[33m ([m[1;31morigin/Feature-DisponibilidadInstructores[m[33m)[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Thu Jul 16 15:17:18 2026 -0500
+
+    Feature DisponibilidadInstructores
+
+[33mcommit 4d3b84c67232d649984d7f22975ba300e2767737[m[33m ([m[1;31morigin/Feature--ProgramacionAcademica[m[33m, [m[1;32mFeature--ProgramacionAcademica[m[33m)[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Wed Jul 15 17:18:29 2026 -0500
+
+    Wip: Disponibilidad Instructor Backend
+
+[33mcommit ecc25c146f3bbe4f17e231d81c33e41373bdd767[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Tue Jul 14 16:14:19 2026 -0500
+
+    Fear: Implementacion logica de diseñocurricular Excel & Alimentacion
+
+[33mcommit 21a866166cd8bd4bd01a415600bc059d209a543a[m[33m ([m[1;31morigin/feature/HU-07-vinculacion-raps-fichas[m[33m, [m[1;32mfeature/HU-07-vinculacion-raps-fichas[m[33m, [m[1;32mfeat/perfil-instructor-especialidades[m[33m)[m
+Merge: 6915983 6670661
+Author: Runny <fadeslol222@gmail.com>
+Date:   Thu Jul 9 16:44:39 2026 -0500
+
+    Merge pull request #8 from CAE-SIPF-SYSTEM/Feat-Asignación-de-Especialidades-a-Instructores
+    
+    Feature: Asignacion de especialidades y instructores
+
+[33mcommit 6670661c14b409dfb319b7062eb0f3a87849b119[m[33m ([m[1;31morigin/Feat-Asignación-de-Especialidades-a-Instructores[m[33m, [m[1;32mFeat-Asignación-de-Especialidades-a-Instructores[m[33m)[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Thu Jul 9 16:40:07 2026 -0500
+
+    Feature: Asignacion de especialidades y instructores
+
+[33mcommit 6915983f03b0efbbb08051b2acf8f33331a2b674[m
+Merge: b365901 e5d151d
+Author: Runny <fadeslol222@gmail.com>
+Date:   Wed Jul 8 15:27:13 2026 -0500
+
+    Merge pull request #7 from CAE-SIPF-SYSTEM/feat/modulo-especialidades
+    
+    feat: infraestructura de Especialidades e integración global de Sweet Alerts
+
+[33mcommit b3659014e28ed8b6c698382d27b320a06c38a2e8[m
+Merge: 16056b9 e3e84fe
+Author: Runny <fadeslol222@gmail.com>
+Date:   Wed Jul 8 15:23:34 2026 -0500
+
+    Merge pull request #6 from CAE-SIPF-SYSTEM/feature/HU-09-importar-excel-curricular
+    
+    feat(trimestres): add frontend UI and fix backend security constraints
+
+[33mcommit e5d151dba02bbfcf1f2db7f4d3c7ed175dff5754[m[33m ([m[1;31morigin/feat/modulo-especialidades[m[33m, [m[1;32mfeat/modulo-especialidades[m[33m)[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Wed Jul 8 15:15:33 2026 -0500
+
+    feat: infraestructura de Especialidades e integración global de SweetAlert2 en el frontend
+
+[33mcommit e3e84fe2c9a798f3f454014b3b38bae9ed0c1afa[m[33m ([m[1;31morigin/feature/HU-09-importar-excel-curricular[m[33m, [m[1;32mfeature/HU-09-importar-excel-curricular[m[33m)[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Mon Jul 6 16:23:51 2026 -0500
+
+    feat(trimestres): add frontend UI and fix backend security constraints
+
+[33mcommit 16056b9cd2e832fd4c33a4ccdffbb690c445d741[m
+Merge: 3885a72 1229453
+Author: Runny <fadeslol222@gmail.com>
+Date:   Wed Jul 1 15:14:15 2026 -0500
+
+    Merge pull request #5 from CAE-SIPF-SYSTEM/Feat-Account-Settings
+    
+    Fixed EditProfile
+
+[33mcommit 12294539a551d3bd08bf00aa81914c106a6f2608[m[33m ([m[1;31morigin/Feat-Account-Settings[m[33m, [m[1;32mFeat-Account-Settings[m[33m)[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Wed Jul 1 15:11:38 2026 -0500
+
+    Fixed EditProfile
+
+[33mcommit 3885a724abe45e537980fb120c18411ab6d97c2e[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Wed Jun 24 15:16:54 2026 -0500
+
+    Fix competencias&Rap (Delete y Create )
+
+[33mcommit 54c37ec8d55df45bcb5bd53dd4e3a5c17f624606[m
+Merge: d0e1e01 70c417e
+Author: Runny <fadeslol222@gmail.com>
+Date:   Tue Jun 23 16:55:58 2026 -0500
+
+    Merge pull request #4 from CAE-SIPF-SYSTEM/Feat-Excel-Imports-RAPS&Competencias
+    
+    Feat excel imports raps&competencias
+
+[33mcommit d0e1e0117b7f28aa90b019fce6b0699f0e9b3ec2[m
+Merge: a4eaa0e 1163553
+Author: Runny <fadeslol222@gmail.com>
+Date:   Tue Jun 23 16:54:24 2026 -0500
+
+    Merge pull request #3 from CAE-SIPF-SYSTEM/Feat-Competencia-&-Raps
+    
+    feat: implementación de commands para Competencias y RAPs
+
+[33mcommit 70c417eac5d587d887f7b82fd4d19f073f3a7cc9[m[33m ([m[1;31morigin/Feat-Excel-Imports-RAPS&Competencias[m[33m)[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Tue Jun 23 16:28:10 2026 -0500
+
+    Feat: RapXCompetencia y Import Excel Front
+
+[33mcommit cc838c6a1aad3c029b33af1d4a705b221864a1e7[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Mon Jun 22 16:54:18 2026 -0500
+
+    feat: import Excel (CompsYRaps)
+
+[33mcommit 1163553e0008923c8d3307630182d906fb58b201[m[33m ([m[1;31morigin/Feat-Competencia-&-Raps[m[33m, [m[1;32mFeat-Competencia-&-Raps[m[33m)[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Thu Jun 18 16:31:15 2026 -0500
+
+    Feature: Raps&Competencias - Implementacion de commands
+
+[33mcommit a4eaa0ed8f49a987b4cd40d179677834dfc8e94b[m
+Merge: 8a643c4 2d0316f
+Author: Runny <fadeslol222@gmail.com>
+Date:   Wed Jun 17 16:39:15 2026 -0500
+
+    Merge pull request #2 from CAE-SIPF-SYSTEM/Feat-Programas---Fichas
+    
+    FrontEnd Feature
+
+[33mcommit 2d0316ff3fc6bff0f837f775da38bf5469cba32a[m[33m ([m[1;31morigin/Feat-Programas---Fichas[m[33m, [m[1;32mFeat-Programas---Fichas[m[33m)[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Wed Jun 17 16:37:18 2026 -0500
+
+    FrontEnd Feature
+
+[33mcommit 8a643c47aac8925754737ace21a08df305e47a42[m
+Merge: 51fc91d f0d7699
+Author: Runny <fadeslol222@gmail.com>
+Date:   Wed Jun 17 15:59:54 2026 -0500
+
+    Merge pull request #1 from CAE-SIPF-SYSTEM/Feat-Programas---Fichas
+    
+    Feature: HU-06: Registro y control de fichas de formación | JIRA
+    
+    implementacion de reglas de negocio y validaciones segun caso de uso y historia de usuario
+
+[33mcommit f0d76993281540a60fb2455b487a39087f2d89d7[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Wed Jun 17 15:57:15 2026 -0500
+
+    SecurityConfig: Permisos coordinador | Fichas&Programas
+
+[33mcommit b6583371f9992703924701a0c6b59efb47c01bc2[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Wed Jun 17 15:48:44 2026 -0500
+
+    Feat: Fichas&Programas
+
+[33mcommit e49486b2ff76fda9c897bf0186c85fd68678beb0[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Tue Jun 16 17:07:02 2026 -0500
+
+    Feat: Programas&Fichas
+
+[33mcommit 51fc91de74912bff3fcc79df712d03c68139b059[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Fri Jun 12 11:59:42 2026 -0500
+
+    Docker and .env | Frontend & Backend
+
+[33mcommit c7e2e8ebaae3239cd1866e517b4e5431fd84c733[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Thu Jun 11 14:36:47 2026 -0500
+
+    Style & Fix: Rediseño de Sidebar, customización de Material y pantallas de recuperación
+
+[33mcommit 02dcfbb0bea97419b066f983cb59f3b6228acfce[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Wed Jun 10 15:35:49 2026 -0500
+
+    Fix: Frontend bugs y angular material
+
+[33mcommit ba1242488ef5f1e7f689fbe5f85d9d1c0a8cdfe8[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Tue Jun 9 17:06:55 2026 -0500
+
+    Style : FrontEnd - Recuperacion contrasñea, pantallas principales
+
+[33mcommit 1011588326f1a07a627d0262aab7c6c03647e9bb[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Tue Jun 9 15:38:33 2026 -0500
+
+    Fixed Usuario y Endpoints
+
+[33mcommit 37d6926e3e802988b2fca493289573c807bf1564[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Fri Jun 5 16:24:30 2026 -0500
+
+    Initial FrontEnd- Login
+
+[33mcommit f21f013fac02e915e29300b276cea68f8035aa20[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Thu Jun 4 15:36:35 2026 -0500
+
+    Feat (usuario): Sesion Unica
+
+[33mcommit a1358addd5a83754923c00c14bb516e88fca64c9[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Wed Jun 3 16:22:43 2026 -0500
+
+    feat(security): refactorizar jwt y configurar seguridad para registro/login
+
+[33mcommit 0d9ff2e4d19612d73ca28f8dc502d61428ad64b7[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Tue Jun 2 16:48:10 2026 -0500
+
+    Feat(auth): Recuperacion Contrasena, Login, Inhabilitacion de usuario
+
+[33mcommit 97af9d9a2fb386cf495fbd8bf319487a4a67b1bd[m
+Author: Zerriug <fadeslol222@gmail.com>
+Date:   Mon Jun 1 17:13:09 2026 -0500
+
+    Feat (User)
+
+[33mcommit ce97f8f8fbf496d2ddfee6289fb8509f42fc3a85[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: Runny Gutierrez <fadeslol222@gmail.com>
+Date:   Tue May 26 16:52:13 2026 -0500
+
+    Initial commit Architecture
+
+[33mcommit c335ea328ef6424551c045b167752579d6d68f6d[m
+Author: CAE-SIF <projectocae@gmail.com>
+Date:   Tue May 26 16:09:56 2026 -0500
+
+    Update README.md
+
+[33mcommit e7db6f5b573ce97373c3398b1cb5b580870e648d[m
+Author: CAE-SIF <projectocae@gmail.com>
+Date:   Tue May 26 15:50:33 2026 -0500
+
+    Update README.md
+
+[33mcommit 0a0b05c98b93b2477fe07c4d5839a8ea3abce0c8[m
+Author: CAE-SIF <projectocae@gmail.com>
+Date:   Tue May 26 15:43:45 2026 -0500
+
+    Initial commit
