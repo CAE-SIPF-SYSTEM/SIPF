@@ -8,6 +8,7 @@ public class CrearDisponibilidadCommand {
     private Long usuarioId;
     private List<DiasDisponibles> diasDisponibles;
     private Long horasMaximas;
+    private List<String> municipios;
 
     public Long getUsuarioId() {return this.usuarioId;}
     public void setUsuarioId(Long usuarioId) {this.usuarioId = usuarioId;}
@@ -21,4 +22,7 @@ public class CrearDisponibilidadCommand {
     private com.caeproject.cae.domain.ports.model.enums.Jornada jornada;
     public com.caeproject.cae.domain.ports.model.enums.Jornada getJornada() {return jornada;}
     public void setJornada(com.caeproject.cae.domain.ports.model.enums.Jornada jornada) {this.jornada = jornada;}
+
+    public List<String> getMunicipios() {return municipios;}
+    public void setMunicipios(List<String> municipios) {this.municipios = municipios;}
 }

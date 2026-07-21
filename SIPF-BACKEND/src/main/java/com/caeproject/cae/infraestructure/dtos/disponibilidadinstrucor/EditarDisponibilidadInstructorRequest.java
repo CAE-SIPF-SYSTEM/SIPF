@@ -7,6 +7,10 @@ import java.util.List;
 public class EditarDisponibilidadInstructorRequest {
 
     private List<DiasDisponibles> diasDisponibles;
+    private List<String> municipios;
+
+    public List<String> getMunicipios() { return municipios; }
+    public void setMunicipios(List<String> municipios) { this.municipios = municipios; }
 
     public List<DiasDisponibles> getDiasDisponibles() {return diasDisponibles;}
     public void setDiasDisponibles(List<DiasDisponibles> diasDisponibles) { this.diasDisponibles = diasDisponibles; }
