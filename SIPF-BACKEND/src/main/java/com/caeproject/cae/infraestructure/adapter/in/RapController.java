@@ -88,7 +88,6 @@ public class RapController {
         response.setId(rap.getId());
         response.setCompetenciaId(rap.getCompetenciaId());
         response.setDescripcion(rap.getDescripcion());
-        response.setHorasPresenciales(rap.getHorasPresenciales());
         return response;
     }
 }

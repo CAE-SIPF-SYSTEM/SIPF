@@ -98,7 +98,7 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
         }
 
         Competencia competencia = construirCompetencia(row, columnas, codigoCompetencia, nombreCompetencia, i);
-        Rap rap = construirRap(row, columnas, i);
+        RapImport rapImport = construirRap(row, columnas, i);
         
         Integer idxTrimestre = columnas.get("TRIMESTRE");
         String trimestreStr = idxTrimestre != null ? obtenerValorCelda(row.getCell(idxTrimestre)) : null;
@@ -113,9 +113,9 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
 
         log.info(">>> Fila {} leída: Competencia {} [{}], RAP {} ({}h), Trimestre: {}", i, 
                  codigoCompetencia, competencia.getTipoCompetencia(), 
-                 rap.getId(), rap.getHorasPresenciales(), trimestre);
+                 rapImport.rap().getId(), rapImport.horasPresenciales(), trimestre);
 
-        return new CompetenciaRap(competencia, List.of(rap), trimestre);
+        return new CompetenciaRap(competencia, List.of(rapImport), trimestre);
     }
 
     private Competencia construirCompetencia(Row row, Map<String, Integer> columnas, String codigoCompetencia, String nombreCompetencia, int i) {
@@ -144,7 +144,7 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
         return competencia;
     }
 
-    private Rap construirRap(Row row, Map<String, Integer> columnas, int i) {
+    private RapImport construirRap(Row row, Map<String, Integer> columnas, int i) {
         String descripcionRap = obtenerValorCelda(row.getCell(columnas.get("DESCRIPCION RESULTADO DE APRENDIZAJE (RAP)")));
         
         Integer idxCodigoRap = columnas.get("CODIGO RAP");
@@ -162,15 +162,14 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
         }
         rap.setDescripcion(descripcionRap);
         
+        Integer horasPresenciales = 0;
         if (horasRapStr != null && !horasRapStr.isEmpty()) {
             try {
-                rap.setHorasPresenciales(Integer.parseInt(horasRapStr));
+                horasPresenciales = Integer.parseInt(horasRapStr);
             } catch (NumberFormatException e) {
                 log.warn("Horas presenciales inválidas en fila {}: {}", i, horasRapStr);
-                rap.setHorasPresenciales(0);
+                horasPresenciales = 0;
             }
-        } else {
-            rap.setHorasPresenciales(0);
         }
         
         if (estado != null && !estado.trim().isEmpty()) {
@@ -179,7 +178,7 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
             rap.setEstado(true);
         }
         
-        return rap;
+        return new RapImport(rap, horasPresenciales);
     }
 
     private Long parseToLong(String value) {

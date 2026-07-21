@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public interface AlimentacionCRRepository {
-    record CompetenciaRap (Competencia competencia, List<Rap> raps, Integer trimestre){}
+    record RapImport(Rap rap, Integer horasPresenciales){}
+    record CompetenciaRap (Competencia competencia, List<RapImport> raps, Integer trimestre){}
     List<CompetenciaRap> extraerAlimentacion(InputStream alimentacionExcel);
 }
