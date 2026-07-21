@@ -12,6 +12,18 @@ public class DisponibilidadInstructor {
     private List<DiasDisponibles> diasDisponibles;
     private Long horasMaximas;
     private Jornada jornada;
+    private List<String> municipios;
+    private Long horasAsignadas;
+
+
+
+    //metodo de calculo horas asignadas
+    public Long getHorasDisponibles(){
+        if (horasAsignadas == null){
+            throw new IllegalStateException("Las horas asignadas no ha sido calculadas aun");
+        }
+        return horasMaximas - horasAsignadas;
+    }
 
 
     public Long getUsuarioId() {return usuarioId;}
@@ -25,4 +37,10 @@ public class DisponibilidadInstructor {
 
     public Jornada getJornada() {return jornada;}
     public void setJornada(Jornada jornada) {this.jornada = jornada;}
+
+    public List<String> getMunicipios() { return municipios; }
+    public void setMunicipios(List<String> municipios) { this.municipios = municipios; }
+
+    public Long getHorasAsignadas() { return horasAsignadas; }
+    public void setHorasAsignadas(Long horasAsignadas) { this.horasAsignadas = horasAsignadas; }
 }

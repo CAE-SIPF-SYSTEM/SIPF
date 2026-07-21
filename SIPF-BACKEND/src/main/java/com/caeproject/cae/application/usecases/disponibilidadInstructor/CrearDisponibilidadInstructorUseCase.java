@@ -24,18 +24,27 @@
         @Override
         public DisponibilidadInstructor crearDisponibilidad(CrearDisponibilidadCommand command) {
 
+
+
             PerfilBase perfil = perfilBaseRepository.findById(command.getUsuarioId())
                 .orElseThrow(() -> new RuntimeException("Perfil base no encontrado para el usuario: " + command.getUsuarioId()));
             DisponibilidadInstructor disponibilidad = new DisponibilidadInstructor();
             disponibilidad.setUsuarioId(command.getUsuarioId());
             disponibilidad.setDiasDisponibles(command.getDiasDisponibles());
             disponibilidad.setJornada(command.getJornada());
+            disponibilidad.setMunicipios(command.getMunicipios());
+
+
 
             if (perfil.getTipoContrato() == TIpoContrato.PLANTA){
                 disponibilidad.setHorasMaximas(144L);
             }
-            if (perfil.getTipoContrato()==TIpoContrato.CONTRATISTA){
+            else if (perfil.getTipoContrato()==TIpoContrato.CONTRATISTA){
                 disponibilidad.setHorasMaximas(160L);
+            }
+
+            else {
+                throw new IllegalStateException( "Contrato no disponible " + perfil.getTipoContrato());
             }
             return disponibilidadInstructorRepository.saveDisponibilidad(disponibilidad);
         }

@@ -27,6 +27,9 @@ public class EditarDisponibilidadInstructorUseCase implements EditarDisponibilid
        if (command.getJornada() != null) {
            disponibilidadInstructor.setJornada(command.getJornada());
        }
+       if (command.getMunicipios() != null) {
+           disponibilidadInstructor.setMunicipios(command.getMunicipios());
+       }
        return disponibilidadInstructorRepository.saveDisponibilidad(disponibilidadInstructor);
     }
 }

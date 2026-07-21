@@ -10,6 +10,10 @@ public class DisponibilidadInstructorResponse {
     private Long usuarioId;
     private List<DiasDisponibles> diasDisponibles;
     private Long horasMaximas;
+    private List<String> municipios;
+
+    public List<String> getMunicipios() { return municipios; }
+    public void setMunicipios(List<String> municipios) { this.municipios = municipios; }
 
     public Long getUsuarioId() {
         return usuarioId;

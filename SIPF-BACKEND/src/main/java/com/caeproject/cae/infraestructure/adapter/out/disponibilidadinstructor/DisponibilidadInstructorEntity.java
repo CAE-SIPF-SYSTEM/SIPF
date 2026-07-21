@@ -27,6 +27,11 @@ public class DisponibilidadInstructorEntity {
     @Column(name = "jornada")
     private com.caeproject.cae.domain.ports.model.enums.Jornada jornada;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "instructor_municipios", joinColumns = @JoinColumn(name = "usuario_id"))
+    @Column(name = "municipio")
+    private List<String> municipios;
+
     public Long getUsuarioId() {return usuarioId;}
     public void setUsuarioId(Long usuarioId) {this.usuarioId = usuarioId;}
 
@@ -38,4 +43,8 @@ public class DisponibilidadInstructorEntity {
 
     public com.caeproject.cae.domain.ports.model.enums.Jornada getJornada() {return jornada;}
     public void setJornada(com.caeproject.cae.domain.ports.model.enums.Jornada jornada) {this.jornada = jornada;}
+
+    public List<String> getMunicipios() { return municipios; }
+    public void setMunicipios(List<String> municipios) { this.municipios = municipios; }
+
 }

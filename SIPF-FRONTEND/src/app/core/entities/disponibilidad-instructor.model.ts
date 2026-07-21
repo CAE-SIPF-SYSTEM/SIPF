@@ -3,4 +3,5 @@ export interface DisponibilidadInstructor {
   diasDisponibles: string[];
   horasMaximas: number;
   jornada?: string;
+  municipios?: string[];
 }
