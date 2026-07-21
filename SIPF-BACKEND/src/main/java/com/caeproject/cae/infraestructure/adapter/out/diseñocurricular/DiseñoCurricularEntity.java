@@ -20,6 +20,10 @@ public class DiseñoCurricularEntity {
     @Column (name = "rapId",nullable = false)
     private Long rapId;
 
+    @Column (name = "horaspresenciales", nullable = false)
+    private  Integer horaspresenciales;
+
+
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}
 
@@ -31,4 +35,12 @@ public class DiseñoCurricularEntity {
 
     public Long getRapId() {return rapId;}
     public void setRapId(Long rapId) {this.rapId = rapId;}
+
+    public Integer getHoraspresenciales() {
+        return horaspresenciales;
+    }
+
+    public void setHoraspresenciales(Integer horaspresenciales) {
+        this.horaspresenciales = horaspresenciales;
+    }
 }

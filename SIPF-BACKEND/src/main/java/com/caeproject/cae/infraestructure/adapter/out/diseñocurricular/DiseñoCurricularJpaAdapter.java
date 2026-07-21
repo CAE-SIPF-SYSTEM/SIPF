@@ -6,6 +6,7 @@ import com.caeproject.cae.domain.ports.out.DiseñoCurricularRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.stereotype.Component;
 
@@ -29,9 +30,15 @@ public class DiseñoCurricularJpaAdapter implements DiseñoCurricularRepository 
     }
 
     @Override
+    public Stream<DiseñoCurricular> findByRapId(Long rapId) {
+        return jpaRepository.findByRapId(rapId).stream().map(mapper::toDomain);
+    }
+
+    @Override
     public Optional<DiseñoCurricular> findyById(Long id) {
         return jpaRepository.findById(id).map(mapper::toDomain);
     }
+
 
     @Override
     public void eliminarDiseñoCurricular(Long id) {
@@ -43,5 +50,10 @@ public class DiseñoCurricularJpaAdapter implements DiseñoCurricularRepository 
         DiseñoCurricularEntity entity = mapper.toEntity(diseñoCurricular);
         DiseñoCurricularEntity saved = jpaRepository.save(entity);
         return mapper.toDomain(saved);
+    }
+
+    @Override
+    public Integer sumarHorasPorCompetenciaYPrograma(Long competenciaId, Long programaId) {
+        return jpaRepository.sumarHorasPorCompetenciaYPrograma(competenciaId,programaId);
     }
 }

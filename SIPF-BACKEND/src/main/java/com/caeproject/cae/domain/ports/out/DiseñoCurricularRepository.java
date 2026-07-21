@@ -4,10 +4,13 @@ import com.caeproject.cae.domain.ports.model.DiseñoCurricular;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public interface DiseñoCurricularRepository {
     List<DiseñoCurricular> findAll();
+    Stream<DiseñoCurricular> findByRapId(Long rapId);
     Optional<DiseñoCurricular> findyById(Long id);
     void eliminarDiseñoCurricular(Long id);
     DiseñoCurricular saveDiseñoCurricular(DiseñoCurricular diseñoCurricular);
+    Integer sumarHorasPorCompetenciaYPrograma(Long competenciaId, Long programaId);
 }

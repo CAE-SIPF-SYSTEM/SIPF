@@ -25,9 +25,6 @@ public class EditarRapUseCase implements EditarRapInputPort {
         if (command.getCompetenciaId() != null) {
             rapExistente.setCompetenciaId(command.getCompetenciaId());
         }
-        if (command.getHorasPresenciales() != null) {
-            rapExistente.setHorasPresenciales(command.getHorasPresenciales());
-        }
 
         return rapRepository.saveRap(rapExistente);
     }
