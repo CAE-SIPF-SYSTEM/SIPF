@@ -1,15 +1,19 @@
 package com.caeproject.cae.application.usecases.ProgramacionAcademica;
 
 import com.caeproject.cae.application.usecases.ProgramacionAcademica.commands.CrearProgramacionCommand;
+import com.caeproject.cae.domain.ports.exceptions.competenciaespecialidadexception.CompetenciaEspecialidadNoEncontradaException;
 import com.caeproject.cae.domain.ports.exceptions.competenciaexception.CompetenciaNoEncontradaException;
+import com.caeproject.cae.domain.ports.exceptions.especialidadexception.EspecialidadNoEncontradaException;
 import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.FichaNoEncontradaException;
 import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.ProgramaNoEncontradoException;
+import com.caeproject.cae.domain.ports.exceptions.instructorespecialidadexception.InstructorEspecialidadNoEncontradaException;
 import com.caeproject.cae.domain.ports.exceptions.rapexception.RapNoEncontradoException;
 import com.caeproject.cae.domain.ports.exceptions.usuarioexceptions.UsuarioNoEncontradoException;
 import com.caeproject.cae.domain.ports.in.ProgramacionAcademica.CrearProgramacionInputPort;
 import com.caeproject.cae.domain.ports.model.*;
 import com.caeproject.cae.domain.ports.model.enums.DiasDisponibles;
 import com.caeproject.cae.domain.ports.out.*;
+import org.apache.commons.collections4.Trie;
 
 
 public class CrearProgramacionAcademicaUseCase implements CrearProgramacionInputPort {
@@ -49,11 +53,24 @@ public class CrearProgramacionAcademicaUseCase implements CrearProgramacionInput
                 .orElseThrow(()-> new UsuarioNoEncontradoException(usuariooId));
 
     }
+    private DiseñoCurricular obtenerDiseño  (Long rapId){
+        return diseñoCurricularRepository.findByRapId(rapId)
+                .findFirst()
+                .orElseThrow(()-> new RapNoEncontradoException(rapId));
+    }
 
     private Rap obtenerRap (Long id){
         return rapRepository.findById(id)
                 .orElseThrow(()-> new RapNoEncontradoException(id));
     }
+
+    private Rap ObtenerRapPorCompetencia (Long competenciaId){
+        return rapRepository.findByCompetencia(competenciaId)
+                .stream()
+                .findFirst()
+                .orElseThrow(()-> new RapNoEncontradoException(competenciaId));
+    }
+
 
 
     private Trimestre obtenerTrimestre(Long trimestreId){
@@ -104,6 +121,7 @@ public class CrearProgramacionAcademicaUseCase implements CrearProgramacionInput
 
     // implementacion e iniciacion de objetos
         DisponibilidadInstructor disponibilidad = obtenerDisponiblidad(crearProgramacionCommand.getUsuarioId());
+        DiseñoCurricular diseño = obtenerDiseño(crearProgramacionCommand.getRapId());
         Rap rap = obtenerRap(crearProgramacionCommand.getRapId());
         Long competenciaId = rap.getCompetenciaId();
         Trimestre trimestre = obtenerTrimestre(crearProgramacionCommand.getTrimstreId());
@@ -128,6 +146,9 @@ public class CrearProgramacionAcademicaUseCase implements CrearProgramacionInput
             throw new RuntimeException("La jornada del instructor es diferente a la del programa");
         }
 
+        if (disponibilidad.getDiasDisponibles() == null) {
+            throw  new RuntimeException( "El instructor no tiene dias disponibles para realizar su jornada con el resultado de aprendizaje");
+        }
 
         if (disponibilidad.getHorasMaximas() == 0){
             throw new RuntimeException("El instrucor no tiene horas asignadas");

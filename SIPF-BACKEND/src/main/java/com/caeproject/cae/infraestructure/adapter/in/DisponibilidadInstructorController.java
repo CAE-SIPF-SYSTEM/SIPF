@@ -42,6 +42,7 @@ public class DisponibilidadInstructorController {
         command.setDiasDisponibles(request.getDiasDisponibles());
         command.setJornada(request.getJornada());
         command.setMunicipios(request.getMunicipios());
+        command.setJornada(request.getJornada());
 
         DisponibilidadInstructor creado = crearDisponibilidadInstructorInputPort.crearDisponibilidad(command);
         return ResponseEntity.status(HttpStatus.CREATED).body(toResponse(creado));
@@ -86,8 +87,6 @@ public class DisponibilidadInstructorController {
         response.setUsuarioId(disponibilidadInstructor.getUsuarioId());
         response.setDiasDisponibles(disponibilidadInstructor.getDiasDisponibles());
         response.setHorasMaximas(disponibilidadInstructor.getHorasMaximas());
-        response.setJornada(disponibilidadInstructor.getJornada());
-        response.setMunicipios(disponibilidadInstructor.getMunicipios());
         return response;
     }
 

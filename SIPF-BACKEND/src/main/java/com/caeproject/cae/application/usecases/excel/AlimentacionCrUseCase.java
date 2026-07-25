@@ -100,9 +100,20 @@ public class AlimentacionCrUseCase {
                     diseno.setNumeroTrimestre(trimestre);
                     diseno.setRapId(rapGuardado.getId());
                     diseno.setHoraspresenciales(horasPresenciales);
-                    
+
                     diseñoCurricularRepository.saveDiseñoCurricular(diseno);
-                    log.info("   -> Diseño Curricular guardado para RAP ID: {}, Programa ID: {}, Trimestre: {}, Horas: {}", 
+                    log.info("   -> Diseño Curricular guardado para RAP ID: {}, Programa ID: {}, Trimestre: {}, Horas: {}",
+                        rapGuardado.getId(), programaId, trimestre, horasPresenciales);
+                    // Ahora guardamos el Diseño Curricular
+                    Integer horasPresenciales = rapImport.horasPresenciales();
+                    DiseñoCurricular diseno = new DiseñoCurricular();
+                    diseno.setProgramaId(programaId);
+                    diseno.setNumeroTrimestre(trimestre);
+                    diseno.setRapId(rapGuardado.getId());
+                    diseno.setHoraspresenciales(horasPresenciales);
+
+                    diseñoCurricularRepository.saveDiseñoCurricular(diseno);
+                    log.info("   -> Diseño Curricular guardado para RAP ID: {}, Programa ID: {}, Trimestre: {}, Horas: {}",
                         rapGuardado.getId(), programaId, trimestre, horasPresenciales);
                 }
 

@@ -7,6 +7,8 @@ public class CrearProgramacionCommand {
     private Long rapId;
     private Long usuarioId;
 
+    public Long getId() {return id;}
+    public void setId(Long id) {this.id = id;}
 
     public Long getTrimstreId() {return trimstreId;}
     public void setTrimstreId(Long trimstreId) {this.trimstreId = trimstreId;}
