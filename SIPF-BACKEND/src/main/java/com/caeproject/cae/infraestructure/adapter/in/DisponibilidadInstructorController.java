@@ -40,7 +40,6 @@ public class DisponibilidadInstructorController {
         CrearDisponibilidadCommand command = new CrearDisponibilidadCommand();
         command.setUsuarioId(request.getUsuarioId());
         command.setDiasDisponibles(request.getDiasDisponibles());
-        command.setHorasMaximas(request.getHorasMaximas());
         command.setJornada(request.getJornada());
         command.setMunicipios(request.getMunicipios());
 
@@ -76,8 +75,8 @@ public class DisponibilidadInstructorController {
     }
 
     @GetMapping("/dia/{diaDisponible}")
-    public ResponseEntity<List<DisponibilidadInstructorResponse>> obtenerPorDia(@PathVariable DiasDisponibles diaDisponible){
-        List<DisponibilidadInstructor> disponibilidades = obtenerDisponibilidadInstructorInputPort.obtenerPorDiasDisponibles(diaDisponible);
+    public ResponseEntity<List<DisponibilidadInstructorResponse>> obtenerPorDiasDisponibles(@PathVariable DiasDisponibles diasDisponibles){
+        List<DisponibilidadInstructor> disponibilidades = obtenerDisponibilidadInstructorInputPort.obtenerPorDiasDisponibles(diasDisponibles);
         return ResponseEntity.ok(disponibilidades.stream().map(this::toResponse).collect(Collectors.toList()));
     }
 

@@ -38,9 +38,10 @@ public class ProgramacionAcademicaJPAAdapter implements ProgramacionAcademicaRep
                 .collect(Collectors.toList());
     }
 
+
     @Override
-    public List<ProgramacionAcademica> findByUserId(Long userId) {
-        return jpaRepository.findByUserId(userId).stream()
+    public List<ProgramacionAcademica> findByUserId(Long usuarioId) {
+        return jpaRepository.findByUsuarioId(usuarioId).stream()
                 .map(mapper::toDomain)
                 .collect(Collectors.toList());
     }
@@ -49,4 +50,18 @@ public class ProgramacionAcademicaJPAAdapter implements ProgramacionAcademicaRep
     public void eliminarProgramacionAcademica(Long id) {
         jpaRepository.deleteById(id);
     }
+
+    @Override
+    public boolean existsByRapIdAndTrimestreId(Long rapId, Long trimestreId) {
+        return jpaRepository.existsByRapIdAndTrimestreId(rapId, trimestreId);
+    }
+
+    @Override
+    public ProgramacionAcademica saveProgramacion(ProgramacionAcademica programacionAcademica) {
+        ProgramacionAcademicaEntity entity = mapper.toEntity(programacionAcademica);
+        ProgramacionAcademicaEntity saved = jpaRepository.save(entity);
+        return mapper.toDomain(saved);
+    }
+
+
 }

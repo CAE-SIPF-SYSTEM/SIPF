@@ -8,7 +8,6 @@ public class DiseñoCurricular {
     private Long rapId;
     private Integer horaspresenciales;
 
-
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}
 

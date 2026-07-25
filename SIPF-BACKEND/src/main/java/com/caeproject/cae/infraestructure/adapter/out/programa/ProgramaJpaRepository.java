@@ -13,5 +13,5 @@ public interface ProgramaJpaRepository extends JpaRepository<ProgramaEntity, Lon
     boolean existsByNombre(String nombre);
     List<ProgramaEntity> findByNivelFormacion(NivelFormacion nivelFormacion);
     List<ProgramaEntity> findByJornada(Jornada jornada);
-    List<ProgramaEntity> findByMunicipio(String municipio);
+    List<ProgramaEntity> findByMunicipio_Nombre(String nombre);
 }

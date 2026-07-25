@@ -4,6 +4,7 @@ import com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.ListarDisponi
 import com.caeproject.cae.domain.ports.model.DisponibilidadInstructor;
 import com.caeproject.cae.domain.ports.out.CompetenciaRepository;
 import com.caeproject.cae.domain.ports.out.DisponibilidadInstructorRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class ListarDisponibilidadInstructorUseCase implements ListarDisponibilid
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<DisponibilidadInstructor> listarDisponibilidad() {
         return disponibilidadInstructorRepository.findAll();
     }

@@ -1,5 +1,6 @@
 package com.caeproject.cae.application.usecases.disponibilidadInstructor.commands;
 
+import com.caeproject.cae.domain.ports.model.Municipio;
 import com.caeproject.cae.domain.ports.model.enums.DiasDisponibles;
 
 import java.util.List;
@@ -7,11 +8,8 @@ import java.util.List;
 public class EditarDisponibilidadCommand {
 
     private List<DiasDisponibles> diasDisponibles;
-    private Long horasMaximas;
-    private List<String> municipios;
+    private List<Municipio> municipios;
 
-    public Long getHorasMaximas() { return horasMaximas; }
-    public void setHorasMaximas(Long horasMaximas) { this.horasMaximas = horasMaximas; }
 
     public List<DiasDisponibles> getDiasDisponibles() {
         return diasDisponibles;
@@ -25,8 +23,12 @@ public class EditarDisponibilidadCommand {
     public com.caeproject.cae.domain.ports.model.enums.Jornada getJornada() {return jornada;}
     public void setJornada(com.caeproject.cae.domain.ports.model.enums.Jornada jornada) {this.jornada = jornada;}
 
-    public List<String> getMunicipios() {return municipios;}
-    public void setMunicipios(List<String> municipios) {this.municipios = municipios;}
+    public List<Municipio> getMunicipios() {
+        return municipios;
+    }
 
+    public void setMunicipios(List<Municipio> municipios) {
+        this.municipios = municipios;
+    }
 }
 

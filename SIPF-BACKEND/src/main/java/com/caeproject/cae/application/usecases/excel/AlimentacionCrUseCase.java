@@ -93,7 +93,7 @@ public class AlimentacionCrUseCase {
                         rapGuardado = rapRepository.saveRap(rap);
                     }
 
-                    // Ahora guardamos el Diseño Curricular
+
                     Integer horasPresenciales = rapImport.horasPresenciales();
                     DiseñoCurricular diseno = new DiseñoCurricular();
                     diseno.setProgramaId(programaId);

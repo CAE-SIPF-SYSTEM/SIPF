@@ -2,6 +2,7 @@ package com.caeproject.cae.infraestructure.adapter.out.programa;
 
 import com.caeproject.cae.domain.ports.model.enums.Jornada;
 import com.caeproject.cae.domain.ports.model.enums.NivelFormacion;
+import com.caeproject.cae.infraestructure.adapter.out.ubicacion.MunicipioEntity;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,8 +16,8 @@ public class ProgramaEntity {
     @Column(unique = true, nullable = false)
     private String nombre;
 
-    @Column(nullable = false)
-    private String municipio;
+    @ManyToOne
+    private MunicipioEntity municipio;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -35,8 +36,13 @@ public class ProgramaEntity {
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getMunicipio() { return municipio; }
-    public void setMunicipio(String municipio) { this.municipio = municipio; }
+    public MunicipioEntity getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(MunicipioEntity municipio) {
+        this.municipio = municipio;
+    }
 
     public NivelFormacion getNivelFormacion() { return nivelFormacion; }
     public void setNivelFormacion(NivelFormacion nivelFormacion) { this.nivelFormacion = nivelFormacion; }

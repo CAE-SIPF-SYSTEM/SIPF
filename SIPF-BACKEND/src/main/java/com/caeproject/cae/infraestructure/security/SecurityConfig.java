@@ -47,7 +47,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/excel/alimentacion").hasRole("ADMINISTRADOR")
                         .requestMatchers("/api/raps/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
                         .requestMatchers("/api/competencias/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
-                        .requestMatchers("/api/disponibilidadinstructor").hasRole("INSTRUCTOR")
+                        .requestMatchers("/api/disponibilidadinstructor", "/api/disponibilidadinstructor/**").hasAnyRole("INSTRUCTOR", "ADMINISTRADOR").requestMatchers("/api/programacionacademica").hasRole("COORDINADOR")
+                        .requestMatchers("/api/ubicaciones").hasAnyRole("ADMINISTRADOR", "INSTRUCTOR","COORDINADOR" )
                         // EJEMPLO MOMENTANEO
                         .requestMatchers(HttpMethod.GET, "/api/usuarios").hasRole("ADMINISTRADOR")
 

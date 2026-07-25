@@ -1,5 +1,6 @@
 package com.caeproject.cae.infraestructure.dtos.programa;
 
+import com.caeproject.cae.domain.ports.model.Municipio;
 import com.caeproject.cae.domain.ports.model.enums.Jornada;
 import com.caeproject.cae.domain.ports.model.enums.NivelFormacion;
 import jakarta.validation.constraints.Min;
@@ -12,7 +13,7 @@ public class EditarProgramaRequest {
     private String nombre;
 
     @NotBlank(message = "El municipio es obligatorio")
-    private String municipio;
+    private Municipio municipio;
 
     @NotNull(message = "El nivel de formación es obligatorio")
     private NivelFormacion nivelFormacion;
@@ -25,8 +26,15 @@ public class EditarProgramaRequest {
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
-    public String getMunicipio() { return municipio; }
-    public void setMunicipio(String municipio) { this.municipio = municipio; }
+
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
+    }
+
     public NivelFormacion getNivelFormacion() { return nivelFormacion; }
     public void setNivelFormacion(NivelFormacion nivelFormacion) { this.nivelFormacion = nivelFormacion; }
     public Jornada getJornada() { return jornada; }

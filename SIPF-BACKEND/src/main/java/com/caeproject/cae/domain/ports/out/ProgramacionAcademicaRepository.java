@@ -11,4 +11,6 @@ public interface ProgramacionAcademicaRepository {
  List<ProgramacionAcademica> findByTrimestre(Long trimestreId);
  List<ProgramacionAcademica> findByUserId(Long userId);
  void eliminarProgramacionAcademica(Long id);
+ boolean existsByRapIdAndTrimestreId(Long rapId, Long trimestreId);
+ ProgramacionAcademica saveProgramacion (ProgramacionAcademica programacionAcademica);
 }

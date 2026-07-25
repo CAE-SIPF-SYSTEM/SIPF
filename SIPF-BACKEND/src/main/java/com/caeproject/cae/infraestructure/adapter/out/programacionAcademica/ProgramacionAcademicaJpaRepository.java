@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface ProgramacionAcademicaJpaRepository extends JpaRepository<ProgramacionAcademicaEntity, Long> {
     List<ProgramacionAcademicaEntity> findByTrimestreId(Long trimestreId);
-    Optional<ProgramacionAcademicaEntity> findByUserId(Long userId);
+    List<ProgramacionAcademicaEntity> findByUsuarioId(Long usuarioId);
+    boolean existsByRapIdAndTrimestreId(Long rapId, Long trimestreId);
 }

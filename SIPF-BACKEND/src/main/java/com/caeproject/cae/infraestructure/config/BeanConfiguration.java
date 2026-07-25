@@ -1,6 +1,13 @@
 package com.caeproject.cae.infraestructure.config;
 
+import com.caeproject.cae.application.usecases.ProgramacionAcademica.CrearProgramacionAcademicaUseCase;
+import com.caeproject.cae.application.usecases.ProgramacionAcademica.EliminarProgramacionAcademicaUseCase;
+import com.caeproject.cae.application.usecases.ProgramacionAcademica.ListarProgramacionAcademicaUseCase;
+import com.caeproject.cae.application.usecases.ProgramacionAcademica.ObtenerProgramacionAcademicaUseCase;
 import com.caeproject.cae.application.usecases.excel.AlimentacionCrUseCase;
+import com.caeproject.cae.application.usecases.ubicacion.ConsultarUbicacionesUseCase;
+import com.caeproject.cae.domain.ports.in.ProgramacionAcademica.*;
+import com.caeproject.cae.domain.ports.in.ubicacion.ConsultarUbicacionesInputPort;
 import com.caeproject.cae.domain.ports.out.*;
 import com.caeproject.cae.application.usecases.recuperacion.RestablecerContrasenaUseCase;
 import com.caeproject.cae.application.usecases.recuperacion.SolicitarRecuperacionUseCase;
@@ -11,6 +18,7 @@ import com.caeproject.cae.domain.ports.in.usuario.*;
 import com.caeproject.cae.infraestructure.security.JwtUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestClient;
 
 @Configuration
 public class BeanConfiguration {
@@ -73,8 +81,8 @@ public class BeanConfiguration {
 
     // --- BEANS DE PROGRAMA ---
     @Bean
-    public com.caeproject.cae.domain.ports.in.programa.CrearProgramaInputPort crearProgramaInputPort(com.caeproject.cae.domain.ports.out.ProgramaRepository programaRepository) {
-        return new com.caeproject.cae.application.usecases.programa.CrearProgramaUseCase(programaRepository);
+    public com.caeproject.cae.domain.ports.in.programa.CrearProgramaInputPort crearProgramaInputPort(com.caeproject.cae.domain.ports.out.ProgramaRepository programaRepository, UbicacionRepository ubicacionRepository) {
+        return new com.caeproject.cae.application.usecases.programa.CrearProgramaUseCase(programaRepository, ubicacionRepository);
     }
     @Bean
     public com.caeproject.cae.domain.ports.in.programa.ListarProgramaInputPort listarProgramaInputPort(com.caeproject.cae.domain.ports.out.ProgramaRepository programaRepository) {
@@ -85,8 +93,8 @@ public class BeanConfiguration {
         return new com.caeproject.cae.application.usecases.programa.ObtenerProgramaUseCase(programaRepository);
     }
     @Bean
-    public com.caeproject.cae.domain.ports.in.programa.EditarProgramaInputPort editarProgramaInputPort(com.caeproject.cae.domain.ports.out.ProgramaRepository programaRepository) {
-        return new com.caeproject.cae.application.usecases.programa.EditarProgramaUseCase(programaRepository);
+    public com.caeproject.cae.domain.ports.in.programa.EditarProgramaInputPort editarProgramaInputPort(com.caeproject.cae.domain.ports.out.ProgramaRepository programaRepository, UbicacionRepository ubicacionRepository) {
+        return new com.caeproject.cae.application.usecases.programa.EditarProgramaUseCase(programaRepository, ubicacionRepository);
     }
     @Bean
     public com.caeproject.cae.domain.ports.in.programa.EliminarProgramaInputPort eliminarProgramaInputPort(com.caeproject.cae.domain.ports.out.ProgramaRepository programaRepository) {
@@ -296,4 +304,62 @@ public class BeanConfiguration {
     }
 
 
+    //PROGRAMACION ACADEMICA
+    @Bean
+    public CrearProgramacionInputPort crearProgramacionInputPort(
+            ProgramacionAcademicaRepository programacionAcademicaRepository,
+            UsuarioRepository usuarioRepository,
+            TrimestreRepository trimestreRepository,
+            RapRepository rapRepository,
+            DisponibilidadInstructorRepository disponibilidadInstructorRepository,
+            DiseñoCurricularRepository diseñoCurricularRepository,
+            ProgramaRepository programaRepository,
+            FichaRepository fichaRepository,
+            EspecialidadRepository especialidadRepository,
+            InstructorEspecialidadRepository instructorEspecialidadRepository,
+            CompetenciaEspecialidadRepository competenciaEspecialidadRepository) {
+
+        return new CrearProgramacionAcademicaUseCase(
+                programacionAcademicaRepository,
+                usuarioRepository,
+                trimestreRepository,
+                rapRepository,
+                disponibilidadInstructorRepository,
+                diseñoCurricularRepository,
+                programaRepository,
+                fichaRepository,
+                especialidadRepository,
+                instructorEspecialidadRepository,
+                competenciaEspecialidadRepository
+        );
+
+
+
+    }
+    @Bean
+    public ObtenerProgramacionInputPort obtenerProgramacionInputPort(
+            ProgramacionAcademicaRepository programacionAcademicaRepository) {
+        return new ObtenerProgramacionAcademicaUseCase(programacionAcademicaRepository);
+    }
+
+    @Bean
+    public ListarProgramacionInputPort listarProgramacionInputPort(
+            ProgramacionAcademicaRepository programacionAcademicaRepository) {
+        return new ListarProgramacionAcademicaUseCase(programacionAcademicaRepository);
+    }
+
+    @Bean
+    public EliminarProgramacionInputPort eliminarProgramacionInputPort(
+            ProgramacionAcademicaRepository programacionAcademicaRepository) {
+        return new EliminarProgramacionAcademicaUseCase(programacionAcademicaRepository);
+    }
+
+    @Bean
+    public ConsultarUbicacionesInputPort consultarUbicacionesPort(UbicacionRepository ubicacionRepository) {
+        return new ConsultarUbicacionesUseCase(ubicacionRepository);
+    }
+    @Bean
+    public RestClient restClient(RestClient.Builder builder) {
+        return builder.build();
+    }
 }

@@ -12,7 +12,7 @@ public class DisponibilidadInstructor {
     private List<DiasDisponibles> diasDisponibles;
     private Long horasMaximas;
     private Jornada jornada;
-    private List<String> municipios;
+    private List<Municipio> municipios;
     private Long horasAsignadas;
 
 
@@ -29,8 +29,13 @@ public class DisponibilidadInstructor {
     public Long getUsuarioId() {return usuarioId;}
     public void setUsuarioId(Long usuarioId) {this.usuarioId = usuarioId;}
 
-    public List<DiasDisponibles> getDiasDisponibles() { return diasDisponibles; }
-    public void setDiasDisponibles(List<DiasDisponibles> diasDisponibles) { this.diasDisponibles = diasDisponibles; }
+    public List<DiasDisponibles> getDiasDisponibles() {
+        return diasDisponibles;
+    }
+
+    public void setDiasDisponibles(List<DiasDisponibles> diasDisponibles) {
+        this.diasDisponibles = diasDisponibles;
+    }
 
     public Long getHorasMaximas() {return horasMaximas;}
     public void setHorasMaximas(Long horasMaximas) {this.horasMaximas = horasMaximas;}
@@ -38,8 +43,13 @@ public class DisponibilidadInstructor {
     public Jornada getJornada() {return jornada;}
     public void setJornada(Jornada jornada) {this.jornada = jornada;}
 
-    public List<String> getMunicipios() { return municipios; }
-    public void setMunicipios(List<String> municipios) { this.municipios = municipios; }
+    public List<Municipio> getMunicipios() {
+        return municipios;
+    }
+
+    public void setMunicipios(List<Municipio> municipios) {
+        this.municipios = municipios;
+    }
 
     public Long getHorasAsignadas() { return horasAsignadas; }
     public void setHorasAsignadas(Long horasAsignadas) { this.horasAsignadas = horasAsignadas; }

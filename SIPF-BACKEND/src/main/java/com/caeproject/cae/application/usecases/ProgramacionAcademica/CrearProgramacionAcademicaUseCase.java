@@ -1,18 +1,16 @@
 package com.caeproject.cae.application.usecases.ProgramacionAcademica;
 
 import com.caeproject.cae.application.usecases.ProgramacionAcademica.commands.CrearProgramacionCommand;
-import com.caeproject.cae.domain.ports.exceptions.competenciaespecialidadexception.CompetenciaEspecialidadNoEncontradaException;
 import com.caeproject.cae.domain.ports.exceptions.competenciaexception.CompetenciaNoEncontradaException;
-import com.caeproject.cae.domain.ports.exceptions.especialidadexception.EspecialidadNoEncontradaException;
 import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.FichaNoEncontradaException;
 import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.ProgramaNoEncontradoException;
-import com.caeproject.cae.domain.ports.exceptions.instructorespecialidadexception.InstructorEspecialidadNoEncontradaException;
 import com.caeproject.cae.domain.ports.exceptions.rapexception.RapNoEncontradoException;
 import com.caeproject.cae.domain.ports.exceptions.usuarioexceptions.UsuarioNoEncontradoException;
 import com.caeproject.cae.domain.ports.in.ProgramacionAcademica.CrearProgramacionInputPort;
 import com.caeproject.cae.domain.ports.model.*;
+import com.caeproject.cae.domain.ports.model.enums.DiasDisponibles;
 import com.caeproject.cae.domain.ports.out.*;
-import org.apache.commons.collections4.Trie;
+
 
 public class CrearProgramacionAcademicaUseCase implements CrearProgramacionInputPort {
 
@@ -51,23 +49,11 @@ public class CrearProgramacionAcademicaUseCase implements CrearProgramacionInput
                 .orElseThrow(()-> new UsuarioNoEncontradoException(usuariooId));
 
     }
-    private DiseñoCurricular obtenerDiseño  (Long rapId){
-        return diseñoCurricularRepository.findByRapId(rapId)
-                .findFirst()
-                .orElseThrow(()-> new RapNoEncontradoException(rapId));
-    }
+
     private Rap obtenerRap (Long id){
         return rapRepository.findById(id)
                 .orElseThrow(()-> new RapNoEncontradoException(id));
     }
-
-    private Rap ObtenerRapPorCompetencia (Long competenciaId){
-        return rapRepository.findByCompetencia(competenciaId)
-                .stream()
-                .findFirst()
-                .orElseThrow(()-> new RapNoEncontradoException(competenciaId));
-    }
-
 
 
     private Trimestre obtenerTrimestre(Long trimestreId){
@@ -96,6 +82,21 @@ public class CrearProgramacionAcademicaUseCase implements CrearProgramacionInput
                 .orElseThrow(()-> new CompetenciaNoEncontradaException(competenciaId));
     }
 
+    Long  restarHorasDisponiblesInstructor(Long horasDisponibles, Long horasTotalesPorCompetencia){
+        if (horasTotalesPorCompetencia > horasDisponibles){
+            throw new RuntimeException("Las horas del instructor no son las suficientes para la comeptencia");
+        }
+        horasDisponibles = horasDisponibles - horasTotalesPorCompetencia;
+        return horasDisponibles;
+    }
+
+    private void validarRapNoAsignado(Long rapId, Long trimestreId){
+        boolean existe = programacionAcademicaRepository.existsByRapIdAndTrimestreId(rapId,trimestreId);
+        if (existe){
+            throw new RuntimeException("Este RAP ya tiene un instructor asignado en este trimestre");
+        }
+    }
+
     @Override
     public ProgramacionAcademica programacionAcademica(CrearProgramacionCommand crearProgramacionCommand) {
 
@@ -103,17 +104,23 @@ public class CrearProgramacionAcademicaUseCase implements CrearProgramacionInput
 
     // implementacion e iniciacion de objetos
         DisponibilidadInstructor disponibilidad = obtenerDisponiblidad(crearProgramacionCommand.getUsuarioId());
-        DiseñoCurricular diseño = obtenerDiseño(crearProgramacionCommand.getRapId());
         Rap rap = obtenerRap(crearProgramacionCommand.getRapId());
-        Rap competencia = ObtenerRapPorCompetencia(rap.getCompetenciaId());
+        Long competenciaId = rap.getCompetenciaId();
         Trimestre trimestre = obtenerTrimestre(crearProgramacionCommand.getTrimstreId());
         Ficha ficha = obtenerFicha(trimestre.getFichaId());
         Programa programa = obtenerPrograma(ficha.getProgramaId());
         InstructorEspecialidad instructorEspecialidad = obtenerEspecialidadInstructor(crearProgramacionCommand.getUsuarioId());
-        CompetenciaEspecialidad competenciaEspecialidad = obtenerComptenciaPorEspecialidad(competencia.getId());
+        CompetenciaEspecialidad competenciaEspecialidad = obtenerComptenciaPorEspecialidad(competenciaId);
+
+        //horastotales por cada competencia y sus raps
 
 
-        if (competenciaEspecialidad.getEspecialidadId() != instructorEspecialidad.getEspecialidadId()){
+
+
+        //valoracion de condicionales
+        validarRapNoAsignado(rap.getId(), trimestre.getId());
+
+        if (!competenciaEspecialidad.getEspecialidadId().equals(instructorEspecialidad.getEspecialidadId())){
              throw  new RuntimeException("La especialidad requerida para la competencia y sus resultados de aprendizaje no puede ser asignada a este instructor");
         }
 
@@ -121,36 +128,36 @@ public class CrearProgramacionAcademicaUseCase implements CrearProgramacionInput
             throw new RuntimeException("La jornada del instructor es diferente a la del programa");
         }
 
-        if (disponibilidad.getDiasDisponibles() == null) {
-            throw  new RuntimeException( "El instructor no tiene dias disponibles para realizar su jornada con el resultado de aprendizaje");
-        }
 
         if (disponibilidad.getHorasMaximas() == 0){
             throw new RuntimeException("El instrucor no tiene horas asignadas");
 
         }
 
-
-
-
-
-
-
-        //metodo de suma de horas totales segun la competencia y el numero de raps a ver dentro del programa
-        Integer horasTotalesCompetencia = diseñoCurricularRepository.sumarHorasPorCompetenciaYPrograma(crearProgramacionCommand.getRapId(), ficha.getProgramaId());
-
-        if (horasTotalesCompetencia == null) {
-            horasTotalesCompetencia = 0;
+        if (!disponibilidad.getMunicipios().contains(programa.getMunicipio())){
+            throw new RuntimeException("El municipio no concuerdan para poder ser dicatdos por este instructor");
         }
 
+        Long programaId = programa.getId();
+        Integer horasTotalesPorCompetenciaRaw = diseñoCurricularRepository
+                .sumarHorasPorCompetenciaYPrograma(competenciaId, programaId);
+
+        Long horasTotalesPorCompetencia = (horasTotalesPorCompetenciaRaw != null)
+                ? horasTotalesPorCompetenciaRaw.longValue()
+                : 0L;
 
 
-        //debemos tomar en cuenta lo siguiente si tiene la misma jornada que la jornada del programa es decir mañan y mañana entonces valdra si no tirara instructor no tiene la misma jornada para ser asignado luego
-        //tendremos que valorar tambien si tiene horas disponibles para las horas necesarias de el resultado de aprendizaje o el total del volumen de la competencia por que usualmente es asi un instructor para todas estas y e aih la importancia que alguien de planta o contratista puede o tiene mas posibilidades  entregar las horas necesarias al trimestre
+        //horasdisponibles del instructor
+        Long horasDisponibles = disponibilidad.getHorasMaximas();
+
+        Long horasRestantes  = restarHorasDisponiblesInstructor(horasDisponibles, horasTotalesPorCompetencia);
+
+        ProgramacionAcademica nuevaprogramacion = new ProgramacionAcademica();
+        nuevaprogramacion.setTrimestreId(trimestre.getId());
+        nuevaprogramacion.setRapId(rap.getId());
+        nuevaprogramacion.setUsuarioId(crearProgramacionCommand.getUsuarioId());
 
 
-
-
-        return null;
+        return programacionAcademicaRepository.saveProgramacion(nuevaprogramacion);
     }
 }
