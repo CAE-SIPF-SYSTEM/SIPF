@@ -13,4 +13,5 @@ public interface DiseñoCurricularRepository {
     void eliminarDiseñoCurricular(Long id);
     DiseñoCurricular saveDiseñoCurricular(DiseñoCurricular diseñoCurricular);
     Integer sumarHorasPorCompetenciaYPrograma(Long competenciaId, Long programaId);
+    Optional<DiseñoCurricular>findByProgramaIdAndRapId(Long programaId, Long rapId);
 }

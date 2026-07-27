@@ -1,5 +1,9 @@
 package com.caeproject.cae.infraestructure.config;
 
+import com.caeproject.cae.domain.ports.exceptions.asignacionexceptions.HorasInsuficientesException;
+import com.caeproject.cae.domain.ports.exceptions.asignacionexceptions.InstructorEspecialidadIncompatibleException;
+import com.caeproject.cae.domain.ports.exceptions.asignacionexceptions.JornadaIncompatibleException;
+import com.caeproject.cae.domain.ports.exceptions.asignacionexceptions.RapYaAsignadoEnTrimestreException;
 import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.*;
 import com.caeproject.cae.domain.ports.exceptions.competenciaexception.CompetenciaNoEncontradaException;
 import com.caeproject.cae.domain.ports.exceptions.competenciaexception.CompetenciaDuplicadaException;
@@ -165,6 +169,29 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RapDuplicadoException.class)
     public ResponseEntity<ErrorResponse> handleRapDuplicado(RapDuplicadoException ex){
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.CONFLICT.value());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
+    @ExceptionHandler(InstructorEspecialidadIncompatibleException.class)
+    public ResponseEntity<ErrorResponse> handleInstructorEspecialidadIncompatible(InstructorEspecialidadIncompatibleException ex) {
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(JornadaIncompatibleException.class)
+    public ResponseEntity<ErrorResponse> handleJornadaIncompatible(JornadaIncompatibleException ex) {
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(RapYaAsignadoEnTrimestreException.class)
+    public ResponseEntity<ErrorResponse> handleRapYaAsignadoEnTrimestre(RapYaAsignadoEnTrimestreException ex) {
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.CONFLICT.value());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+    @ExceptionHandler(HorasInsuficientesException.class)
+    public ResponseEntity<ErrorResponse>handleHorasInsuficientes(HorasInsuficientesException ex){
         ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.CONFLICT.value());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }

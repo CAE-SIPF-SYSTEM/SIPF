@@ -1,5 +1,6 @@
 package com.caeproject.cae.domain.ports.model;
 
+import com.caeproject.cae.domain.ports.exceptions.asignacionexceptions.HorasInsuficientesException;
 import com.caeproject.cae.domain.ports.model.enums.DiasDisponibles;
 import com.caeproject.cae.domain.ports.model.enums.Jornada;
 
@@ -17,12 +18,24 @@ public class DisponibilidadInstructor {
 
 
 
-    //metodo de calculo horas asignadas
-    public Long getHorasDisponibles(){
-        if (horasAsignadas == null){
-            throw new IllegalStateException("Las horas asignadas no ha sido calculadas aun");
+
+    public Long getHorasDisponibles() {
+        Long asignadasReales = (this.horasAsignadas == null) ? 0L : this.horasAsignadas;
+        return this.horasMaximas - asignadasReales;
+    }
+
+    public void comprometerHoras(Long horasRequeridas) {
+        if (horasRequeridas > getHorasDisponibles()) {
+            throw new HorasInsuficientesException(
+                    "El instructor no tiene suficientes horas disponibles para asignar a la competencia. " +
+                            "Horas disponibles: " + getHorasDisponibles() + ", Horas requeridas: " + horasRequeridas
+            );
         }
-        return horasMaximas - horasAsignadas;
+
+        if (this.horasAsignadas == null) {
+            this.horasAsignadas = 0L;
+        }
+        this.horasAsignadas += horasRequeridas;
     }
 
 

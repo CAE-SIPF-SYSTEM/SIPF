@@ -40,6 +40,11 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return "OPTIONS".equalsIgnoreCase(request.getMethod());
+    }
+
+    @Override
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
@@ -89,7 +94,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request, response);
 
-        } catch (Exception exception) { // <-- Se eliminó el ';' aquí
+        } catch (Exception exception) {
+            exception.printStackTrace();
             handlerExceptionResolver.resolveException(request, response, null, exception);
         }
     }

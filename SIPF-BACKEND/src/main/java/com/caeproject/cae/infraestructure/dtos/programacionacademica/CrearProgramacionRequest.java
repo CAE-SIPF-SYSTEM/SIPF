@@ -14,6 +14,17 @@ public class CrearProgramacionRequest {
     @NotNull
     private Long usuarioId;
 
+    @NotNull
+    private Long programaId;
+
+    public Long getProgramaId() {
+        return programaId;
+    }
+
+    public void setProgramaId(Long programaId) {
+        this.programaId = programaId;
+    }
+
     public Long getRapId() {return rapId;}
     public void setRapId(Long rapId) {this.rapId = rapId;}
 

@@ -4,9 +4,11 @@ import com.caeproject.cae.application.usecases.ProgramacionAcademica.CrearProgra
 import com.caeproject.cae.application.usecases.ProgramacionAcademica.EliminarProgramacionAcademicaUseCase;
 import com.caeproject.cae.application.usecases.ProgramacionAcademica.ListarProgramacionAcademicaUseCase;
 import com.caeproject.cae.application.usecases.ProgramacionAcademica.ObtenerProgramacionAcademicaUseCase;
+import com.caeproject.cae.application.usecases.asignacioninstructor.AsignacionInstructorUseCase;
 import com.caeproject.cae.application.usecases.excel.AlimentacionCrUseCase;
 import com.caeproject.cae.application.usecases.ubicacion.ConsultarUbicacionesUseCase;
 import com.caeproject.cae.domain.ports.in.ProgramacionAcademica.*;
+import com.caeproject.cae.domain.ports.in.asignarinstructor.AsignarInstructorInputPort;
 import com.caeproject.cae.domain.ports.in.ubicacion.ConsultarUbicacionesInputPort;
 import com.caeproject.cae.domain.ports.out.*;
 import com.caeproject.cae.application.usecases.recuperacion.RestablecerContrasenaUseCase;
@@ -308,34 +310,19 @@ public class BeanConfiguration {
     @Bean
     public CrearProgramacionInputPort crearProgramacionInputPort(
             ProgramacionAcademicaRepository programacionAcademicaRepository,
-            UsuarioRepository usuarioRepository,
             TrimestreRepository trimestreRepository,
             RapRepository rapRepository,
-            DisponibilidadInstructorRepository disponibilidadInstructorRepository,
-            DiseñoCurricularRepository diseñoCurricularRepository,
-            ProgramaRepository programaRepository,
-            FichaRepository fichaRepository,
-            EspecialidadRepository especialidadRepository,
-            InstructorEspecialidadRepository instructorEspecialidadRepository,
-            CompetenciaEspecialidadRepository competenciaEspecialidadRepository) {
-
+            AsignarInstructorInputPort asignarInstructorInputPort
+    ) {
         return new CrearProgramacionAcademicaUseCase(
                 programacionAcademicaRepository,
-                usuarioRepository,
                 trimestreRepository,
                 rapRepository,
-                disponibilidadInstructorRepository,
-                diseñoCurricularRepository,
-                programaRepository,
-                fichaRepository,
-                especialidadRepository,
-                instructorEspecialidadRepository,
-                competenciaEspecialidadRepository
+                asignarInstructorInputPort
         );
-
-
-
     }
+
+
     @Bean
     public ObtenerProgramacionInputPort obtenerProgramacionInputPort(
             ProgramacionAcademicaRepository programacionAcademicaRepository) {
@@ -361,5 +348,21 @@ public class BeanConfiguration {
     @Bean
     public RestClient restClient(RestClient.Builder builder) {
         return builder.build();
+    }
+    @Bean
+    public AsignarInstructorInputPort asignarInstructorInputPort(
+            InstructorEspecialidadRepository instructorEspecialidadRepository,
+            CompetenciaEspecialidadRepository competenciaEspecialidadRepository,
+            DisponibilidadInstructorRepository disponibilidadInstructorRepository,
+            ProgramaRepository programaRepository,
+            DiseñoCurricularRepository diseñoCurricularRepository
+    ) {
+        return new AsignacionInstructorUseCase(
+                instructorEspecialidadRepository,
+                competenciaEspecialidadRepository,
+                disponibilidadInstructorRepository,
+                programaRepository,
+                diseñoCurricularRepository
+        );
     }
 }

@@ -2,6 +2,7 @@ package com.caeproject.cae.application.usecases.disponibilidadInstructor.command
 
 import com.caeproject.cae.domain.ports.model.Municipio;
 import com.caeproject.cae.domain.ports.model.enums.DiasDisponibles;
+import com.caeproject.cae.domain.ports.model.enums.Jornada;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ public class CrearDisponibilidadCommand {
     private Long usuarioId;
     private List<DiasDisponibles> diasDisponibles;
     private List<Municipio> municipios;
+    private Jornada jornada;
 
     public Long getUsuarioId() {return this.usuarioId;}
     public void setUsuarioId(Long usuarioId) {this.usuarioId = usuarioId;}
@@ -21,10 +23,6 @@ public class CrearDisponibilidadCommand {
         this.diasDisponibles = diasDisponibles;
     }
 
-    private com.caeproject.cae.domain.ports.model.enums.Jornada jornada;
-    public com.caeproject.cae.domain.ports.model.enums.Jornada getJornada() {return jornada;}
-    public void setJornada(com.caeproject.cae.domain.ports.model.enums.Jornada jornada) {this.jornada = jornada;}
-
     public List<Municipio> getMunicipios() {
         return municipios;
     }
@@ -33,7 +31,6 @@ public class CrearDisponibilidadCommand {
         this.municipios = municipios;
     }
 
-    private com.caeproject.cae.domain.ports.model.enums.Jornada jornada;
     public com.caeproject.cae.domain.ports.model.enums.Jornada getJornada() {return jornada;}
     public void setJornada(com.caeproject.cae.domain.ports.model.enums.Jornada jornada) {this.jornada = jornada;}
 }

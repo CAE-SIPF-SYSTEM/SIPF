@@ -34,10 +34,12 @@ public class ProgramacionAcademicaController {
 
     @PostMapping
     public ResponseEntity<ProgramacionAcademicaResponse> crearProgramacion (@Valid @RequestBody CrearProgramacionRequest request){
+        System.out.println(">>>> ¡Sí logró llegar al Controlador!");
         CrearProgramacionCommand command = new CrearProgramacionCommand();
         command.setRapId(request.getRapId());
-        command.setTrimstreId(request.getTrimestreId());
+        command.setTrimestreId(request.getTrimestreId());
         command.setUsuarioId(request.getUsuarioId());
+        command.setProgramaId(request.getProgramaId());
 
         ProgramacionAcademica creado = crearProgramacionInputPort.programacionAcademica(command);
         return  ResponseEntity.status(HttpStatus.CREATED).body(toResponse(creado));
@@ -48,6 +50,7 @@ public class ProgramacionAcademicaController {
         response.setRapId(programacionAcademica.getRapId());
         response.setTrimestreId(programacionAcademica.getTrimestreId());
         response.setUsuarioId(programacionAcademica.getUsuarioId());
+        response.setProgramaId(programacionAcademica.getProgramaId());
         return response;
     }
 }

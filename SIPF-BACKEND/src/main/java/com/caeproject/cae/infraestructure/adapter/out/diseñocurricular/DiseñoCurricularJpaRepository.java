@@ -6,12 +6,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DiseñoCurricularJpaRepository  extends JpaRepository <DiseñoCurricularEntity,Long>{
 
     List<DiseñoCurricularEntity> findByProgramaId(Long programaId);
     List<DiseñoCurricularEntity> findByProgramaIdAndNumeroTrimestre(Long programaId, Integer numeroTrimestre);
     List<DiseñoCurricularEntity> findByRapId(Long rapId);
+    Optional<DiseñoCurricularEntity> findByProgramaIdAndRapId(Long programaId, Long rapId);
     void deleteByProgramaId(Long programaId);
 
     @Query("SELECT SUM(d.horaspresenciales) FROM DiseñoCurricularEntity d, RapEntity r " +

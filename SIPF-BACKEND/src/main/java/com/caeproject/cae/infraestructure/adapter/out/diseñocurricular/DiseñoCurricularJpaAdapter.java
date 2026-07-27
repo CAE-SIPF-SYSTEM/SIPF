@@ -56,4 +56,9 @@ public class DiseñoCurricularJpaAdapter implements DiseñoCurricularRepository 
     public Integer sumarHorasPorCompetenciaYPrograma(Long competenciaId, Long programaId) {
         return jpaRepository.sumarHorasPorCompetenciaYPrograma(competenciaId,programaId);
     }
+
+    @Override
+    public Optional<DiseñoCurricular> findByProgramaIdAndRapId(Long programaId, Long rapId) {
+        return jpaRepository.findByProgramaIdAndRapId(programaId, rapId).map(mapper::toDomain);
+    }
 }

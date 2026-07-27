@@ -5,7 +5,16 @@ public class ProgramacionAcademica {
     private Long trimestreId;
     private Long rapId;
     private Long usuarioId;
+    private Long programaId;
 
+
+    public Long getProgramaId() {
+        return programaId;
+    }
+
+    public void setProgramaId(Long programaId) {
+        this.programaId = programaId;
+    }
 
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}

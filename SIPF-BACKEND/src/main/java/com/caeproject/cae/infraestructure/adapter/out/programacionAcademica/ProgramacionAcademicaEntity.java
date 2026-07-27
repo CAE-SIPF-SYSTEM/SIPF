@@ -20,6 +20,18 @@ public class ProgramacionAcademicaEntity {
     @Column(name = "usuarioId", nullable = false)
     private Long usuarioId;
 
+    @Column(name = "programaId", nullable = false)
+    private Long programaId;
+
+
+    public Long getProgramaId() {
+        return programaId;
+    }
+
+    public void setProgramaId(Long programaId) {
+        this.programaId = programaId;
+    }
+
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}
 

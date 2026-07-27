@@ -38,10 +38,6 @@ public class DisponibilidadInstructorEntity {
     private List<DiasDisponibles> diasDisponibles;
 
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "jornada")
-    private com.caeproject.cae.domain.ports.model.enums.Jornada jornada;
-
     public Long getUsuarioId() {return usuarioId;}
     public void setUsuarioId(Long usuarioId) {this.usuarioId = usuarioId;}
 

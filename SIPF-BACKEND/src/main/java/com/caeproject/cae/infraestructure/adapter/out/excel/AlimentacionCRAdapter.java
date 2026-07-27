@@ -30,7 +30,8 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
             "DENOMINACION COMPETENCIA",
             "TIPO COMPETENCIA",
             "DESCRIPCION RESULTADO DE APRENDIZAJE (RAP)",
-            "TRIMESTRE"
+            "TRIMESTRE",
+            "HORAS PRESENCIALES"
     };
 
     @Override
@@ -150,7 +151,7 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
         Integer idxCodigoRap = columnas.get("CODIGO RAP");
         String codigoRap = idxCodigoRap != null ? obtenerValorCelda(row.getCell(idxCodigoRap)) : null;
         
-        Integer idxHoras = columnas.get("INTENSIDAD HORARIA");
+        Integer idxHoras = columnas.get("HORAS PRESENCIALES");
         String horasRapStr = idxHoras != null ? obtenerValorCelda(row.getCell(idxHoras)) : null;
         
         Integer idxEstado = columnas.get("ESTADO");
@@ -204,10 +205,6 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
                 return String.valueOf(valor);
             case BOOLEAN:
                 return String.valueOf(cell.getBooleanCellValue());
-            case FORMULA:
-                return cell.getStringCellValue().trim();
-            case BLANK:
-                return "";
             default:
                 return "";
         }

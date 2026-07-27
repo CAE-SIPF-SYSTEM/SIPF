@@ -35,7 +35,5 @@ public class CrearDisponibilidadInstructorRequest {
     public com.caeproject.cae.domain.ports.model.enums.Jornada getJornada() {return jornada;}
     public void setJornada(com.caeproject.cae.domain.ports.model.enums.Jornada jornada) {this.jornada = jornada;}
 
-    private com.caeproject.cae.domain.ports.model.enums.Jornada jornada;
-    public com.caeproject.cae.domain.ports.model.enums.Jornada getJornada() {return jornada;}
-    public void setJornada(com.caeproject.cae.domain.ports.model.enums.Jornada jornada) {this.jornada = jornada;}
+
 }
