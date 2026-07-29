@@ -8,5 +8,4 @@ import java.util.List;
 public interface ObtenerDisponibilidadInstructorInputPort {
     DisponibilidadInstructor obtenerDisponiblidad(Long usuarioId);
     List<DisponibilidadInstructor> obtenerPorDiasDisponibles (DiasDisponibles diasDisponibles);
-
 }

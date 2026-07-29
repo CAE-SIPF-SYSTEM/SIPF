@@ -1,12 +1,13 @@
 package com.caeproject.cae.infraestructure.dtos.programa;
 
+import com.caeproject.cae.domain.ports.model.Municipio;
 import com.caeproject.cae.domain.ports.model.enums.Jornada;
 import com.caeproject.cae.domain.ports.model.enums.NivelFormacion;
 
 public class ProgramaResponse {
     private Long id;
     private String nombre;
-    private String municipio;
+    private Municipio municipio;
     private NivelFormacion nivelFormacion;
     private Jornada jornada;
     private Integer duracionpracticas;
@@ -15,8 +16,15 @@ public class ProgramaResponse {
     public  void setId(Long id) {this.id = id;}
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
-    public String getMunicipio() { return municipio; }
-    public void setMunicipio(String municipio) { this.municipio = municipio; }
+
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
+    }
+
     public NivelFormacion getNivelFormacion() { return nivelFormacion; }
     public void setNivelFormacion(NivelFormacion nivelFormacion) { this.nivelFormacion = nivelFormacion; }
     public Jornada getJornada() { return jornada; }

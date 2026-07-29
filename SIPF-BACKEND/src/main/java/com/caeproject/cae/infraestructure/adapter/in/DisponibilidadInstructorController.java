@@ -1,6 +1,5 @@
 package com.caeproject.cae.infraestructure.adapter.in;
 
-
 import com.caeproject.cae.application.usecases.disponibilidadInstructor.commands.CrearDisponibilidadCommand;
 import com.caeproject.cae.application.usecases.disponibilidadInstructor.commands.EditarDisponibilidadCommand;
 import com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.*;
@@ -40,9 +39,9 @@ public class DisponibilidadInstructorController {
         CrearDisponibilidadCommand command = new CrearDisponibilidadCommand();
         command.setUsuarioId(request.getUsuarioId());
         command.setDiasDisponibles(request.getDiasDisponibles());
-        command.setHorasMaximas(request.getHorasMaximas());
         command.setJornada(request.getJornada());
         command.setMunicipios(request.getMunicipios());
+        command.setJornada(request.getJornada());
 
         DisponibilidadInstructor creado = crearDisponibilidadInstructorInputPort.crearDisponibilidad(command);
         return ResponseEntity.status(HttpStatus.CREATED).body(toResponse(creado));
@@ -76,20 +75,20 @@ public class DisponibilidadInstructorController {
     }
 
     @GetMapping("/dia/{diaDisponible}")
-    public ResponseEntity<List<DisponibilidadInstructorResponse>> obtenerPorDia(@PathVariable DiasDisponibles diaDisponible){
-        List<DisponibilidadInstructor> disponibilidades = obtenerDisponibilidadInstructorInputPort.obtenerPorDiasDisponibles(diaDisponible);
+    public ResponseEntity<List<DisponibilidadInstructorResponse>> obtenerPorDiasDisponibles(@PathVariable DiasDisponibles diasDisponibles){
+        List<DisponibilidadInstructor> disponibilidades = obtenerDisponibilidadInstructorInputPort.obtenerPorDiasDisponibles(diasDisponibles);
         return ResponseEntity.ok(disponibilidades.stream().map(this::toResponse).collect(Collectors.toList()));
     }
-
 
     private DisponibilidadInstructorResponse toResponse (DisponibilidadInstructor disponibilidadInstructor){
         DisponibilidadInstructorResponse response = new DisponibilidadInstructorResponse();
         response.setUsuarioId(disponibilidadInstructor.getUsuarioId());
         response.setDiasDisponibles(disponibilidadInstructor.getDiasDisponibles());
         response.setHorasMaximas(disponibilidadInstructor.getHorasMaximas());
+        response.setHorasAsignadas(disponibilidadInstructor.getHorasAsignadas());
+        response.setHorasDisponibles(disponibilidadInstructor.getHorasDisponibles());
         response.setJornada(disponibilidadInstructor.getJornada());
         response.setMunicipios(disponibilidadInstructor.getMunicipios());
         return response;
     }
-
 }

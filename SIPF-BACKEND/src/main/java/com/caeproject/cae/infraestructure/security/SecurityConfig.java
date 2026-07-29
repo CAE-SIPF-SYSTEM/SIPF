@@ -31,13 +31,13 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                         // Permite acceso publico al Login y endpoints asociados a los iniciales con api/auth/
                         .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
+
                         .requestMatchers("/h2-console/**").permitAll() //MOMENTANEO H2
-
-
                         .requestMatchers("/api/programas/**").hasRole("COORDINADOR")
                         .requestMatchers("/api/fichas/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
                         .requestMatchers("/api/trimestres/**").hasRole("ADMINISTRADOR")
@@ -47,10 +47,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/excel/alimentacion").hasRole("ADMINISTRADOR")
                         .requestMatchers("/api/raps/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
                         .requestMatchers("/api/competencias/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
-                        .requestMatchers("/api/disponibilidadinstructor").hasRole("INSTRUCTOR")
-                        // EJEMPLO MOMENTANEO
+                        .requestMatchers("/api/disponibilidadinstructor", "/api/disponibilidadinstructor/**").hasAnyRole("INSTRUCTOR", "ADMINISTRADOR")
+                        .requestMatchers("/api/ubicaciones").hasAnyRole("ADMINISTRADOR", "INSTRUCTOR","COORDINADOR" )
+                        .requestMatchers("/api/programacionacademica", "/api/programacionacademica/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
                         .requestMatchers(HttpMethod.GET, "/api/usuarios").hasRole("ADMINISTRADOR")
-
 
                         // Cualquier otra petición requiere autenticación
                         .anyRequest().authenticated()
@@ -60,8 +60,6 @@ public class SecurityConfig {
                 .headers(headers -> headers
                         .frameOptions(frame -> frame.sameOrigin())
                 );
-
-
 
         return http.build();
     }

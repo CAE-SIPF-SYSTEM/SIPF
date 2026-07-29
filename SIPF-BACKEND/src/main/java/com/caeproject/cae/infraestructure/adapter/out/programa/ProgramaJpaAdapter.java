@@ -46,8 +46,8 @@ public class ProgramaJpaAdapter implements ProgramaRepository {
     }
 
     @Override
-    public List<Programa> findByMunicipio(String municipio) {
-        return jpaRepository.findByMunicipio(municipio).stream()
+    public List<Programa> findByMunicipio(String nombre) {
+        return jpaRepository.findByMunicipio_Nombre(nombre).stream()
                 .map(mapper::toDomain).collect(Collectors.toList());
     }
 

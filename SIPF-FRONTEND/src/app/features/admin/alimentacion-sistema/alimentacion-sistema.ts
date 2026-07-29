@@ -1,12 +1,16 @@
-import { Component, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
 import { ExcelService } from '../../../core/use-cases/excel.service';
+import { ProgramaService } from '../../../core/use-cases/programa.service';
 import { SweetAlertService } from '../../../core/use-cases/sweet-alert.service';
 import { MainLayoutComponent } from '../../../shared/layouts/main-layout/main-layout';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ProgramaResponse } from '../../../core/entities/programa.model';
 
 @Component({
   selector: 'app-alimentacion-sistema',
@@ -16,20 +20,42 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatIconModule,
     MatButtonModule,
     MatCardModule,
+    MatSelectModule,
+    FormsModule,
     MainLayoutComponent,
     MatProgressSpinnerModule
   ],
   templateUrl: './alimentacion-sistema.html',
   styleUrls: ['./alimentacion-sistema.css']
 })
-export class AlimentacionSistemaComponent {
+export class AlimentacionSistemaComponent implements OnInit {
   private excelService = inject(ExcelService);
+  private programaService = inject(ProgramaService);
   private sweetAlertService = inject(SweetAlertService);
   private cdr = inject(ChangeDetectorRef);
 
   isDragging = false;
   selectedFile: File | null = null;
   isUploading = false;
+  
+  programas: ProgramaResponse[] = [];
+  selectedProgramaId: number | null = null;
+
+  ngOnInit() {
+    this.cargarProgramas();
+  }
+
+  cargarProgramas() {
+    this.programaService.getAll().subscribe({
+      next: (data) => {
+        this.programas = data;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.sweetAlertService.error('Error', 'No se pudieron cargar los programas.');
+      }
+    });
+  }
 
   onDragOver(event: DragEvent) {
     event.preventDefault();
@@ -77,11 +103,15 @@ export class AlimentacionSistemaComponent {
 
   uploadFile() {
     if (!this.selectedFile) return;
+    if (!this.selectedProgramaId) {
+      this.sweetAlertService.error('Atención', 'Debes seleccionar un Programa antes de subir el archivo.');
+      return;
+    }
 
     this.isUploading = true;
     this.cdr.detectChanges();
 
-    this.excelService.subirAlimentacion(this.selectedFile).subscribe({
+    this.excelService.subirAlimentacion(this.selectedFile, this.selectedProgramaId).subscribe({
       next: (response) => {
         this.isUploading = false;
         this.selectedFile = null;

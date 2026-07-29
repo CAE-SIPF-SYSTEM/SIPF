@@ -1,7 +1,7 @@
 package com.caeproject.cae.infraestructure.adapter.out.disponibilidadinstructor;
 
-
 import com.caeproject.cae.domain.ports.model.enums.DiasDisponibles;
+import com.caeproject.cae.infraestructure.adapter.out.ubicacion.MunicipioEntity;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -11,40 +11,61 @@ import java.util.List;
 public class DisponibilidadInstructorEntity {
 
     @Id
-    @GeneratedValue
     private Long usuarioId;
-
-    @ElementCollection(targetClass = DiasDisponibles.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "instructor_dias", joinColumns = @JoinColumn(name = "usuario_id"))
-    @Enumerated(EnumType.STRING)
-    @Column(name = "dia_disponible")
-    private List<DiasDisponibles> diasDisponibles;
 
     @Column (name = "HorasMaximas", nullable = false)
     private Long horasMaximas;
+
+    @Column (name = "HorasAsignadas")
+    private Long horasAsignadas = 0L;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "jornada")
     private com.caeproject.cae.domain.ports.model.enums.Jornada jornada;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "instructor_municipios", joinColumns = @JoinColumn(name = "usuario_id"))
-    @Column(name = "municipio")
-    private List<String> municipios;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "disponibilidad_municipio",
+            joinColumns = @JoinColumn(name = "disponibilidad_id"),
+            inverseJoinColumns = @JoinColumn(name = "municipio_id")
+    )
+    private List<MunicipioEntity> municipios;
+
+    @CollectionTable(name = "DiasDisponiblesInstructor", joinColumns = @JoinColumn(name = "usuario_id"))
+    @Column(name = "dia_disponible")
+    @ElementCollection(targetClass = DiasDisponibles.class, fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private List<DiasDisponibles> diasDisponibles;
 
     public Long getUsuarioId() {return usuarioId;}
     public void setUsuarioId(Long usuarioId) {this.usuarioId = usuarioId;}
 
-    public List<DiasDisponibles> getDiasDisponibles() {return diasDisponibles;}
-    public void setDiasDisponibles(List<DiasDisponibles> diasDisponibles) {this.diasDisponibles = diasDisponibles;}
+    public List<DiasDisponibles> getDiasDisponibles() {
+        return diasDisponibles;
+    }
+
+    public void setDiasDisponibles(List<DiasDisponibles> diasDisponibles) {
+        this.diasDisponibles = diasDisponibles;
+    }
 
     public Long getHorasMaximas() {return horasMaximas;}
     public void setHorasMaximas(Long horasMaximas) {this.horasMaximas = horasMaximas;}
 
+    public Long getHorasAsignadas() {
+        return horasAsignadas == null ? 0L : horasAsignadas;
+    }
+    public void setHorasAsignadas(Long horasAsignadas) {
+        this.horasAsignadas = horasAsignadas;
+    }
+
     public com.caeproject.cae.domain.ports.model.enums.Jornada getJornada() {return jornada;}
     public void setJornada(com.caeproject.cae.domain.ports.model.enums.Jornada jornada) {this.jornada = jornada;}
 
-    public List<String> getMunicipios() { return municipios; }
-    public void setMunicipios(List<String> municipios) { this.municipios = municipios; }
+    public List<MunicipioEntity> getMunicipios() {
+        return municipios;
+    }
 
+    public void setMunicipios(List<MunicipioEntity> municipios) {
+        this.municipios = municipios;
+    }
 }

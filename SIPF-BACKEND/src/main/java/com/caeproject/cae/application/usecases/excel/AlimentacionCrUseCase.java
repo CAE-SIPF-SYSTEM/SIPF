@@ -1,31 +1,38 @@
 package com.caeproject.cae.application.usecases.excel;
 
+import com.caeproject.cae.domain.ports.exceptions.diseñocurricularexception.DIseñoYaexistenteException;
 import com.caeproject.cae.domain.ports.model.Competencia;
 import com.caeproject.cae.domain.ports.model.enums.TipoCompetencia;
 import com.caeproject.cae.domain.ports.model.Rap;
 import com.caeproject.cae.domain.ports.out.AlimentacionCRRepository;
 import com.caeproject.cae.domain.ports.out.CompetenciaRepository;
 import com.caeproject.cae.domain.ports.out.RapRepository;
+import com.caeproject.cae.domain.ports.out.DiseñoCurricularRepository;
+import com.caeproject.cae.domain.ports.model.DiseñoCurricular;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 
 public class AlimentacionCrUseCase {
     private final AlimentacionCRRepository alimentacionCRRepository;
     private final CompetenciaRepository competenciaRepository;
     private final RapRepository rapRepository;
+    private final DiseñoCurricularRepository diseñoCurricularRepository;
     private static final Logger log = LoggerFactory.getLogger(AlimentacionCrUseCase.class);
 
     public AlimentacionCrUseCase(AlimentacionCRRepository alimentacionCRRepository,
                                  CompetenciaRepository competenciaRepository,
-                                 RapRepository rapRepository) {
+                                 RapRepository rapRepository,
+                                 DiseñoCurricularRepository diseñoCurricularRepository) {
         this.alimentacionCRRepository = alimentacionCRRepository;
         this.competenciaRepository = competenciaRepository;
         this.rapRepository = rapRepository;
+        this.diseñoCurricularRepository = diseñoCurricularRepository;
     }
 
-    public void ejecutar(InputStream alimentacionExcel) {
+    public void ejecutar(InputStream alimentacionExcel, Long programaId) {
 
         List<AlimentacionCRRepository.CompetenciaRap> competenciaRaps = alimentacionCRRepository.extraerAlimentacion(alimentacionExcel);
 
@@ -34,7 +41,8 @@ public class AlimentacionCrUseCase {
         for (AlimentacionCRRepository.CompetenciaRap registro : competenciaRaps) {
             try {
                 Competencia competencia = registro.competencia();
-                List<Rap> raps = registro.raps();
+                List<AlimentacionCRRepository.RapImport> rapsImport = registro.raps();
+                Integer trimestre = registro.trimestre();
 
                 String codigoCompetencia = competencia.getCodigo();
                 String nombreCompetencia = competencia.getNombre();
@@ -64,7 +72,8 @@ public class AlimentacionCrUseCase {
                 // duplicados
                 List<Rap> rapsExistentes = rapRepository.findByCompetencia(competenciaGuardada.getId());
 
-                for (Rap rap : raps) {
+                for (AlimentacionCRRepository.RapImport rapImport : rapsImport) {
+                    Rap rap = rapImport.rap();
                     Long idcompetencia = competenciaGuardada.getId();
                     String descripcionRap = rap.getDescripcion();
                     
@@ -72,22 +81,37 @@ public class AlimentacionCrUseCase {
                     boolean existeRap = rapsExistentes.stream()
                         .anyMatch(r -> r.getDescripcion() != null && r.getDescripcion().equalsIgnoreCase(descripcionRap));
 
+                    Rap rapGuardado;
                     if (existeRap) {
                         log.info("   -> RAP omitido (ya existe): {}", descripcionRap);
-                        continue;
+                        rapGuardado = rapsExistentes.stream()
+                            .filter(r -> r.getDescripcion() != null && r.getDescripcion().equalsIgnoreCase(descripcionRap))
+                            .findFirst().orElseThrow();
+                    } else {
+                        Boolean estado = rap.getEstado();
+                        log.info("   -> Guardando RAP: {} {} {}", idcompetencia, descripcionRap, estado);
+                        rap.setCompetenciaId(idcompetencia);
+                        rap.setId(null);
+                        rapGuardado = rapRepository.saveRap(rap);
                     }
 
-                    Boolean estado = rap.getEstado();
-                    Integer horasPresenciales = rap.getHorasPresenciales();
 
-                    log.info("   -> Guardando RAP: {} {} {} {}", idcompetencia, descripcionRap, estado, horasPresenciales);
+                    Integer horasPresenciales = rapImport.horasPresenciales();
 
-                    rap.setCompetenciaId(idcompetencia);
-                    
-                    rap.setId(null);
-
-                    Rap rapGuardado = rapRepository.saveRap(rap);
-
+                    Optional<DiseñoCurricular> diseñoExistente = diseñoCurricularRepository.findByProgramaIdAndRapId(programaId, rapGuardado.getId());
+                    if(diseñoExistente.isEmpty()){
+                        DiseñoCurricular diseno = new DiseñoCurricular();
+                        diseno.setProgramaId(programaId);
+                        diseno.setNumeroTrimestre(trimestre);
+                        diseno.setRapId(rapGuardado.getId());
+                        diseno.setHoraspresenciales(horasPresenciales);
+                        diseñoCurricularRepository.saveDiseñoCurricular(diseno);
+                        log.info("   -> Diseño Curricular guardado para RAP ID: {}, Programa ID: {}, Trimestre: {}, Horas: {}",
+                                rapGuardado.getId(), programaId, trimestre, horasPresenciales);
+                    } else {
+                        log.info("   -> Diseño Curricular ya existe para RAP ID: {}, Programa ID: {}, Trimestre: {}. Se omite.",
+                                rapGuardado.getId(), programaId, trimestre);
+                    }
                 }
 
             } catch (Exception e) {

@@ -12,6 +12,4 @@ public interface DisponibilidadInstructorRepository {
     List<DisponibilidadInstructor> findAll();
     void deleteDisponibilidadInstrucor(Long usuarioId);
     DisponibilidadInstructor saveDisponibilidad(DisponibilidadInstructor disponibilidadInstructor);
-
-
-}
+    }

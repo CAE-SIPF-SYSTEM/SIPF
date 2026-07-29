@@ -16,9 +16,6 @@ public class RapEntity {
     @Column(nullable = false, length = 500)
     private String descripcion;
 
-    @Column(name = "horas_presenciales", nullable = false)
-    private Integer horasPresenciales;
-
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -27,7 +24,4 @@ public class RapEntity {
 
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-
-    public Integer getHorasPresenciales() { return horasPresenciales; }
-    public void setHorasPresenciales(Integer horasPresenciales) { this.horasPresenciales = horasPresenciales; }
 }

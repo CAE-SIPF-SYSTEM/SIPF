@@ -6,7 +6,7 @@ public class DiseñoCurricular {
     private Long programaId;
     private Integer numeroTrimestre;
     private Long rapId;
-
+    private Integer horaspresenciales;
 
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}
@@ -19,4 +19,7 @@ public class DiseñoCurricular {
 
     public Long getRapId() {return rapId;}
     public void setRapId(Long rapId) {this.rapId = rapId;}
+
+    public Integer getHoraspresenciales() {return horaspresenciales;}
+    public void setHoraspresenciales(Integer horaspresenciales) {this.horaspresenciales = horaspresenciales;}
 }

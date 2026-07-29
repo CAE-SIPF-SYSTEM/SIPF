@@ -7,7 +7,7 @@ public class Programa {
 
     private Long id;
     private String nombre;
-    private String municipio;
+    private Municipio municipio;
 
     private NivelFormacion nivelFormacion;
     private Jornada jornada;
@@ -23,9 +23,13 @@ public class Programa {
 
     public void setNombre(String nombre) {this.nombre = nombre;}
 
-    public String getMunicipio() {return municipio;}
+    public Municipio getMunicipio() {
+        return municipio;
+    }
 
-    public void setMunicipio(String municipio) {this.municipio = municipio;}
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
+    }
 
     public NivelFormacion getNivelFormacion() {return nivelFormacion;}
 

@@ -18,7 +18,6 @@ public class CrearRapUseCase implements CrearRapInputPort {
         Rap rap = new Rap();
         rap.setCompetenciaId(command.getCompetenciaId());
         rap.setDescripcion(command.getDescripcion());
-        rap.setHorasPresenciales(command.getHorasPresenciales());
 
         return rapRepository.saveRap(rap);
     }
