@@ -1,6 +1,5 @@
 package com.caeproject.cae.infraestructure.adapter.in;
 
-
 import com.caeproject.cae.application.usecases.disponibilidadInstructor.commands.CrearDisponibilidadCommand;
 import com.caeproject.cae.application.usecases.disponibilidadInstructor.commands.EditarDisponibilidadCommand;
 import com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.*;
@@ -81,13 +80,15 @@ public class DisponibilidadInstructorController {
         return ResponseEntity.ok(disponibilidades.stream().map(this::toResponse).collect(Collectors.toList()));
     }
 
-
     private DisponibilidadInstructorResponse toResponse (DisponibilidadInstructor disponibilidadInstructor){
         DisponibilidadInstructorResponse response = new DisponibilidadInstructorResponse();
         response.setUsuarioId(disponibilidadInstructor.getUsuarioId());
         response.setDiasDisponibles(disponibilidadInstructor.getDiasDisponibles());
         response.setHorasMaximas(disponibilidadInstructor.getHorasMaximas());
+        response.setHorasAsignadas(disponibilidadInstructor.getHorasAsignadas());
+        response.setHorasDisponibles(disponibilidadInstructor.getHorasDisponibles());
+        response.setJornada(disponibilidadInstructor.getJornada());
+        response.setMunicipios(disponibilidadInstructor.getMunicipios());
         return response;
     }
-
 }

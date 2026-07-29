@@ -1,27 +1,18 @@
-package com.caeproject.cae.infraestructure.dtos.disponibilidadinstrucor;
+package com.caeproject.cae.infraestructure.dtos.asignacioninstructor;
 
-import com.caeproject.cae.domain.ports.model.Municipio;
 import com.caeproject.cae.domain.ports.model.enums.DiasDisponibles;
+import com.caeproject.cae.domain.ports.model.enums.Jornada;
 
 import java.util.List;
 
-public class DisponibilidadInstructorResponse {
+public class InstructorSugeridoResponse {
 
     private Long usuarioId;
     private List<DiasDisponibles> diasDisponibles;
     private Long horasMaximas;
     private Long horasAsignadas;
     private Long horasDisponibles;
-    private List<Municipio> municipios;
-    private com.caeproject.cae.domain.ports.model.enums.Jornada jornada;
-
-    public List<Municipio> getMunicipios() {
-        return municipios;
-    }
-
-    public void setMunicipios(List<Municipio> municipios) {
-        this.municipios = municipios;
-    }
+    private Jornada jornada;
 
     public Long getUsuarioId() {
         return usuarioId;
@@ -63,11 +54,11 @@ public class DisponibilidadInstructorResponse {
         this.horasDisponibles = horasDisponibles;
     }
 
-    public com.caeproject.cae.domain.ports.model.enums.Jornada getJornada() {
+    public Jornada getJornada() {
         return jornada;
     }
 
-    public void setJornada(com.caeproject.cae.domain.ports.model.enums.Jornada jornada) {
+    public void setJornada(Jornada jornada) {
         this.jornada = jornada;
     }
 }

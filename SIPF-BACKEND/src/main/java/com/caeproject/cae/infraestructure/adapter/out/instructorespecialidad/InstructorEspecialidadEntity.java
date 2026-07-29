@@ -35,7 +35,7 @@ public class InstructorEspecialidadEntity implements Persistable<Long> {
 
     @Transient
     private boolean esNuevo = true;
-    
+
     @Override
     public Long getId() {
         return usuarioId;

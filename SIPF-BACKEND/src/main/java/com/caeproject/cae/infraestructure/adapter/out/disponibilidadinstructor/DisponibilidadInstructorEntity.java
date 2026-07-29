@@ -1,6 +1,5 @@
 package com.caeproject.cae.infraestructure.adapter.out.disponibilidadinstructor;
 
-
 import com.caeproject.cae.domain.ports.model.enums.DiasDisponibles;
 import com.caeproject.cae.infraestructure.adapter.out.ubicacion.MunicipioEntity;
 import jakarta.persistence.*;
@@ -12,13 +11,13 @@ import java.util.List;
 public class DisponibilidadInstructorEntity {
 
     @Id
-    @GeneratedValue
     private Long usuarioId;
-
-
 
     @Column (name = "HorasMaximas", nullable = false)
     private Long horasMaximas;
+
+    @Column (name = "HorasAsignadas")
+    private Long horasAsignadas = 0L;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "jornada")
@@ -32,11 +31,11 @@ public class DisponibilidadInstructorEntity {
     )
     private List<MunicipioEntity> municipios;
 
-    @CollectionTable(name = "DiasDisponiblesInstructor")
-    @ElementCollection(targetClass = DiasDisponibles.class)
+    @CollectionTable(name = "DiasDisponiblesInstructor", joinColumns = @JoinColumn(name = "usuario_id"))
+    @Column(name = "dia_disponible")
+    @ElementCollection(targetClass = DiasDisponibles.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private List<DiasDisponibles> diasDisponibles;
-
 
     public Long getUsuarioId() {return usuarioId;}
     public void setUsuarioId(Long usuarioId) {this.usuarioId = usuarioId;}
@@ -51,6 +50,13 @@ public class DisponibilidadInstructorEntity {
 
     public Long getHorasMaximas() {return horasMaximas;}
     public void setHorasMaximas(Long horasMaximas) {this.horasMaximas = horasMaximas;}
+
+    public Long getHorasAsignadas() {
+        return horasAsignadas == null ? 0L : horasAsignadas;
+    }
+    public void setHorasAsignadas(Long horasAsignadas) {
+        this.horasAsignadas = horasAsignadas;
+    }
 
     public com.caeproject.cae.domain.ports.model.enums.Jornada getJornada() {return jornada;}
     public void setJornada(com.caeproject.cae.domain.ports.model.enums.Jornada jornada) {this.jornada = jornada;}

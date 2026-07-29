@@ -61,4 +61,9 @@ public class DiseñoCurricularJpaAdapter implements DiseñoCurricularRepository 
     public Optional<DiseñoCurricular> findByProgramaIdAndRapId(Long programaId, Long rapId) {
         return jpaRepository.findByProgramaIdAndRapId(programaId, rapId).map(mapper::toDomain);
     }
+
+    @Override
+    public List<DiseñoCurricular> findByProgramaIdandTrimestreId(Long programaId, Long trimestreId) {
+        return jpaRepository.findByProgramaIdAndNumeroTrimestre(programaId, Math.toIntExact(trimestreId)).stream().map(mapper::toDomain).collect(Collectors.toList());
+    }
 }

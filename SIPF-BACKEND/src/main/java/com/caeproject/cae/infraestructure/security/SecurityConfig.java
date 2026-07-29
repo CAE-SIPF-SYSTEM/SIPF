@@ -47,11 +47,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/excel/alimentacion").hasRole("ADMINISTRADOR")
                         .requestMatchers("/api/raps/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
                         .requestMatchers("/api/competencias/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
-                        .requestMatchers("/api/disponibilidadinstructor", "/api/disponibilidadinstructor/**").hasAnyRole("INSTRUCTOR", "ADMINISTRADOR").requestMatchers("/api/programacionacademica").hasRole("COORDINADOR")
+                        .requestMatchers("/api/disponibilidadinstructor", "/api/disponibilidadinstructor/**").hasAnyRole("INSTRUCTOR", "ADMINISTRADOR")
                         .requestMatchers("/api/ubicaciones").hasAnyRole("ADMINISTRADOR", "INSTRUCTOR","COORDINADOR" )
-                .requestMatchers("/api/programacionacademica", "/api/programacionacademica/**").hasAuthority("COORDINADOR")                        // EJEMPLO MOMENTANEO
+                        .requestMatchers("/api/programacionacademica", "/api/programacionacademica/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
                         .requestMatchers(HttpMethod.GET, "/api/usuarios").hasRole("ADMINISTRADOR")
-
 
                         // Cualquier otra petición requiere autenticación
                         .anyRequest().authenticated()
@@ -61,8 +60,6 @@ public class SecurityConfig {
                 .headers(headers -> headers
                         .frameOptions(frame -> frame.sameOrigin())
                 );
-
-
 
         return http.build();
     }

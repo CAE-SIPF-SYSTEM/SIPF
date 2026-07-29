@@ -1,16 +1,22 @@
 package com.caeproject.cae.infraestructure.config;
 
+import com.caeproject.cae.application.usecases.ProgramacionAcademica.AutoProgramarTrimestreUseCase;
 import com.caeproject.cae.application.usecases.ProgramacionAcademica.CrearProgramacionAcademicaUseCase;
 import com.caeproject.cae.application.usecases.ProgramacionAcademica.EliminarProgramacionAcademicaUseCase;
 import com.caeproject.cae.application.usecases.ProgramacionAcademica.ListarProgramacionAcademicaUseCase;
 import com.caeproject.cae.application.usecases.ProgramacionAcademica.ObtenerProgramacionAcademicaUseCase;
 import com.caeproject.cae.application.usecases.asignacioninstructor.AsignacionInstructorUseCase;
+import com.caeproject.cae.application.usecases.asignacioninstructor.ObtenerResumenProgramaUseCase;
+import com.caeproject.cae.application.usecases.asignacioninstructor.SugerirInstructorUseCase;
 import com.caeproject.cae.application.usecases.excel.AlimentacionCrUseCase;
 import com.caeproject.cae.application.usecases.ubicacion.ConsultarUbicacionesUseCase;
 import com.caeproject.cae.domain.ports.in.ProgramacionAcademica.*;
 import com.caeproject.cae.domain.ports.in.asignarinstructor.AsignarInstructorInputPort;
+import com.caeproject.cae.domain.ports.in.asignarinstructor.ObtenerResumenProgramaInputPort;
+import com.caeproject.cae.domain.ports.in.asignarinstructor.SugerirInstructorInputPort;
 import com.caeproject.cae.domain.ports.in.ubicacion.ConsultarUbicacionesInputPort;
 import com.caeproject.cae.domain.ports.out.*;
+import com.caeproject.cae.domain.ports.service.ValidarElegibilidadInstructor;
 import com.caeproject.cae.application.usecases.recuperacion.RestablecerContrasenaUseCase;
 import com.caeproject.cae.application.usecases.recuperacion.SolicitarRecuperacionUseCase;
 import com.caeproject.cae.application.usecases.usuario.*;
@@ -306,7 +312,13 @@ public class BeanConfiguration {
     }
 
 
-    //PROGRAMACION ACADEMICA
+    // --- DOMAIN SERVICE ---
+    @Bean
+    public ValidarElegibilidadInstructor validarElegibilidadInstructor() {
+        return new ValidarElegibilidadInstructor();
+    }
+
+    // --- PROGRAMACION ACADEMICA Y ASIGNACION ---
     @Bean
     public CrearProgramacionInputPort crearProgramacionInputPort(
             ProgramacionAcademicaRepository programacionAcademicaRepository,
@@ -345,24 +357,77 @@ public class BeanConfiguration {
     public ConsultarUbicacionesInputPort consultarUbicacionesPort(UbicacionRepository ubicacionRepository) {
         return new ConsultarUbicacionesUseCase(ubicacionRepository);
     }
+
     @Bean
     public RestClient restClient(RestClient.Builder builder) {
         return builder.build();
     }
+
     @Bean
     public AsignarInstructorInputPort asignarInstructorInputPort(
             InstructorEspecialidadRepository instructorEspecialidadRepository,
             CompetenciaEspecialidadRepository competenciaEspecialidadRepository,
             DisponibilidadInstructorRepository disponibilidadInstructorRepository,
             ProgramaRepository programaRepository,
-            DiseñoCurricularRepository diseñoCurricularRepository
+            DiseñoCurricularRepository diseñoCurricularRepository,
+            ValidarElegibilidadInstructor validarElegibilidadInstructor
     ) {
         return new AsignacionInstructorUseCase(
                 instructorEspecialidadRepository,
                 competenciaEspecialidadRepository,
                 disponibilidadInstructorRepository,
                 programaRepository,
-                diseñoCurricularRepository
+                diseñoCurricularRepository,
+                validarElegibilidadInstructor
+        );
+    }
+
+    @Bean
+    public SugerirInstructorInputPort sugerirInstructorInputPort(
+            ValidarElegibilidadInstructor validarElegibilidadInstructor,
+            DisponibilidadInstructorRepository disponibilidadInstructorRepository,
+            InstructorEspecialidadRepository instructorEspecialidadRepository,
+            CompetenciaEspecialidadRepository competenciaEspecialidadRepository,
+            ProgramaRepository programaRepository
+    ) {
+        return new SugerirInstructorUseCase(
+                validarElegibilidadInstructor,
+                disponibilidadInstructorRepository,
+                instructorEspecialidadRepository,
+                competenciaEspecialidadRepository,
+                programaRepository
+        );
+    }
+
+    @Bean
+    public ObtenerResumenProgramaInputPort obtenerResumenProgramaInputPort(
+            ProgramaRepository programaRepository,
+            CompetenciaRepository competenciaRepository,
+            DiseñoCurricularRepository diseñoCurricularRepository,
+            SugerirInstructorInputPort sugerirInstructorInputPort
+    ) {
+        return new ObtenerResumenProgramaUseCase(
+                programaRepository,
+                competenciaRepository,
+                diseñoCurricularRepository,
+                sugerirInstructorInputPort
+        );
+    }
+
+    @Bean
+    public AutoProgramacionInputPort autoProgramacionInputPort(
+            SugerirInstructorInputPort sugerirInstructorInputPort,
+            ProgramacionAcademicaRepository programacionAcademicaRepository,
+            DisponibilidadInstructorRepository disponibilidadInstructorRepository,
+            DiseñoCurricularRepository diseñoCurricularRepository,
+            RapRepository rapRepository
+    ) {
+        return new AutoProgramarTrimestreUseCase(
+                sugerirInstructorInputPort,
+                programacionAcademicaRepository,
+                disponibilidadInstructorRepository,
+                diseñoCurricularRepository,
+                rapRepository
         );
     }
 }
