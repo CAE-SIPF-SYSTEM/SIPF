@@ -2,7 +2,7 @@ package com.caeproject.cae.application.usecases.rap;
 
 import com.caeproject.cae.application.usecases.rap.commands.EditarRapCommand;
 import com.caeproject.cae.domain.ports.exceptions.rapexception.RapNoEncontradoException;
-import com.caeproject.cae.domain.ports.in.Rap.EditarRapInputPort;
+import com.caeproject.cae.domain.ports.in.rap.EditarRapInputPort;
 import com.caeproject.cae.domain.ports.model.Rap;
 import com.caeproject.cae.domain.ports.out.RapRepository;
 

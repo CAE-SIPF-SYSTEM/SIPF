@@ -1,4 +1,4 @@
-package com.caeproject.cae.infraestructure.dtos.dieñocurricular;
+package com.caeproject.cae.infraestructure.dtos.disenocurricular;
 
 public class DiseñoCurricularResponseDTO {
     private Long programaId;

@@ -1,8 +1,8 @@
-package com.caeproject.cae.application.usecases.CompetenciaEspecialidad;
+package com.caeproject.cae.application.usecases.competenciaespecialidad;
 
-import com.caeproject.cae.application.usecases.CompetenciaEspecialidad.commands.AsignarEspecialidadCompetenciaCommand;
+import com.caeproject.cae.application.usecases.competenciaespecialidad.commands.AsignarEspecialidadCompetenciaCommand;
 import com.caeproject.cae.domain.ports.exceptions.competenciaespecialidadexception.CompetenciaEspecialidadDuplicadaException;
-import com.caeproject.cae.domain.ports.in.CompetenciaEspecialidad.AsignarEspecialidadCompetenciaInputPort;
+import com.caeproject.cae.domain.ports.in.competenciaespecialidad.AsignarEspecialidadCompetenciaInputPort;
 import com.caeproject.cae.domain.ports.model.CompetenciaEspecialidad;
 import com.caeproject.cae.domain.ports.out.CompetenciaEspecialidadRepository;
 

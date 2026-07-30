@@ -2,7 +2,7 @@ package com.caeproject.cae.application.usecases.especialidad;
 
 import com.caeproject.cae.application.usecases.especialidad.commands.CrearEspecialidadCommand;
 import com.caeproject.cae.domain.ports.exceptions.especialidadexception.EspecialidadEnUsoException;
-import com.caeproject.cae.domain.ports.in.Especialidad.CrearEspecialidadInputPort;
+import com.caeproject.cae.domain.ports.in.especialidad.CrearEspecialidadInputPort;
 import com.caeproject.cae.domain.ports.model.Especialidad;
 import com.caeproject.cae.domain.ports.out.EspecialidadRepository;
 

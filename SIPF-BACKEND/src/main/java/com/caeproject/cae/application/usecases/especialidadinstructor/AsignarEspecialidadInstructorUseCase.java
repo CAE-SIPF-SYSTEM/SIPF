@@ -1,7 +1,7 @@
-package com.caeproject.cae.application.usecases.EspecialidadInstructor;
+package com.caeproject.cae.application.usecases.especialidadinstructor;
 
-import com.caeproject.cae.application.usecases.EspecialidadInstructor.commands.AsignarEspecialidadInstructorCommand;
-import com.caeproject.cae.domain.ports.in.InstructorEspecialidad.AsignarEspecialidadInstructorInputPort;
+import com.caeproject.cae.application.usecases.especialidadinstructor.commands.AsignarEspecialidadInstructorCommand;
+import com.caeproject.cae.domain.ports.in.instructorespecialidad.AsignarEspecialidadInstructorInputPort;
 import com.caeproject.cae.domain.ports.model.InstructorEspecialidad;
 import com.caeproject.cae.domain.ports.out.InstructorEspecialidadRepository;
 import com.caeproject.cae.domain.ports.exceptions.instructorespecialidadexception.InstructorEspecialidadDuplicadaException;

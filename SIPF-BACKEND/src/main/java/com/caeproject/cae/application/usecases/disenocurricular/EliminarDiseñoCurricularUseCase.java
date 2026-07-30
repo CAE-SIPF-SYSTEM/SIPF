@@ -1,20 +1,20 @@
-package com.caeproject.cae.application.usecases.diseñoCurricular;
+package com.caeproject.cae.application.usecases.disenocurricular;
 
-import com.caeproject.cae.domain.ports.in.diseñoCurricular.EliminarDiseñoCurricularInputPort;
+import com.caeproject.cae.domain.ports.in.disenocurricular.EliminarDiseñoCurricularInputPort;
 import com.caeproject.cae.domain.ports.out.DiseñoCurricularRepository;
 
 public class EliminarDiseñoCurricularUseCase implements EliminarDiseñoCurricularInputPort {
 
-    public final DiseñoCurricularRepository diseñoCurricularRepository;
+    public final DiseñoCurricularRepository disenoCurricularRepository;
 
-    public EliminarDiseñoCurricularUseCase(DiseñoCurricularRepository diseñoCurricularRepository) {
-        this.diseñoCurricularRepository = diseñoCurricularRepository;
+    public EliminarDiseñoCurricularUseCase(DiseñoCurricularRepository disenoCurricularRepository) {
+        this.disenoCurricularRepository = disenoCurricularRepository;
     }
 
     @Override
     public void eliminarDiseñoCurricular(Long id) {
-        diseñoCurricularRepository.findyById(id)
+        disenoCurricularRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("No se encontro el id" + id));
-        diseñoCurricularRepository.eliminarDiseñoCurricular(id);
+        disenoCurricularRepository.eliminarDiseñoCurricular(id);
     }
 }

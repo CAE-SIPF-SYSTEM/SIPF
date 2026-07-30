@@ -1,10 +1,10 @@
 package com.caeproject.cae.infraestructure.adapter.in;
 
 
-import com.caeproject.cae.domain.ports.in.diseñoCurricular.EliminarDiseñoCurricularInputPort;
-import com.caeproject.cae.domain.ports.in.diseñoCurricular.ListarDiseñoCurricularInputPort;
+import com.caeproject.cae.domain.ports.in.disenocurricular.EliminarDiseñoCurricularInputPort;
+import com.caeproject.cae.domain.ports.in.disenocurricular.ListarDiseñoCurricularInputPort;
 import com.caeproject.cae.domain.ports.model.DiseñoCurricular;
-import com.caeproject.cae.infraestructure.dtos.dieñocurricular.DiseñoCurricularResponseDTO;
+import com.caeproject.cae.infraestructure.dtos.disenocurricular.DiseñoCurricularResponseDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

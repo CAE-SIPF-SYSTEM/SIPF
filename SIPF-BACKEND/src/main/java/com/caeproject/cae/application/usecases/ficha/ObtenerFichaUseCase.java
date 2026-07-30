@@ -21,13 +21,12 @@ public class ObtenerFichaUseCase implements ObtenerFIchaInputPort {
     }
 
     @Override
-    public List<Ficha> ObtenerFichaPorProgramaId (Long programaId) {
+    public List<Ficha> obtenerFichaPorProgramaId(Long programaId) {
         List<Ficha> fichas = fichaRepository.findByProgramaId(programaId);
 
-        if (fichas == null ) {
+        if (fichas == null) {
             throw new FichaNoEncontradaException(programaId);
         }
         return fichas;
     }
-
 }

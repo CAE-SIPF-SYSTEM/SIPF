@@ -1,7 +1,7 @@
 package com.caeproject.cae.infraestructure.adapter.in;
 
-import com.caeproject.cae.application.usecases.ProgramacionAcademica.commands.CrearProgramacionCommand;
-import com.caeproject.cae.domain.ports.in.ProgramacionAcademica.*;
+import com.caeproject.cae.application.usecases.programacionacademica.commands.CrearProgramacionCommand;
+import com.caeproject.cae.domain.ports.in.programacionacademica.*;
 import com.caeproject.cae.domain.ports.in.asignarinstructor.ObtenerResumenProgramaInputPort;
 import com.caeproject.cae.domain.ports.in.asignarinstructor.SugerirInstructorInputPort;
 import com.caeproject.cae.domain.ports.model.DisponibilidadInstructor;
@@ -21,25 +21,16 @@ import java.util.List;
 @RequestMapping("/api/programacionacademica")
 public class ProgramacionAcademicaController {
     private final CrearProgramacionInputPort crearProgramacionInputPort;
-    private final ListarProgramacionInputPort listarProgramacionInputPort;
-    private final EliminarProgramacionInputPort eliminarProgramacionInputPort;
-    private final ObtenerProgramacionInputPort obtenerProgramacionInputPort;
     private final SugerirInstructorInputPort sugerirInstructorInputPort;
     private final ObtenerResumenProgramaInputPort obtenerResumenProgramaInputPort;
     private final AutoProgramacionInputPort autoProgramacionInputPort;
 
     public ProgramacionAcademicaController(
-            ObtenerProgramacionInputPort obtenerProgramacionInputPort,
             CrearProgramacionInputPort crearProgramacionInputPort,
-            ListarProgramacionInputPort listarProgramacionInputPort,
-            EliminarProgramacionInputPort eliminarProgramacionInputPort,
             SugerirInstructorInputPort sugerirInstructorInputPort,
             ObtenerResumenProgramaInputPort obtenerResumenProgramaInputPort,
             AutoProgramacionInputPort autoProgramacionInputPort) {
         this.crearProgramacionInputPort = crearProgramacionInputPort;
-        this.listarProgramacionInputPort = listarProgramacionInputPort;
-        this.eliminarProgramacionInputPort = eliminarProgramacionInputPort;
-        this.obtenerProgramacionInputPort = obtenerProgramacionInputPort;
         this.sugerirInstructorInputPort = sugerirInstructorInputPort;
         this.obtenerResumenProgramaInputPort = obtenerResumenProgramaInputPort;
         this.autoProgramacionInputPort = autoProgramacionInputPort;

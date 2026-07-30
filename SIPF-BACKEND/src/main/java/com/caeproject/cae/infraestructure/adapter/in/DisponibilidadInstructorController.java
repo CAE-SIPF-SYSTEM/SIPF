@@ -1,13 +1,13 @@
 package com.caeproject.cae.infraestructure.adapter.in;
 
-import com.caeproject.cae.application.usecases.disponibilidadInstructor.commands.CrearDisponibilidadCommand;
-import com.caeproject.cae.application.usecases.disponibilidadInstructor.commands.EditarDisponibilidadCommand;
-import com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.*;
+import com.caeproject.cae.application.usecases.disponibilidadinstructor.commands.CrearDisponibilidadCommand;
+import com.caeproject.cae.application.usecases.disponibilidadinstructor.commands.EditarDisponibilidadCommand;
+import com.caeproject.cae.domain.ports.in.disponibilidadinstructor.*;
 import com.caeproject.cae.domain.ports.model.DisponibilidadInstructor;
 import com.caeproject.cae.domain.ports.model.enums.DiasDisponibles;
-import com.caeproject.cae.infraestructure.dtos.disponibilidadinstrucor.CrearDisponibilidadInstructorRequest;
-import com.caeproject.cae.infraestructure.dtos.disponibilidadinstrucor.DisponibilidadInstructorResponse;
-import com.caeproject.cae.infraestructure.dtos.disponibilidadinstrucor.EditarDisponibilidadInstructorRequest;
+import com.caeproject.cae.infraestructure.dtos.disponibilidadinstructor.CrearDisponibilidadInstructorRequest;
+import com.caeproject.cae.infraestructure.dtos.disponibilidadinstructor.DisponibilidadInstructorResponse;
+import com.caeproject.cae.infraestructure.dtos.disponibilidadinstructor.EditarDisponibilidadInstructorRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

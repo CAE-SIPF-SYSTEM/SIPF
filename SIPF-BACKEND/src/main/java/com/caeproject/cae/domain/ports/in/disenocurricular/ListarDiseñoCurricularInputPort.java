@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.in.diseñoCurricular;
+package com.caeproject.cae.domain.ports.in.disenocurricular;
 
 import com.caeproject.cae.domain.ports.model.DiseñoCurricular;
 

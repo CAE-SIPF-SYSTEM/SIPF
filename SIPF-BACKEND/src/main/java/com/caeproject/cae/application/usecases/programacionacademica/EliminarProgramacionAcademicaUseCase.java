@@ -1,6 +1,6 @@
-package com.caeproject.cae.application.usecases.ProgramacionAcademica;
+package com.caeproject.cae.application.usecases.programacionacademica;
 
-import com.caeproject.cae.domain.ports.in.ProgramacionAcademica.EliminarProgramacionInputPort;
+import com.caeproject.cae.domain.ports.in.programacionacademica.EliminarProgramacionInputPort;
 import com.caeproject.cae.domain.ports.out.ProgramacionAcademicaRepository;
 
 public class EliminarProgramacionAcademicaUseCase implements EliminarProgramacionInputPort {

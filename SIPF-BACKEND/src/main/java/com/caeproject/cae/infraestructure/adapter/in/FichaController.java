@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/fichas")
@@ -50,7 +49,7 @@ public class FichaController {
     @GetMapping
     public ResponseEntity<List<FichaResponse>> listarFichas() {
         List<Ficha> fichas = listarFichasPort.listarFichas();
-        return ResponseEntity.ok(fichas.stream().map(this::toResponse).collect(Collectors.toList()));
+        return ResponseEntity.ok(fichas.stream().map(this::toResponse).toList());
     }
 
     @GetMapping("/{id}")
@@ -60,10 +59,11 @@ public class FichaController {
     }
 
     @GetMapping("/programaid/{programaId}")
-    public ResponseEntity<FichaResponse> ObtenerFichaPorProgramaId(@PathVariable Long programaId) {
-        Ficha ficha = obtenerFichaPort.obtenerFicha(programaId);
-        return ResponseEntity.ok(toResponse(ficha));
+    public ResponseEntity<List<FichaResponse>> obtenerFichaPorProgramaId(@PathVariable Long programaId) {
+        List<Ficha> fichas = obtenerFichaPort.obtenerFichaPorProgramaId(programaId);
+        return ResponseEntity.ok(fichas.stream().map(this::toResponse).toList());
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<FichaResponse> editarFicha(@PathVariable Long id, @Valid @RequestBody EditarFichaRequest request) {
         EditarFichaCommand command = new EditarFichaCommand();

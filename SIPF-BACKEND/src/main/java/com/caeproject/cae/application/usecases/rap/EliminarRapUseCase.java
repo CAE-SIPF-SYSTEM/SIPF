@@ -1,7 +1,7 @@
 package com.caeproject.cae.application.usecases.rap;
 
 import com.caeproject.cae.domain.ports.exceptions.rapexception.RapNoEncontradoException;
-import com.caeproject.cae.domain.ports.in.Rap.EliminarRapInputPort;
+import com.caeproject.cae.domain.ports.in.rap.EliminarRapInputPort;
 import com.caeproject.cae.domain.ports.out.RapRepository;
 
 public class EliminarRapUseCase implements EliminarRapInputPort {

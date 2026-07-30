@@ -2,7 +2,7 @@ package com.caeproject.cae.infraestructure.adapter.in;
 
 import com.caeproject.cae.application.usecases.especialidad.commands.CrearEspecialidadCommand;
 import com.caeproject.cae.application.usecases.especialidad.commands.EditarEspecialidadCommand;
-import com.caeproject.cae.domain.ports.in.Especialidad.*;
+import com.caeproject.cae.domain.ports.in.especialidad.*;
 import com.caeproject.cae.domain.ports.model.Especialidad;
 import com.caeproject.cae.infraestructure.dtos.especialidad.EspecialidadResponseDTO;
 import org.springframework.http.HttpStatus;

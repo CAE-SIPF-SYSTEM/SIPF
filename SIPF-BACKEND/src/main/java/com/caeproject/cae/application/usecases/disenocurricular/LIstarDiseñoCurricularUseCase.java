@@ -1,6 +1,6 @@
-package com.caeproject.cae.application.usecases.diseñoCurricular;
+package com.caeproject.cae.application.usecases.disenocurricular;
 
-import com.caeproject.cae.domain.ports.in.diseñoCurricular.ListarDiseñoCurricularInputPort;
+import com.caeproject.cae.domain.ports.in.disenocurricular.ListarDiseñoCurricularInputPort;
 import com.caeproject.cae.domain.ports.model.DiseñoCurricular;
 import com.caeproject.cae.domain.ports.out.DiseñoCurricularRepository;
 
@@ -8,14 +8,14 @@ import java.util.List;
 
 public class LIstarDiseñoCurricularUseCase implements ListarDiseñoCurricularInputPort {
 
-    private final DiseñoCurricularRepository diseñoCurricularRepository;
+    private final DiseñoCurricularRepository disenoCurricularRepository;
 
-    public LIstarDiseñoCurricularUseCase(DiseñoCurricularRepository diseñoCurricularRepository) {
-        this.diseñoCurricularRepository = diseñoCurricularRepository;
+    public LIstarDiseñoCurricularUseCase(DiseñoCurricularRepository disenoCurricularRepository) {
+        this.disenoCurricularRepository = disenoCurricularRepository;
     }
 
     @Override
     public List<DiseñoCurricular> listarDiseñoCurricular() {
-        return diseñoCurricularRepository.findAll();
+        return disenoCurricularRepository.findAll();
     }
 }

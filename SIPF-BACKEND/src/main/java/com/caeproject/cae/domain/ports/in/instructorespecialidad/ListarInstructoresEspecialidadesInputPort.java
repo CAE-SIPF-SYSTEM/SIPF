@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.in.InstructorEspecialidad;
+package com.caeproject.cae.domain.ports.in.instructorespecialidad;
 
 import com.caeproject.cae.domain.ports.model.InstructorEspecialidad;
 

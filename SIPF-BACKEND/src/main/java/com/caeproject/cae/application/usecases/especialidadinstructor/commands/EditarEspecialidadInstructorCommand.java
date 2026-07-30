@@ -1,4 +1,4 @@
-package com.caeproject.cae.application.usecases.EspecialidadInstructor.commands;
+package com.caeproject.cae.application.usecases.especialidadinstructor.commands;
 
 public class EditarEspecialidadInstructorCommand {
     private Long usuarioId;

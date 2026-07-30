@@ -1,6 +1,6 @@
-package com.caeproject.cae.domain.ports.in.DisponibilidadInstructor;
+package com.caeproject.cae.domain.ports.in.disponibilidadinstructor;
 
-import com.caeproject.cae.application.usecases.disponibilidadInstructor.commands.CrearDisponibilidadCommand;
+import com.caeproject.cae.application.usecases.disponibilidadinstructor.commands.CrearDisponibilidadCommand;
 import com.caeproject.cae.domain.ports.model.DisponibilidadInstructor;
 
 public interface CrearDisponibilidadInstructorInputPort {

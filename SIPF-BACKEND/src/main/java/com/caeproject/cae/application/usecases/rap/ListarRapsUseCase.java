@@ -1,6 +1,6 @@
 package com.caeproject.cae.application.usecases.rap;
 
-import com.caeproject.cae.domain.ports.in.Rap.ListarRapsInputPort;
+import com.caeproject.cae.domain.ports.in.rap.ListarRapsInputPort;
 import com.caeproject.cae.domain.ports.model.Rap;
 import com.caeproject.cae.domain.ports.out.RapRepository;
 

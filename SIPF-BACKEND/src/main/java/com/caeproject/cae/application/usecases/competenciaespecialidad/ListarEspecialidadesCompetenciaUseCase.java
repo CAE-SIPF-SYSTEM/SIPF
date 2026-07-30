@@ -1,6 +1,6 @@
-package com.caeproject.cae.application.usecases.CompetenciaEspecialidad;
+package com.caeproject.cae.application.usecases.competenciaespecialidad;
 
-import com.caeproject.cae.domain.ports.in.CompetenciaEspecialidad.ListarEspecialidadesCompetenciaInputPort;
+import com.caeproject.cae.domain.ports.in.competenciaespecialidad.ListarEspecialidadesCompetenciaInputPort;
 import com.caeproject.cae.domain.ports.model.CompetenciaEspecialidad;
 import com.caeproject.cae.domain.ports.out.CompetenciaEspecialidadRepository;
 

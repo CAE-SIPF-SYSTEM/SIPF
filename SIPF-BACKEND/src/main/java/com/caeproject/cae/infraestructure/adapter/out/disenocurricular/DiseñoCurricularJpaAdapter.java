@@ -1,11 +1,10 @@
-package com.caeproject.cae.infraestructure.adapter.out.diseñocurricular;
+package com.caeproject.cae.infraestructure.adapter.out.disenocurricular;
 
 import com.caeproject.cae.domain.ports.model.DiseñoCurricular;
 import com.caeproject.cae.domain.ports.out.DiseñoCurricularRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.stereotype.Component;
@@ -21,12 +20,11 @@ public class DiseñoCurricularJpaAdapter implements DiseñoCurricularRepository 
         this.mapper = mapper;
     }
 
-
     @Override
     public List<DiseñoCurricular> findAll() {
         return jpaRepository.findAll().stream()
                 .map(mapper::toDomain)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -35,10 +33,9 @@ public class DiseñoCurricularJpaAdapter implements DiseñoCurricularRepository 
     }
 
     @Override
-    public Optional<DiseñoCurricular> findyById(Long id) {
+    public Optional<DiseñoCurricular> findById(Long id) {
         return jpaRepository.findById(id).map(mapper::toDomain);
     }
-
 
     @Override
     public void eliminarDiseñoCurricular(Long id) {
@@ -63,7 +60,7 @@ public class DiseñoCurricularJpaAdapter implements DiseñoCurricularRepository 
     }
 
     @Override
-    public List<DiseñoCurricular> findByProgramaIdandTrimestreId(Long programaId, Long trimestreId) {
-        return jpaRepository.findByProgramaIdAndNumeroTrimestre(programaId, Math.toIntExact(trimestreId)).stream().map(mapper::toDomain).collect(Collectors.toList());
+    public List<DiseñoCurricular> findByProgramaIdAndTrimestreId(Long programaId, Long trimestreId) {
+        return jpaRepository.findByProgramaIdAndNumeroTrimestre(programaId, Math.toIntExact(trimestreId)).stream().map(mapper::toDomain).toList();
     }
 }

@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.in.CompetenciaEspecialidad;
+package com.caeproject.cae.domain.ports.in.competenciaespecialidad;
 
 import com.caeproject.cae.domain.ports.model.CompetenciaEspecialidad;
 

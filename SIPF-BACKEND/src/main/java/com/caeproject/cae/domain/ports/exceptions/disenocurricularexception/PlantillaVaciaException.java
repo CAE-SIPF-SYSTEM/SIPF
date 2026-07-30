@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.exceptions.diseñocurricularexception;
+package com.caeproject.cae.domain.ports.exceptions.disenocurricularexception;
 
 public class PlantillaVaciaException extends RuntimeException {
     public PlantillaVaciaException(Long programaId, Integer numeroTrimestre) {

@@ -1,7 +1,7 @@
 package com.caeproject.cae.application.usecases.especialidad;
 
 import com.caeproject.cae.domain.ports.exceptions.especialidadexception.EspecialidadNoEncontradaException;
-import com.caeproject.cae.domain.ports.in.Especialidad.EliminarEspecialidadInputPort;
+import com.caeproject.cae.domain.ports.in.especialidad.EliminarEspecialidadInputPort;
 import com.caeproject.cae.domain.ports.out.EspecialidadRepository;
 
 public class EliminarEspecialidadUseCase implements EliminarEspecialidadInputPort {

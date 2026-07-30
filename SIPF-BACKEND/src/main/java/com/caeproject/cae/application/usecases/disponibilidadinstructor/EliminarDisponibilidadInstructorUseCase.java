@@ -1,7 +1,7 @@
-package com.caeproject.cae.application.usecases.disponibilidadInstructor;
+package com.caeproject.cae.application.usecases.disponibilidadinstructor;
 
 import com.caeproject.cae.domain.ports.exceptions.disponibilidadinstructorexception.DisponibilidadNoEncontradaException;
-import com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.EliminarDisponibilidadInputPort;
+import com.caeproject.cae.domain.ports.in.disponibilidadinstructor.EliminarDisponibilidadInputPort;
 import com.caeproject.cae.domain.ports.out.DisponibilidadInstructorRepository;
 
 public class EliminarDisponibilidadInstructorUseCase implements EliminarDisponibilidadInputPort {

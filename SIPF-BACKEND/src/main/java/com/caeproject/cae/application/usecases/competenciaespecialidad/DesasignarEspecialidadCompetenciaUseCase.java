@@ -1,7 +1,7 @@
-package com.caeproject.cae.application.usecases.CompetenciaEspecialidad;
+package com.caeproject.cae.application.usecases.competenciaespecialidad;
 
 import com.caeproject.cae.domain.ports.exceptions.competenciaespecialidadexception.CompetenciaEspecialidadNoEncontradaException;
-import com.caeproject.cae.domain.ports.in.CompetenciaEspecialidad.DesasignarEspecialidadCompetenciaInputPort;
+import com.caeproject.cae.domain.ports.in.competenciaespecialidad.DesasignarEspecialidadCompetenciaInputPort;
 import com.caeproject.cae.domain.ports.out.CompetenciaEspecialidadRepository;
 
 public class DesasignarEspecialidadCompetenciaUseCase implements DesasignarEspecialidadCompetenciaInputPort {

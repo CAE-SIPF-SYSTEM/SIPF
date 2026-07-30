@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.exceptions.diseñocurricularexception;
+package com.caeproject.cae.domain.ports.exceptions.disenocurricularexception;
 
 public class DiseñoCurricularNoEncontradoException extends RuntimeException {
     public DiseñoCurricularNoEncontradoException(Long id, Long aLong) {

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ObtenerFIchaInputPort {
     Ficha obtenerFicha (Long id);
-    List<Ficha> ObtenerFichaPorProgramaId(Long programaId);
+    List<Ficha> obtenerFichaPorProgramaId(Long programaId);
 }

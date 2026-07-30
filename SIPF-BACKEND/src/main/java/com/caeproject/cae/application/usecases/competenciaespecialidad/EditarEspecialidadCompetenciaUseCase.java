@@ -1,8 +1,8 @@
-package com.caeproject.cae.application.usecases.CompetenciaEspecialidad;
+package com.caeproject.cae.application.usecases.competenciaespecialidad;
 
-import com.caeproject.cae.application.usecases.CompetenciaEspecialidad.commands.EditarEspecialidadCompetenciaCommand;
+import com.caeproject.cae.application.usecases.competenciaespecialidad.commands.EditarEspecialidadCompetenciaCommand;
 import com.caeproject.cae.domain.ports.exceptions.competenciaespecialidadexception.CompetenciaEspecialidadNoEncontradaException;
-import com.caeproject.cae.domain.ports.in.CompetenciaEspecialidad.EditarEspecialidadCompetenciaInputPort;
+import com.caeproject.cae.domain.ports.in.competenciaespecialidad.EditarEspecialidadCompetenciaInputPort;
 import com.caeproject.cae.domain.ports.model.CompetenciaEspecialidad;
 import com.caeproject.cae.domain.ports.out.CompetenciaEspecialidadRepository;
 

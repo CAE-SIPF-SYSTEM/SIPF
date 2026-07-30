@@ -1,4 +1,4 @@
-package com.caeproject.cae.application.usecases.CompetenciaEspecialidad.commands;
+package com.caeproject.cae.application.usecases.competenciaespecialidad.commands;
 
 public class EditarEspecialidadCompetenciaCommand {
     private Long especialidadId;

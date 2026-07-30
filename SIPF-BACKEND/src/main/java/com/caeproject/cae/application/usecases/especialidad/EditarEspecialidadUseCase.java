@@ -3,7 +3,7 @@ package com.caeproject.cae.application.usecases.especialidad;
 import com.caeproject.cae.application.usecases.competencia.EditarCompetenciaUseCase;
 import com.caeproject.cae.application.usecases.especialidad.commands.EditarEspecialidadCommand;
 import com.caeproject.cae.domain.ports.exceptions.especialidadexception.EspecialidadNoEncontradaException;
-import com.caeproject.cae.domain.ports.in.Especialidad.EditarEspecialidadInputPort;
+import com.caeproject.cae.domain.ports.in.especialidad.EditarEspecialidadInputPort;
 import com.caeproject.cae.domain.ports.model.Especialidad;
 import com.caeproject.cae.domain.ports.out.EspecialidadRepository;
 
