@@ -1,8 +1,8 @@
-package com.caeproject.cae.application.usecases.disponibilidadInstructor;
+package com.caeproject.cae.application.usecases.disponibilidadinstructor;
 
-import com.caeproject.cae.application.usecases.disponibilidadInstructor.commands.EditarDisponibilidadCommand;
+import com.caeproject.cae.application.usecases.disponibilidadinstructor.commands.EditarDisponibilidadCommand;
 import com.caeproject.cae.domain.ports.exceptions.disponibilidadinstructorexception.DisponibilidadNoEncontradaException;
-import com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.EditarDisponibilidadInstructorInputPort;
+import com.caeproject.cae.domain.ports.in.disponibilidadinstructor.EditarDisponibilidadInstructorInputPort;
 import com.caeproject.cae.domain.ports.model.DisponibilidadInstructor;
 import com.caeproject.cae.domain.ports.out.DisponibilidadInstructorRepository;
 

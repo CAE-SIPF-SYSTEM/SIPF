@@ -1,4 +1,4 @@
-package com.caeproject.cae.application.usecases.ProgramacionAcademica.commands;
+package com.caeproject.cae.application.usecases.programacionacademica.commands;
 
 public class EditarProgramacionCommand {
     private Long trimstreId;

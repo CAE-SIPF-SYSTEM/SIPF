@@ -15,7 +15,7 @@ public class AsignacionInstructorUseCase implements AsignarInstructorInputPort {
     private final CompetenciaEspecialidadRepository competenciaEspecialidadRepository;
     private final DisponibilidadInstructorRepository disponibilidadInstructorRepository;
     private final ProgramaRepository programaRepository;
-    private final DiseñoCurricularRepository diseñoCurricularRepository;
+    private final DiseñoCurricularRepository disenoCurricularRepository;
     private final ValidarElegibilidadInstructor validarElegibilidadInstructor;
 
     public AsignacionInstructorUseCase(
@@ -23,14 +23,14 @@ public class AsignacionInstructorUseCase implements AsignarInstructorInputPort {
             CompetenciaEspecialidadRepository competenciaEspecialidadRepository,
             DisponibilidadInstructorRepository disponibilidadInstructorRepository,
             ProgramaRepository programaRepository,
-            DiseñoCurricularRepository diseñoCurricularRepository,
+            DiseñoCurricularRepository disenoCurricularRepository,
             ValidarElegibilidadInstructor validarElegibilidadInstructor) {
 
         this.instructorEspecialidadRepository = instructorEspecialidadRepository;
         this.competenciaEspecialidadRepository = competenciaEspecialidadRepository;
         this.disponibilidadInstructorRepository = disponibilidadInstructorRepository;
         this.programaRepository = programaRepository;
-        this.diseñoCurricularRepository = diseñoCurricularRepository;
+        this.disenoCurricularRepository = disenoCurricularRepository;
         this.validarElegibilidadInstructor = validarElegibilidadInstructor;
     }
 
@@ -49,7 +49,7 @@ public class AsignacionInstructorUseCase implements AsignarInstructorInputPort {
         InstructorEspecialidad instructorEspecialidad = instructorEspecialidadRepository.findByInstructorId(command.usuarioId())
                 .orElseThrow(() -> new RuntimeException("No se encontró la especialidad del instructor con este id " + command.usuarioId()));
 
-        Long horasTotales = Long.valueOf(diseñoCurricularRepository.sumarHorasPorCompetenciaYPrograma(command.competenciaId(), command.programaId()));
+        Long horasTotales = Long.valueOf(disenoCurricularRepository.sumarHorasPorCompetenciaYPrograma(command.competenciaId(), command.programaId()));
 
 
         boolean esElegible = validarElegibilidadInstructor.esElegible(

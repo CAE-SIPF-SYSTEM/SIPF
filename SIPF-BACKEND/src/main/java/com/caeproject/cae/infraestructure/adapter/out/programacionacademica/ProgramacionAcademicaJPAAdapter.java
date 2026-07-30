@@ -1,4 +1,4 @@
-package com.caeproject.cae.infraestructure.adapter.out.programacionAcademica;
+package com.caeproject.cae.infraestructure.adapter.out.programacionacademica;
 
 import com.caeproject.cae.domain.ports.model.ProgramacionAcademica;
 import com.caeproject.cae.domain.ports.out.ProgramacionAcademicaRepository;

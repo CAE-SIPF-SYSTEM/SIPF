@@ -1,6 +1,6 @@
-package com.caeproject.cae.application.usecases.ProgramacionAcademica;
+package com.caeproject.cae.application.usecases.programacionacademica;
 
-import com.caeproject.cae.domain.ports.in.ProgramacionAcademica.AutoProgramacionInputPort;
+import com.caeproject.cae.domain.ports.in.programacionacademica.AutoProgramacionInputPort;
 import com.caeproject.cae.domain.ports.in.asignarinstructor.SugerirInstructorInputPort;
 import com.caeproject.cae.domain.ports.model.*;
 import com.caeproject.cae.domain.ports.out.*;
@@ -13,20 +13,20 @@ public class AutoProgramarTrimestreUseCase implements AutoProgramacionInputPort 
     private final SugerirInstructorInputPort sugerirInstructorInputPort;
     private final ProgramacionAcademicaRepository programacionAcademicaRepository;
     private final DisponibilidadInstructorRepository disponibilidadInstructorRepository;
-    private final DiseñoCurricularRepository diseñoCurricularRepository;
+    private final DiseñoCurricularRepository disenoCurricularRepository;
     private final RapRepository rapRepository;
 
     public AutoProgramarTrimestreUseCase(
             SugerirInstructorInputPort sugerirInstructorInputPort,
             ProgramacionAcademicaRepository programacionAcademicaRepository,
             DisponibilidadInstructorRepository disponibilidadInstructorRepository,
-            DiseñoCurricularRepository diseñoCurricularRepository,
+            DiseñoCurricularRepository disenoCurricularRepository,
             RapRepository rapRepository) {
 
         this.sugerirInstructorInputPort = sugerirInstructorInputPort;
         this.programacionAcademicaRepository = programacionAcademicaRepository;
         this.disponibilidadInstructorRepository = disponibilidadInstructorRepository;
-        this.diseñoCurricularRepository = diseñoCurricularRepository;
+        this.disenoCurricularRepository = disenoCurricularRepository;
         this.rapRepository = rapRepository;
     }
 
@@ -35,8 +35,8 @@ public class AutoProgramarTrimestreUseCase implements AutoProgramacionInputPort 
 
         List<ProgramacionAcademica> programacionesCreadas = new ArrayList<>();
 
-        List<DiseñoCurricular> mallas = diseñoCurricularRepository
-                .findByProgramaIdandTrimestreId(programaId, trimestreId);
+        List<DiseñoCurricular> mallas = disenoCurricularRepository
+                .findByProgramaIdAndTrimestreId(programaId, trimestreId);
 
         for (DiseñoCurricular diseño : mallas) {
 
@@ -46,14 +46,11 @@ public class AutoProgramarTrimestreUseCase implements AutoProgramacionInputPort 
             Long competenciaId = rap.getCompetenciaId();
             Long horasRequeridas = Long.valueOf(diseño.getHoraspresenciales());
 
-
             List<DisponibilidadInstructor> candidatos = sugerirInstructorInputPort
                     .sugerirInstructores(competenciaId, programaId, horasRequeridas);
 
-
             if (!candidatos.isEmpty()) {
                 DisponibilidadInstructor ganador = candidatos.get(0);
-
 
                 ProgramacionAcademica programacion = new ProgramacionAcademica();
                 programacion.setTrimestreId(trimestreId);
@@ -63,7 +60,6 @@ public class AutoProgramarTrimestreUseCase implements AutoProgramacionInputPort 
 
                 ProgramacionAcademica guardada = programacionAcademicaRepository.saveProgramacion(programacion);
                 programacionesCreadas.add(guardada);
-
 
                 ganador.comprometerHoras(horasRequeridas);
                 disponibilidadInstructorRepository.saveDisponibilidad(ganador);

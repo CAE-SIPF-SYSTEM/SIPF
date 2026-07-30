@@ -1,6 +1,6 @@
-package com.caeproject.cae.application.usecases.EspecialidadInstructor;
+package com.caeproject.cae.application.usecases.especialidadinstructor;
 
-import com.caeproject.cae.domain.ports.in.InstructorEspecialidad.ListarInstructoresEspecialidadesInputPort;
+import com.caeproject.cae.domain.ports.in.instructorespecialidad.ListarInstructoresEspecialidadesInputPort;
 import com.caeproject.cae.domain.ports.model.InstructorEspecialidad;
 import com.caeproject.cae.domain.ports.out.InstructorEspecialidadRepository;
 

@@ -1,4 +1,4 @@
-package com.caeproject.cae.application.usecases.disponibilidadInstructor.commands;
+package com.caeproject.cae.application.usecases.disponibilidadinstructor.commands;
 
 import com.caeproject.cae.domain.ports.model.Municipio;
 import com.caeproject.cae.domain.ports.model.enums.DiasDisponibles;

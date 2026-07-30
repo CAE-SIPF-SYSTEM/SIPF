@@ -1,6 +1,6 @@
 package com.caeproject.cae.application.usecases.excel;
 
-import com.caeproject.cae.domain.ports.exceptions.diseñocurricularexception.DIseñoYaexistenteException;
+import com.caeproject.cae.domain.ports.exceptions.disenocurricularexception.DIseñoYaexistenteException;
 import com.caeproject.cae.domain.ports.model.Competencia;
 import com.caeproject.cae.domain.ports.model.enums.TipoCompetencia;
 import com.caeproject.cae.domain.ports.model.Rap;
@@ -19,17 +19,17 @@ public class AlimentacionCrUseCase {
     private final AlimentacionCRRepository alimentacionCRRepository;
     private final CompetenciaRepository competenciaRepository;
     private final RapRepository rapRepository;
-    private final DiseñoCurricularRepository diseñoCurricularRepository;
+    private final DiseñoCurricularRepository disenoCurricularRepository;
     private static final Logger log = LoggerFactory.getLogger(AlimentacionCrUseCase.class);
 
     public AlimentacionCrUseCase(AlimentacionCRRepository alimentacionCRRepository,
                                  CompetenciaRepository competenciaRepository,
                                  RapRepository rapRepository,
-                                 DiseñoCurricularRepository diseñoCurricularRepository) {
+                                 DiseñoCurricularRepository disenoCurricularRepository) {
         this.alimentacionCRRepository = alimentacionCRRepository;
         this.competenciaRepository = competenciaRepository;
         this.rapRepository = rapRepository;
-        this.diseñoCurricularRepository = diseñoCurricularRepository;
+        this.disenoCurricularRepository = disenoCurricularRepository;
     }
 
     public void ejecutar(InputStream alimentacionExcel, Long programaId) {
@@ -98,14 +98,14 @@ public class AlimentacionCrUseCase {
 
                     Integer horasPresenciales = rapImport.horasPresenciales();
 
-                    Optional<DiseñoCurricular> diseñoExistente = diseñoCurricularRepository.findByProgramaIdAndRapId(programaId, rapGuardado.getId());
+                    Optional<DiseñoCurricular> diseñoExistente = disenoCurricularRepository.findByProgramaIdAndRapId(programaId, rapGuardado.getId());
                     if(diseñoExistente.isEmpty()){
                         DiseñoCurricular diseno = new DiseñoCurricular();
                         diseno.setProgramaId(programaId);
                         diseno.setNumeroTrimestre(trimestre);
                         diseno.setRapId(rapGuardado.getId());
                         diseno.setHoraspresenciales(horasPresenciales);
-                        diseñoCurricularRepository.saveDiseñoCurricular(diseno);
+                        disenoCurricularRepository.saveDiseñoCurricular(diseno);
                         log.info("   -> Diseño Curricular guardado para RAP ID: {}, Programa ID: {}, Trimestre: {}, Horas: {}",
                                 rapGuardado.getId(), programaId, trimestre, horasPresenciales);
                     } else {

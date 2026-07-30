@@ -1,9 +1,9 @@
-package com.caeproject.cae.application.usecases.EspecialidadInstructor;
+package com.caeproject.cae.application.usecases.especialidadinstructor;
 
-import com.caeproject.cae.application.usecases.EspecialidadInstructor.commands.EditarEspecialidadInstructorCommand;
+import com.caeproject.cae.application.usecases.especialidadinstructor.commands.EditarEspecialidadInstructorCommand;
 import com.caeproject.cae.application.usecases.especialidad.commands.EditarEspecialidadCommand;
-import com.caeproject.cae.domain.ports.in.Especialidad.EditarEspecialidadInputPort;
-import com.caeproject.cae.domain.ports.in.InstructorEspecialidad.EditarEspecialidadInstructorInputPort;
+import com.caeproject.cae.domain.ports.in.especialidad.EditarEspecialidadInputPort;
+import com.caeproject.cae.domain.ports.in.instructorespecialidad.EditarEspecialidadInstructorInputPort;
 import com.caeproject.cae.domain.ports.model.Especialidad;
 import com.caeproject.cae.domain.ports.model.InstructorEspecialidad;
 import com.caeproject.cae.domain.ports.out.InstructorEspecialidadRepository;

@@ -1,7 +1,7 @@
-    package com.caeproject.cae.application.usecases.disponibilidadInstructor;
+    package com.caeproject.cae.application.usecases.disponibilidadinstructor;
 
-    import com.caeproject.cae.application.usecases.disponibilidadInstructor.commands.CrearDisponibilidadCommand;
-    import com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.CrearDisponibilidadInstructorInputPort;
+    import com.caeproject.cae.application.usecases.disponibilidadinstructor.commands.CrearDisponibilidadCommand;
+    import com.caeproject.cae.domain.ports.in.disponibilidadinstructor.CrearDisponibilidadInstructorInputPort;
     import com.caeproject.cae.domain.ports.model.DisponibilidadInstructor;
     import com.caeproject.cae.domain.ports.model.PerfilBase;
     import com.caeproject.cae.domain.ports.model.enums.TIpoContrato;

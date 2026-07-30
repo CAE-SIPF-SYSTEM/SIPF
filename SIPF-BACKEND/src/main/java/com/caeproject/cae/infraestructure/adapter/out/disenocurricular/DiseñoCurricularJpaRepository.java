@@ -1,4 +1,4 @@
-package com.caeproject.cae.infraestructure.adapter.out.diseñocurricular;
+package com.caeproject.cae.infraestructure.adapter.out.disenocurricular;
 
 import com.caeproject.cae.domain.ports.model.DiseñoCurricular;
 import org.springframework.data.jpa.repository.JpaRepository;

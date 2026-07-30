@@ -19,17 +19,17 @@ public class ObtenerResumenProgramaUseCase implements ObtenerResumenProgramaInpu
 
     private final ProgramaRepository programaRepository;
     private final CompetenciaRepository competenciaRepository;
-    private final DiseñoCurricularRepository diseñoCurricularRepository;
+    private final DiseñoCurricularRepository disenoCurricularRepository;
     private final SugerirInstructorInputPort sugerirInstructorInputPort;
 
     public ObtenerResumenProgramaUseCase(
             ProgramaRepository programaRepository,
             CompetenciaRepository competenciaRepository,
-            DiseñoCurricularRepository diseñoCurricularRepository,
+            DiseñoCurricularRepository disenoCurricularRepository,
             SugerirInstructorInputPort sugerirInstructorInputPort) {
         this.programaRepository = programaRepository;
         this.competenciaRepository = competenciaRepository;
-        this.diseñoCurricularRepository = diseñoCurricularRepository;
+        this.disenoCurricularRepository = disenoCurricularRepository;
         this.sugerirInstructorInputPort = sugerirInstructorInputPort;
     }
 
@@ -42,7 +42,7 @@ public class ObtenerResumenProgramaUseCase implements ObtenerResumenProgramaInpu
         List<ResumenCompetenciaResponse> listaResumenesCompetencias = new ArrayList<>();
 
         for (Competencia competencia : todasLasCompetencias) {
-            Integer horasRaw = diseñoCurricularRepository.sumarHorasPorCompetenciaYPrograma(competencia.getId(), programaId);
+            Integer horasRaw = disenoCurricularRepository.sumarHorasPorCompetenciaYPrograma(competencia.getId(), programaId);
             Long totalHoras = (horasRaw != null) ? horasRaw.longValue() : 0L;
 
             if (totalHoras > 0) {

@@ -1,6 +1,6 @@
 package com.caeproject.cae.application.usecases.especialidad;
 
-import com.caeproject.cae.domain.ports.in.Especialidad.ListarEspecialidadInputPort;
+import com.caeproject.cae.domain.ports.in.especialidad.ListarEspecialidadInputPort;
 import com.caeproject.cae.domain.ports.model.Especialidad;
 import com.caeproject.cae.domain.ports.out.EspecialidadRepository;
 

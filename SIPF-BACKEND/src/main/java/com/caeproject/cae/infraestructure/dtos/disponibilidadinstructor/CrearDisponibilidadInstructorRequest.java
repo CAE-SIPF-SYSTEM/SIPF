@@ -1,4 +1,4 @@
-package com.caeproject.cae.infraestructure.dtos.disponibilidadinstrucor;
+package com.caeproject.cae.infraestructure.dtos.disponibilidadinstructor;
 
 import com.caeproject.cae.domain.ports.model.Municipio;
 import com.caeproject.cae.domain.ports.model.enums.DiasDisponibles;

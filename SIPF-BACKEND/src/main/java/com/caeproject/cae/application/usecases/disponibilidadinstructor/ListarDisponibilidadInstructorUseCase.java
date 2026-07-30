@@ -1,6 +1,6 @@
-package com.caeproject.cae.application.usecases.disponibilidadInstructor;
+package com.caeproject.cae.application.usecases.disponibilidadinstructor;
 
-import com.caeproject.cae.domain.ports.in.DisponibilidadInstructor.ListarDisponibilidadInstructorInputPort;
+import com.caeproject.cae.domain.ports.in.disponibilidadinstructor.ListarDisponibilidadInstructorInputPort;
 import com.caeproject.cae.domain.ports.model.DisponibilidadInstructor;
 import com.caeproject.cae.domain.ports.out.CompetenciaRepository;
 import com.caeproject.cae.domain.ports.out.DisponibilidadInstructorRepository;

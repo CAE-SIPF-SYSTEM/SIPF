@@ -1,4 +1,4 @@
-package com.caeproject.cae.domain.ports.exceptions.diseñocurricularexception;
+package com.caeproject.cae.domain.ports.exceptions.disenocurricularexception;
 
 public class DIseñoYaexistenteException extends RuntimeException {
     public DIseñoYaexistenteException(Long programaId) {

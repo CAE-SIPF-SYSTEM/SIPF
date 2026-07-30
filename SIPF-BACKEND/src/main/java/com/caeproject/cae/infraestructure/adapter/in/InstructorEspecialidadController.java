@@ -1,11 +1,11 @@
 package com.caeproject.cae.infraestructure.adapter.in;
 
-import com.caeproject.cae.application.usecases.EspecialidadInstructor.commands.AsignarEspecialidadInstructorCommand;
-import com.caeproject.cae.application.usecases.EspecialidadInstructor.commands.EditarEspecialidadInstructorCommand;
-import com.caeproject.cae.domain.ports.in.InstructorEspecialidad.AsignarEspecialidadInstructorInputPort;
-import com.caeproject.cae.domain.ports.in.InstructorEspecialidad.DesasignarEspecialidadInstructorInputPort;
-import com.caeproject.cae.domain.ports.in.InstructorEspecialidad.EditarEspecialidadInstructorInputPort;
-import com.caeproject.cae.domain.ports.in.InstructorEspecialidad.ListarInstructoresEspecialidadesInputPort;
+import com.caeproject.cae.application.usecases.especialidadinstructor.commands.AsignarEspecialidadInstructorCommand;
+import com.caeproject.cae.application.usecases.especialidadinstructor.commands.EditarEspecialidadInstructorCommand;
+import com.caeproject.cae.domain.ports.in.instructorespecialidad.AsignarEspecialidadInstructorInputPort;
+import com.caeproject.cae.domain.ports.in.instructorespecialidad.DesasignarEspecialidadInstructorInputPort;
+import com.caeproject.cae.domain.ports.in.instructorespecialidad.EditarEspecialidadInstructorInputPort;
+import com.caeproject.cae.domain.ports.in.instructorespecialidad.ListarInstructoresEspecialidadesInputPort;
 import com.caeproject.cae.domain.ports.model.InstructorEspecialidad;
 import com.caeproject.cae.infraestructure.dtos.instructorespecialidad.InstructorEspecialidadRequestDTO;
 import com.caeproject.cae.infraestructure.dtos.instructorespecialidad.InstructorEspecialidadResponseDTO;

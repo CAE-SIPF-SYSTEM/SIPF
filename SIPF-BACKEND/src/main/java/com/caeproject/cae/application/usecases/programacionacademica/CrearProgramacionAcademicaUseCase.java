@@ -1,8 +1,8 @@
-package com.caeproject.cae.application.usecases.ProgramacionAcademica;
+package com.caeproject.cae.application.usecases.programacionacademica;
 
-import com.caeproject.cae.application.usecases.ProgramacionAcademica.commands.CrearProgramacionCommand;
+import com.caeproject.cae.application.usecases.programacionacademica.commands.CrearProgramacionCommand;
 import com.caeproject.cae.application.usecases.asignacioninstructor.commands.AsignarInstructorCommand;
-import com.caeproject.cae.domain.ports.in.ProgramacionAcademica.CrearProgramacionInputPort;
+import com.caeproject.cae.domain.ports.in.programacionacademica.CrearProgramacionInputPort;
 import com.caeproject.cae.domain.ports.in.asignarinstructor.AsignarInstructorInputPort;
 import com.caeproject.cae.domain.ports.model.*;
 import com.caeproject.cae.domain.ports.out.ProgramacionAcademicaRepository;

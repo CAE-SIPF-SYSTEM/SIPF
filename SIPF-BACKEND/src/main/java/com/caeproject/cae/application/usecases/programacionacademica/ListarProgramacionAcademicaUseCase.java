@@ -1,6 +1,6 @@
-package com.caeproject.cae.application.usecases.ProgramacionAcademica;
+package com.caeproject.cae.application.usecases.programacionacademica;
 
-import com.caeproject.cae.domain.ports.in.ProgramacionAcademica.ListarProgramacionInputPort;
+import com.caeproject.cae.domain.ports.in.programacionacademica.ListarProgramacionInputPort;
 import com.caeproject.cae.domain.ports.model.ProgramacionAcademica;
 import com.caeproject.cae.domain.ports.out.ProgramacionAcademicaRepository;
 

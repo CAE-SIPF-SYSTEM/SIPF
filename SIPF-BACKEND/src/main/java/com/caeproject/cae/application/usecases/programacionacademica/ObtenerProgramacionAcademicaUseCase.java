@@ -1,7 +1,7 @@
-package com.caeproject.cae.application.usecases.ProgramacionAcademica;
+package com.caeproject.cae.application.usecases.programacionacademica;
 
 import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.ProgramaNoEncontradoException;
-import com.caeproject.cae.domain.ports.in.ProgramacionAcademica.ObtenerProgramacionInputPort;
+import com.caeproject.cae.domain.ports.in.programacionacademica.ObtenerProgramacionInputPort;
 import com.caeproject.cae.domain.ports.model.ProgramacionAcademica;
 import com.caeproject.cae.domain.ports.out.ProgramacionAcademicaRepository;
 

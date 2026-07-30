@@ -2,7 +2,7 @@ package com.caeproject.cae.infraestructure.mappers;
 
 import com.caeproject.cae.domain.ports.model.DiseñoCurricular;
 import com.caeproject.cae.domain.ports.model.Especialidad;
-import com.caeproject.cae.infraestructure.adapter.out.diseñocurricular.DiseñoCurricularEntity;
+import com.caeproject.cae.infraestructure.adapter.out.disenocurricular.DiseñoCurricularEntity;
 import com.caeproject.cae.infraestructure.adapter.out.especialidad.EspecialidadEntity;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;

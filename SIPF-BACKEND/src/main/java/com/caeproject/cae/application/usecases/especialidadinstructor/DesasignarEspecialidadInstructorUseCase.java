@@ -1,6 +1,6 @@
-package com.caeproject.cae.application.usecases.EspecialidadInstructor;
+package com.caeproject.cae.application.usecases.especialidadinstructor;
 
-import com.caeproject.cae.domain.ports.in.InstructorEspecialidad.DesasignarEspecialidadInstructorInputPort;
+import com.caeproject.cae.domain.ports.in.instructorespecialidad.DesasignarEspecialidadInstructorInputPort;
 import com.caeproject.cae.domain.ports.out.InstructorEspecialidadRepository;
 import com.caeproject.cae.domain.ports.exceptions.instructorespecialidadexception.InstructorEspecialidadNoEncontradaException;
 

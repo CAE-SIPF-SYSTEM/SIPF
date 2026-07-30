@@ -1,4 +1,4 @@
-package com.caeproject.cae.infraestructure.adapter.out.programacionAcademica;
+package com.caeproject.cae.infraestructure.adapter.out.programacionacademica;
 
 
 import jakarta.persistence.*;

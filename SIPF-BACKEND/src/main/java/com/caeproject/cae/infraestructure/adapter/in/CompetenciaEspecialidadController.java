@@ -1,11 +1,11 @@
 package com.caeproject.cae.infraestructure.adapter.in;
 
-import com.caeproject.cae.application.usecases.CompetenciaEspecialidad.commands.AsignarEspecialidadCompetenciaCommand;
-import com.caeproject.cae.application.usecases.CompetenciaEspecialidad.commands.EditarEspecialidadCompetenciaCommand;
-import com.caeproject.cae.domain.ports.in.CompetenciaEspecialidad.AsignarEspecialidadCompetenciaInputPort;
-import com.caeproject.cae.domain.ports.in.CompetenciaEspecialidad.DesasignarEspecialidadCompetenciaInputPort;
-import com.caeproject.cae.domain.ports.in.CompetenciaEspecialidad.EditarEspecialidadCompetenciaInputPort;
-import com.caeproject.cae.domain.ports.in.CompetenciaEspecialidad.ListarEspecialidadesCompetenciaInputPort;
+import com.caeproject.cae.application.usecases.competenciaespecialidad.commands.AsignarEspecialidadCompetenciaCommand;
+import com.caeproject.cae.application.usecases.competenciaespecialidad.commands.EditarEspecialidadCompetenciaCommand;
+import com.caeproject.cae.domain.ports.in.competenciaespecialidad.AsignarEspecialidadCompetenciaInputPort;
+import com.caeproject.cae.domain.ports.in.competenciaespecialidad.DesasignarEspecialidadCompetenciaInputPort;
+import com.caeproject.cae.domain.ports.in.competenciaespecialidad.EditarEspecialidadCompetenciaInputPort;
+import com.caeproject.cae.domain.ports.in.competenciaespecialidad.ListarEspecialidadesCompetenciaInputPort;
 import com.caeproject.cae.domain.ports.model.CompetenciaEspecialidad;
 import com.caeproject.cae.infraestructure.dtos.competenciaespecialidad.CompetenciaEspecialidadRequestDTO;
 import com.caeproject.cae.infraestructure.dtos.competenciaespecialidad.CompetenciaEspecialidadResponseDTO;

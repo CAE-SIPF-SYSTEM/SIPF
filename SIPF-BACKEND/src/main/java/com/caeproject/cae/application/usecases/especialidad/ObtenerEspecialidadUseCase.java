@@ -1,7 +1,7 @@
 package com.caeproject.cae.application.usecases.especialidad;
 
 import com.caeproject.cae.domain.ports.exceptions.especialidadexception.EspecialidadNoEncontradaException;
-import com.caeproject.cae.domain.ports.in.Especialidad.ObtenerEspecialidadInputPort;
+import com.caeproject.cae.domain.ports.in.especialidad.ObtenerEspecialidadInputPort;
 import com.caeproject.cae.domain.ports.model.Especialidad;
 import com.caeproject.cae.domain.ports.out.EspecialidadRepository;
 
