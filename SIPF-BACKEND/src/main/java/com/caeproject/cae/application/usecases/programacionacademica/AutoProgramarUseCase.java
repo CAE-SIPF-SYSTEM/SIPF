@@ -33,7 +33,6 @@ public class AutoProgramarUseCase implements AutoProgramacionAcademicaInputPort 
                 .orElseThrow(()-> new FichaNoEncontradaException(fichaId));
         Long programaId = ficha.getProgramaId();
 
-        // 1. Recalcular la carga horaria acumulada del Trimestre para no duplicar horas
         List<ProgramacionAcademica> programacionesPreviasTrimestre = programacionAcademicaRepository.findByTrimestre(trimestreId);
         List<DisponibilidadInstructor> disponibilidades = disponibilidadInstructorRepository.findAll();
 
@@ -62,7 +61,6 @@ public class AutoProgramarUseCase implements AutoProgramacionAcademicaInputPort 
                 .findByProgramaIdAndTrimestreId(programaId, trimestreId);
 
         for (DiseñoCurricular diseño : mallas) {
-            // Evitar duplicados: Si el RAP ya está programado en esta Ficha y Trimestre, omitir reinserción
             boolean yaProgramado = programacionAcademicaRepository
                     .existsByRapIdAndFichaIdAndTrimestreId(diseño.getRapId(), fichaId, trimestreId);
 
