@@ -38,7 +38,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
 
                         .requestMatchers("/h2-console/**").permitAll() //MOMENTANEO H2
-                        .requestMatchers("/api/programas/**").hasRole("COORDINADOR")
+                        .requestMatchers("/api/programas/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
                         .requestMatchers("/api/fichas/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
                         .requestMatchers("/api/trimestres/**").hasRole("ADMINISTRADOR")
                         .requestMatchers("/api/especialidades/**").hasAnyRole("ADMINISTRADOR", "INSTRUCTOR")

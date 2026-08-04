@@ -6,10 +6,19 @@ public class ProgramacionAcademica {
     private Long rapId;
     private Long usuarioId;
     private Long programaId;
+    private Long fichaId;
 
 
     public Long getProgramaId() {
         return programaId;
+    }
+
+    public Long getFichaId() {
+        return fichaId;
+    }
+
+    public void setFichaId(Long fichaId) {
+        this.fichaId = fichaId;
     }
 
     public void setProgramaId(Long programaId) {

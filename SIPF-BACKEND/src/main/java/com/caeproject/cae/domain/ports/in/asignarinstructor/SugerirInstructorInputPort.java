@@ -5,5 +5,5 @@ import com.caeproject.cae.domain.ports.model.DisponibilidadInstructor;
 import java.util.List;
 
 public interface SugerirInstructorInputPort {
-    List<DisponibilidadInstructor> sugerirInstructores(Long competenciaId, Long programaId, Long horasRequeridas);
+    List<DisponibilidadInstructor> sugerirInstructores(Long competenciaId, Long fichaId, Long horasRequeridas);
 }
