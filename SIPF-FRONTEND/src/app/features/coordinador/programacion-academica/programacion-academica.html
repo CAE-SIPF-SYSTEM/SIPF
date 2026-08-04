@@ -1,134 +1,185 @@
-<div class="glass-container">
-  <h1 class="page-title">Programación Académica</h1>
-  <p class="page-subtitle">Asigna instructores a los Resultados de Aprendizaje (RAPs) sin generar cruces de horario.</p>
+<app-main-layout pageTitle="Programación Académica">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-12 w-full flex flex-col gap-6 animate-fade-in-up">
+    
+    <!-- Filter & Action Bar -->
+    <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center bg-white shadow-sm rounded-t-2xl p-4 sm:p-6 border-b border-slate-100 gap-4">
+      <div class="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-4 w-full xl:w-auto">
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-slate-800 m-0">Programación de RAPs e Instructores</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Selecciona la ficha y el trimestre para realizar la asignación pedagógica.</p>
+        </div>
 
-  <!-- Selectores -->
-  <div class="glass-card">
-    <div class="selector-group">
-      <select class="custom-select" [(ngModel)]="selectedFicha">
-        <option [ngValue]="null" disabled selected>Seleccione una Ficha</option>
-        <option *ngFor="let f of fichas" [ngValue]="f.id">{{ f.nombre }}</option>
-      </select>
+        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto mt-2 sm:mt-0">
+          <mat-form-field appearance="outline" subscriptSizing="dynamic" class="w-full sm:w-60 text-sm">
+            <mat-select [(ngModel)]="selectedFichaId" (selectionChange)="onSeleccionChange()" placeholder="Seleccione una Ficha">
+              <mat-option *ngFor="let f of fichas" [value]="f.id">
+                {{ f.codigoFicha || ('Ficha #' + f.id) }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-      <select class="custom-select" [(ngModel)]="selectedTrimestre">
-        <option [ngValue]="null" disabled selected>Seleccione el Trimestre</option>
-        <option *ngFor="let t of trimestres" [ngValue]="t.id">{{ t.nombre }}</option>
-      </select>
+          <mat-form-field appearance="outline" subscriptSizing="dynamic" class="w-full sm:w-48 text-sm">
+            <mat-select [(ngModel)]="selectedTrimestreId" (selectionChange)="onSeleccionChange()" placeholder="Seleccione Trimestre">
+              <mat-option *ngFor="let t of trimestres" [value]="t.id">
+                {{ t.numeroTrimestre ? ('Trimestre ' + t.numeroTrimestre) : (t.nombre || ('Trimestre ' + t.id)) }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center gap-2 w-full xl:w-auto mt-2 xl:mt-0">
+        <button 
+          mat-flat-button 
+          color="primary" 
+          class="rounded-full px-5 h-10 text-sm bg-[#37CD2D] text-white font-medium shrink-0 shadow-sm hover:shadow transition-all w-full sm:w-auto flex items-center justify-center gap-2"
+          (click)="ejecutarAutoprogramacion()"
+          [disabled]="isAutoprogramando || !selectedFichaId || !selectedTrimestreId">
+          <mat-icon class="text-white">auto_mode</mat-icon>
+          <span class="whitespace-nowrap">{{ isAutoprogramando ? 'Procesando...' : 'Autoprogramar Trimestre' }}</span>
+        </button>
+
+        <button 
+          mat-flat-button 
+          class="rounded-full px-5 h-10 text-sm bg-[#136E61] text-white font-medium shrink-0 shadow-sm hover:shadow transition-all w-full sm:w-auto flex items-center justify-center gap-2"
+          (click)="ejecutarAutoprogramacionMasivaSemestre()"
+          [disabled]="isAutoprogramando || !selectedFichaId">
+          <mat-icon class="text-white">rocket_launch</mat-icon>
+          <span class="whitespace-nowrap">Autoprogramar Todo el Semestre</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Table Container -->
+    <div class="bg-white rounded-b-2xl shadow-sm overflow-hidden p-4 sm:p-6 -mt-2">
+      <div class="overflow-x-auto w-full">
+        <table class="w-full text-sm text-left text-slate-600 min-w-[700px]">
+          <thead>
+            <tr class="!bg-[#136E61] text-white font-medium h-12 border-b border-slate-100">
+              <th class="px-4 py-3 rounded-tl-lg whitespace-nowrap">Competencia</th>
+              <th class="px-4 py-3 whitespace-nowrap">Descripción del RAP</th>
+              <th class="px-4 py-3 whitespace-nowrap text-center">Horas</th>
+              <th class="px-4 py-3 whitespace-nowrap text-center">Estado</th>
+              <th class="px-4 py-3 whitespace-nowrap">Instructor Asignado</th>
+              <th class="px-4 py-3 text-right rounded-tr-lg whitespace-nowrap pr-6">Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let rap of raps" class="hover:bg-slate-50 transition-colors border-b border-slate-100 h-14">
+              <td class="px-4 py-3">
+                <div class="font-bold text-slate-800">{{ rap.competencia }}</div>
+                <div class="text-xs text-slate-400 mt-0.5">{{ rap.especialidad }}</div>
+              </td>
+              <td class="px-4 py-3 text-slate-600 max-w-xs">{{ rap.descripcion }}</td>
+              <td class="px-4 py-3 font-bold text-slate-700 text-center whitespace-nowrap">{{ rap.horas }}h</td>
+              <td class="px-4 py-3 text-center whitespace-nowrap">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold inline-block"
+                      [ngClass]="rap.estado === 'Asignado' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'">
+                  {{ rap.estado }}
+                </span>
+              </td>
+              <td class="px-4 py-3 whitespace-nowrap">
+                <span *ngIf="rap.instructor" class="font-semibold text-slate-700 flex items-center gap-1">
+                  <mat-icon class="text-emerald-600 text-base">person</mat-icon>
+                  {{ rap.instructor }}
+                </span>
+                <span *ngIf="!rap.instructor" class="text-slate-400 italic">Sin Asignar</span>
+              </td>
+              <td class="px-4 py-3 text-right whitespace-nowrap pr-6">
+                <button 
+                  *ngIf="rap.estado !== 'Asignado'"
+                  (click)="seleccionarRap(rap)"
+                  class="bg-[#136E61] hover:bg-[#0e5248] text-white px-4 py-1.5 rounded-lg text-xs font-medium transition-all shadow-sm whitespace-nowrap">
+                  Asignar Manual
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
+</app-main-layout>
 
-  <!-- Tabla de RAPs -->
-  <div class="glass-card" *ngIf="selectedFicha && selectedTrimestre">
-    <div class="rap-table-container">
-      <table class="rap-table">
-        <thead>
-          <tr>
-            <th>Competencia (Especialidad)</th>
-            <th>Descripción del RAP</th>
-            <th>Horas</th>
-            <th>Estado</th>
-            <th>Instructor</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let rap of raps">
-            <td>
-              <div style="font-weight: 600; color: #111827; margin-bottom: 0.25rem;">{{ rap.competencia }}</div>
-              <div style="font-size: 0.85rem; color: #6b7280;">{{ rap.especialidad }}</div>
-            </td>
-            <td>{{ rap.descripcion }}</td>
-            <td style="font-weight: 600;">{{ rap.horas }}h</td>
-            <td>
-              <span class="badge" 
-                    [ngClass]="rap.estado === 'Asignado' ? 'badge-assigned' : 'badge-pending'">
-                {{ rap.estado }}
-              </span>
-            </td>
-            <td>
-              <span *ngIf="rap.instructor" style="font-weight: 500; color: #374151;">{{ rap.instructor }}</span>
-              <span *ngIf="!rap.instructor" style="color: #9ca3af; font-style: italic;">Sin asignar</span>
-            </td>
-            <td>
-              <button class="btn-primary" 
-                      *ngIf="rap.estado !== 'Asignado'"
-                      (click)="seleccionarRap(rap)">
-                Asignar
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<!-- Modal / Panel Lateral de Asignación -->
-<div class="side-panel-overlay" *ngIf="selectedRap">
-  <div class="side-panel">
-    <div class="panel-header">
+<!-- Modal Pop-Up Centrado para Sugerencias de Asignación con Instructores Reales -->
+<div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-opacity animate-fade-in" *ngIf="selectedRap">
+  <div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden border border-slate-100 animate-scale-up">
+    
+    <!-- Encabezado del Pop-up -->
+    <div class="flex items-center justify-between bg-slate-50 p-5 border-b border-slate-100">
       <div>
-        <h2 class="panel-title">Asignar Instructor</h2>
-        <p style="color: #6b7280; font-size: 0.9rem; margin-top: 0.25rem;">
-          RAP: {{ selectedRap.descripcion }} ({{ selectedRap.horas }}h)
+        <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2 m-0">
+          <mat-icon class="text-[#136E61]">person_search</mat-icon>
+          Sugerencias de Instructores (Base de Datos)
+        </h2>
+        <p class="text-xs text-slate-500 mt-1">
+          RAP: {{ selectedRap.descripcion }} ({{ selectedRap.horas }} Horas Requeridas)
         </p>
       </div>
-      <button class="close-btn" (click)="selectedRap = null">✕</button>
+      <button (click)="selectedRap = null" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-200 transition-colors">
+        <mat-icon>close</mat-icon>
+      </button>
     </div>
 
-    <div class="panel-body">
-      <!-- Filtros -->
-      <div class="filter-row">
-        <input type="text" class="search-input" placeholder="Buscar por nombre..." [(ngModel)]="searchTerm">
-        <select class="custom-select" style="flex: 0.5" [(ngModel)]="filterJornada">
-          <option value="">Todas las jornadas</option>
-          <option value="MAÑANA">Mañana</option>
-          <option value="TARDE">Tarde</option>
-        </select>
-      </div>
+    <!-- Filtros de Sugerencias -->
+    <div class="p-4 bg-white border-b border-slate-100 grid grid-cols-2 gap-3">
+      <input type="text" placeholder="Buscar por nombre..." [(ngModel)]="searchTerm" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-[#136E61]">
+      <select [(ngModel)]="filterJornada" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-[#136E61]">
+        <option value="">Todas las Jornadas</option>
+        <option value="MAÑANA">Mañana</option>
+        <option value="TARDE">Tarde</option>
+      </select>
+    </div>
 
-      <!-- Lista de Instructores -->
-      <div class="instructor-card" *ngFor="let instructor of filteredInstructores">
-        <div class="instructor-header">
+    <!-- Lista de Instructores Sugeridos con Horas Reales de H2 -->
+    <div class="p-5 space-y-4 overflow-y-auto max-h-[60vh]">
+      <div *ngFor="let inst of filteredInstructores" class="border border-slate-200 bg-slate-50/60 p-4 rounded-xl space-y-3 hover:border-emerald-300 transition-all shadow-sm">
+        <div class="flex items-center justify-between">
           <div>
-            <div class="instructor-name">{{ instructor.nombre }}</div>
-            <div class="instructor-specialty">{{ instructor.especialidad }} • {{ instructor.jornada }}</div>
+            <div class="font-bold text-slate-800 text-sm flex items-center gap-1.5">
+              <mat-icon class="text-slate-500 text-base">account_circle</mat-icon>
+              {{ inst.nombreInstructor }}
+            </div>
+            <div class="text-xs text-slate-500 mt-0.5">{{ inst.especialidad }} • Jornada: {{ inst.jornada }}</div>
           </div>
-          <span class="badge" style="background: #f3f4f6; color: #374151;">
-            Disp: {{ instructor.horasMaximas - instructor.horasAsignadas }}h
+          <span class="text-xs font-bold px-3 py-1 rounded-full"
+                [ngClass]="inst.horasDisponibles >= selectedRap.horas ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'">
+            Disponibles: {{ inst.horasDisponibles }}h
           </span>
         </div>
 
-        <!-- Barra de Progreso (Banco de Horas) -->
-        <div class="progress-container">
-          <div class="progress-labels">
-            <span>Horas Asignadas</span>
-            <span>{{ instructor.horasAsignadas }} / {{ instructor.horasMaximas }}h</span>
+        <!-- Barra de Carga Real de H2 -->
+        <div class="space-y-1">
+          <div class="flex justify-between text-xs text-slate-500 font-medium">
+            <span>Carga Asignada en BD</span>
+            <span>{{ inst.horasAsignadas }} / {{ inst.horasMaximas }}h</span>
           </div>
-          <div class="progress-bar-bg">
-            <div class="progress-bar-fill" 
-                 [style.width.%]="calcularPorcentajeHoras(instructor.horasAsignadas, instructor.horasMaximas)"
-                 [ngClass]="{
-                   'progress-safe': calcularPorcentajeHoras(instructor.horasAsignadas, instructor.horasMaximas) < 70,
-                   'progress-warning': calcularPorcentajeHoras(instructor.horasAsignadas, instructor.horasMaximas) >= 70 && calcularPorcentajeHoras(instructor.horasAsignadas, instructor.horasMaximas) < 90,
-                   'progress-danger': calcularPorcentajeHoras(instructor.horasAsignadas, instructor.horasMaximas) >= 90
-                 }">
+          <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+            <div class="h-full transition-all" 
+                 [style.width.%]="calcularPorcentajeHoras(inst.horasAsignadas, inst.horasMaximas)"
+                 [ngClass]="inst.horasDisponibles >= selectedRap.horas ? 'bg-[#136E61]' : 'bg-rose-500'">
             </div>
           </div>
         </div>
 
-        <button class="btn-primary" style="width: 100%;" 
-                *ngIf="puedeAsignar(instructor)"
-                (click)="asignarInstructor(instructor)">
-          Seleccionar Instructor
+        <!-- Botón o Alerta de Horas Insuficientes -->
+        <button 
+          *ngIf="puedeAsignar(inst)"
+          (click)="asignarInstructor(inst)"
+          class="w-full bg-[#136E61] hover:bg-[#0e5248] text-white text-xs font-semibold py-2.5 rounded-xl transition-all shadow-sm flex items-center justify-center gap-1">
+          <mat-icon class="text-sm">check_circle</mat-icon>
+          <span>Seleccionar e Inscribir Instructor</span>
         </button>
-        <div class="unavailable-text" *ngIf="!puedeAsignar(instructor)">
-          No tiene horas suficientes para este RAP (Requiere {{ selectedRap.horas }}h)
+
+        <div *ngIf="!puedeAsignar(inst)" class="text-xs text-rose-600 font-semibold bg-rose-50 border border-rose-200 p-2.5 rounded-xl text-center flex items-center justify-center gap-1">
+          <mat-icon class="text-sm text-rose-500">warning</mat-icon>
+          <span>El instructor no cuenta con horas suficientes (Requiere {{ selectedRap.horas }}h, Disponibles: {{ inst.horasDisponibles }}h)</span>
         </div>
       </div>
-      
-      <div *ngIf="filteredInstructores.length === 0" style="text-align: center; color: #6b7280; padding: 2rem;">
-        No hay instructores disponibles que coincidan con los filtros.
+
+      <div *ngIf="filteredInstructores.length === 0" class="text-center py-8 text-slate-400 text-xs">
+        No se encontraron instructores disponibles.
       </div>
     </div>
   </div>

@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProgramacionAcademicaRepository {
- List<ProgramacionAcademica> findAll() ;
- Optional<ProgramacionAcademica>findById(Long id);
+ List<ProgramacionAcademica> findAll();
+ Optional<ProgramacionAcademica> findById(Long id);
  List<ProgramacionAcademica> findByTrimestre(Long trimestreId);
  List<ProgramacionAcademica> findByUserId(Long userId);
  void eliminarProgramacionAcademica(Long id);
  boolean existsByRapIdAndTrimestreId(Long rapId, Long trimestreId);
- ProgramacionAcademica saveProgramacion (ProgramacionAcademica programacionAcademica);
+ boolean existsByRapIdAndFichaIdAndTrimestreId(Long rapId, Long fichaId, Long trimestreId);
+ ProgramacionAcademica saveProgramacion(ProgramacionAcademica programacionAcademica);
 }

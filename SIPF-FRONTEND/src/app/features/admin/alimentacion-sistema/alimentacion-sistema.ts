@@ -48,11 +48,13 @@ export class AlimentacionSistemaComponent implements OnInit {
   cargarProgramas() {
     this.programaService.getAll().subscribe({
       next: (data) => {
-        this.programas = data;
+        this.programas = data || [];
         this.cdr.detectChanges();
       },
-      error: () => {
-        this.sweetAlertService.error('Error', 'No se pudieron cargar los programas.');
+      error: (err) => {
+        console.warn('No se pudieron cargar los programas dinámicos del backend:', err);
+        this.programas = [];
+        this.cdr.detectChanges();
       }
     });
   }

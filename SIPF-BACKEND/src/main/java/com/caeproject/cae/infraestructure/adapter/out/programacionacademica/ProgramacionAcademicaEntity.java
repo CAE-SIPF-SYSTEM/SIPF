@@ -1,6 +1,5 @@
 package com.caeproject.cae.infraestructure.adapter.out.programacionacademica;
 
-
 import jakarta.persistence.*;
 
 @Entity
@@ -8,7 +7,7 @@ import jakarta.persistence.*;
 public class ProgramacionAcademicaEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "trimestreId", nullable = false)
@@ -23,6 +22,8 @@ public class ProgramacionAcademicaEntity {
     @Column(name = "programaId", nullable = false)
     private Long programaId;
 
+    @Column(name = "fichaId", nullable = false)
+    private Long fichaId;
 
     public Long getProgramaId() {
         return programaId;
@@ -30,6 +31,14 @@ public class ProgramacionAcademicaEntity {
 
     public void setProgramaId(Long programaId) {
         this.programaId = programaId;
+    }
+
+    public Long getFichaId() {
+        return fichaId;
+    }
+
+    public void setFichaId(Long fichaId) {
+        this.fichaId = fichaId;
     }
 
     public Long getId() {return id;}

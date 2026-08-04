@@ -164,6 +164,13 @@ export const routes: Routes = [
             m => m.ListarRapsComponent
           ),
       },
+      {
+        path: 'programacion-academica',
+        loadComponent: () =>
+          import('../features/coordinador/programacion-academica/programacion-academica').then(
+            m => m.ProgramacionAcademicaComponent
+          ),
+      },
     ],
   },
 

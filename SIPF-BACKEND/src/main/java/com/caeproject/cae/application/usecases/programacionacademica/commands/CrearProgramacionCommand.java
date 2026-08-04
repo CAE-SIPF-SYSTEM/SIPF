@@ -7,6 +7,15 @@ public class CrearProgramacionCommand {
     private Long rapId;
     private Long usuarioId;
     private Long programaId;
+    private Long fichaId;
+
+    public Long getFichaId() {
+        return fichaId;
+    }
+
+    public void setFichaId(Long fichaId) {
+        this.fichaId = fichaId;
+    }
 
     public Long getProgramaId() {
         return programaId;

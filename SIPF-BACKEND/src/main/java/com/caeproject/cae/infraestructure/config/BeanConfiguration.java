@@ -1,18 +1,19 @@
 package com.caeproject.cae.infraestructure.config;
 
-import com.caeproject.cae.application.usecases.programacionacademica.AutoProgramarTrimestreUseCase;
+import com.caeproject.cae.application.usecases.programacionacademica.AutoProgramarUseCase;
 import com.caeproject.cae.application.usecases.programacionacademica.CrearProgramacionAcademicaUseCase;
 import com.caeproject.cae.application.usecases.programacionacademica.EliminarProgramacionAcademicaUseCase;
 import com.caeproject.cae.application.usecases.programacionacademica.ListarProgramacionAcademicaUseCase;
 import com.caeproject.cae.application.usecases.programacionacademica.ObtenerProgramacionAcademicaUseCase;
+import com.caeproject.cae.application.usecases.programacionacademica.ObtenerResumenFichaUseCase;
+import com.caeproject.cae.application.usecases.programacionacademica.ObtenerResumenProgramaUseCase;
 import com.caeproject.cae.application.usecases.asignacioninstructor.AsignacionInstructorUseCase;
-import com.caeproject.cae.application.usecases.asignacioninstructor.ObtenerResumenProgramaUseCase;
 import com.caeproject.cae.application.usecases.asignacioninstructor.SugerirInstructorUseCase;
 import com.caeproject.cae.application.usecases.excel.AlimentacionCrUseCase;
 import com.caeproject.cae.application.usecases.ubicacion.ConsultarUbicacionesUseCase;
 import com.caeproject.cae.domain.ports.in.programacionacademica.*;
+import com.caeproject.cae.domain.ports.in.programacionacademica.ObtenerResumenProgramaInputPort;
 import com.caeproject.cae.domain.ports.in.asignarinstructor.AsignarInstructorInputPort;
-import com.caeproject.cae.domain.ports.in.asignarinstructor.ObtenerResumenProgramaInputPort;
 import com.caeproject.cae.domain.ports.in.asignarinstructor.SugerirInstructorInputPort;
 import com.caeproject.cae.domain.ports.in.ubicacion.ConsultarUbicacionesInputPort;
 import com.caeproject.cae.domain.ports.out.*;
@@ -388,14 +389,16 @@ public class BeanConfiguration {
             DisponibilidadInstructorRepository disponibilidadInstructorRepository,
             InstructorEspecialidadRepository instructorEspecialidadRepository,
             CompetenciaEspecialidadRepository competenciaEspecialidadRepository,
-            ProgramaRepository programaRepository
+            ProgramaRepository programaRepository,
+            FichaRepository fichaRepository
     ) {
         return new SugerirInstructorUseCase(
                 validarElegibilidadInstructor,
                 disponibilidadInstructorRepository,
                 instructorEspecialidadRepository,
                 competenciaEspecialidadRepository,
-                programaRepository
+                programaRepository,
+                fichaRepository
         );
     }
 
@@ -415,19 +418,36 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public AutoProgramacionInputPort autoProgramacionInputPort(
+    public ObtenerResumenFichaInputPort obtenerResumenFichaInputPort(
+            SugerirInstructorInputPort sugerirInstructorInputPort,
+            FichaRepository fichaRepository,
+            CompetenciaRepository competenciaRepository,
+            DiseñoCurricularRepository disenoCurricularRepository
+    ) {
+        return new ObtenerResumenFichaUseCase(
+                sugerirInstructorInputPort,
+                fichaRepository,
+                competenciaRepository,
+                disenoCurricularRepository
+        );
+    }
+
+    @Bean
+    public AutoProgramacionAcademicaInputPort autoProgramacionAcademicaInputPort(
             SugerirInstructorInputPort sugerirInstructorInputPort,
             ProgramacionAcademicaRepository programacionAcademicaRepository,
             DisponibilidadInstructorRepository disponibilidadInstructorRepository,
             DiseñoCurricularRepository disenoCurricularRepository,
-            RapRepository rapRepository
+            RapRepository rapRepository,
+            FichaRepository fichaRepository
     ) {
-        return new AutoProgramarTrimestreUseCase(
+        return new AutoProgramarUseCase(
                 sugerirInstructorInputPort,
                 programacionAcademicaRepository,
                 disponibilidadInstructorRepository,
                 disenoCurricularRepository,
-                rapRepository
+                rapRepository,
+                fichaRepository
         );
     }
 }

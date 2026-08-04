@@ -17,6 +17,17 @@ public class CrearProgramacionRequest {
     @NotNull
     private Long programaId;
 
+    @NotNull
+    private Long fichaId;
+
+    public Long getFichaId() {
+        return fichaId;
+    }
+
+    public void setFichaId(Long fichaId) {
+        this.fichaId = fichaId;
+    }
+
     public Long getProgramaId() {
         return programaId;
     }

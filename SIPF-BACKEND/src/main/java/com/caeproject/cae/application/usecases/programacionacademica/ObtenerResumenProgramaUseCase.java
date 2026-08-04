@@ -1,6 +1,6 @@
-package com.caeproject.cae.application.usecases.asignacioninstructor;
+package com.caeproject.cae.application.usecases.programacionacademica;
 
-import com.caeproject.cae.domain.ports.in.asignarinstructor.ObtenerResumenProgramaInputPort;
+import com.caeproject.cae.domain.ports.in.programacionacademica.ObtenerResumenProgramaInputPort;
 import com.caeproject.cae.domain.ports.in.asignarinstructor.SugerirInstructorInputPort;
 import com.caeproject.cae.domain.ports.model.Competencia;
 import com.caeproject.cae.domain.ports.model.DisponibilidadInstructor;
