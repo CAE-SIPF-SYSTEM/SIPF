@@ -260,7 +260,9 @@ export class ProgramacionAcademicaComponent implements OnInit {
         const instructorAsignado = asignacionesMap.get(`${r.id}`) || null;
 
         const mObj = (mallas || []).find(m => m.rapId === r.id);
-        const horasReales = mObj ? (mObj.horasPresenciales || mObj.horaspresenciales || r.horasPresenciales) : (r.horasPresenciales || 32);
+        const horasReales = mObj && (mObj.horasPresenciales || mObj.horaspresenciales) 
+          ? (mObj.horasPresenciales || mObj.horaspresenciales) 
+          : (r.horasPresenciales || 40);
 
         return {
           id: r.id,
@@ -268,7 +270,7 @@ export class ProgramacionAcademicaComponent implements OnInit {
           competencia: compNombre,
           especialidad: this.obtenerEspecialidadPorId(r.competenciaId),
           descripcion: r.descripcion || 'RAP de Formación Técnica',
-          horas: horasReales || 32,
+          horas: horasReales || 40,
           estado: instructorAsignado ? 'Asignado' : 'Pendiente',
           instructor: instructorAsignado
         };
@@ -298,7 +300,7 @@ export class ProgramacionAcademicaComponent implements OnInit {
             competencia: r.competenciaNombre || r.nombreCompetencia || 'Desarrollo de Software',
             especialidad: this.obtenerEspecialidadPorId(r.competenciaId || index + 1),
             descripcion: r.rapDescripcion || r.descripcion || 'RAP de Formación Técnica',
-            horas: r.horasAsignadas || r.totalHorasRequeridas || 32,
+            horas: r.horasAsignadas || r.totalHorasRequeridas || 40,
             estado: (r.instructorNombre && r.instructorNombre.trim() !== '') ? 'Asignado' : 'Pendiente',
             instructor: r.instructorNombre || null
           }));
@@ -316,14 +318,14 @@ export class ProgramacionAcademicaComponent implements OnInit {
 
   private generarRapsPorDefectoAmpliados() {
     this.raps = [
-      { id: 1, competenciaId: 1, competencia: 'Análisis y Desarrollo de Software', especialidad: 'Programación Backend', descripcion: 'Desarrollar componentes backend del sistema', horas: 32, estado: 'Pendiente', instructor: null },
-      { id: 2, competenciaId: 2, competencia: 'Inglés Técnico y Comunicación', especialidad: 'Bilingüismo', descripcion: 'Comprender y redactar documentación técnica en inglés', horas: 32, estado: 'Pendiente', instructor: null },
-      { id: 3, competenciaId: 3, competencia: 'Bases de Datos y Persistencia', especialidad: 'Bases de Datos SQL', descripcion: 'Diseñar la capa relacional y consultas SQL complejas', horas: 30, estado: 'Asignado', instructor: 'JHON PRADA' },
-      { id: 4, competenciaId: 4, competencia: 'Desarrollo Frontend e Interfaz Web', especialidad: 'Frontend UI/UX', descripcion: 'Construir interfaces interactivas en Angular y HTML5', horas: 32, estado: 'Pendiente', instructor: null },
-      { id: 5, competenciaId: 5, competencia: 'Redes y Comunicaciones de Datos', especialidad: 'Redes y Telecomunicaciones', descripcion: 'Configurar topologías de red y servicios Linux', horas: 32, estado: 'Pendiente', instructor: null },
+      { id: 1, competenciaId: 1, competencia: 'Análisis y Desarrollo de Software', especialidad: 'Programación Backend', descripcion: 'Desarrollar componentes backend del sistema', horas: 40, estado: 'Pendiente', instructor: null },
+      { id: 2, competenciaId: 2, competencia: 'Inglés Técnico y Comunicación', especialidad: 'Bilingüismo', descripcion: 'Comprender y redactar documentación técnica en inglés', horas: 40, estado: 'Pendiente', instructor: null },
+      { id: 3, competenciaId: 3, competencia: 'Bases de Datos y Persistencia', especialidad: 'Bases de Datos SQL', descripcion: 'Diseñar la capa relacional y consultas SQL complejas', horas: 40, estado: 'Asignado', instructor: 'JHON PRADA' },
+      { id: 4, competenciaId: 4, competencia: 'Desarrollo Frontend e Interfaz Web', especialidad: 'Frontend UI/UX', descripcion: 'Construir interfaces interactivas en Angular y HTML5', horas: 40, estado: 'Pendiente', instructor: null },
+      { id: 5, competenciaId: 5, competencia: 'Redes y Comunicaciones de Datos', especialidad: 'Redes y Telecomunicaciones', descripcion: 'Configurar topologías de red y servicios Linux', horas: 40, estado: 'Pendiente', instructor: null },
       { id: 6, competenciaId: 6, competencia: 'Seguridad y Salud en el Trabajo', especialidad: 'SST', descripcion: 'Aplicar normatividad de SST en entornos tecnológicos', horas: 24, estado: 'Pendiente', instructor: null },
-      { id: 7, competenciaId: 7, competencia: 'Pruebas de Software y Calidad QA', especialidad: 'Calidad QA', descripcion: 'Ejecutar pruebas unitarias, de integración y QA', horas: 32, estado: 'Pendiente', instructor: null },
-      { id: 8, competenciaId: 8, competencia: 'DevOps y Despliegue en la Nube', especialidad: 'DevOps & Cloud', descripcion: 'Configurar integraciones continuas y contenedores Docker', horas: 32, estado: 'Pendiente', instructor: null }
+      { id: 7, competenciaId: 7, competencia: 'Pruebas de Software y Calidad QA', especialidad: 'Calidad QA', descripcion: 'Ejecutar pruebas unitarias, de integración y QA', horas: 40, estado: 'Pendiente', instructor: null },
+      { id: 8, competenciaId: 8, competencia: 'DevOps y Despliegue en la Nube', especialidad: 'DevOps & Cloud', descripcion: 'Configurar integraciones continuas y contenedores Docker', horas: 48, estado: 'Pendiente', instructor: null }
     ];
   }
 
