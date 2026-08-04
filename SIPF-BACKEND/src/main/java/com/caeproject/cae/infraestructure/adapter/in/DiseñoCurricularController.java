@@ -1,6 +1,5 @@
 package com.caeproject.cae.infraestructure.adapter.in;
 
-
 import com.caeproject.cae.domain.ports.in.disenocurricular.EliminarDiseñoCurricularInputPort;
 import com.caeproject.cae.domain.ports.in.disenocurricular.ListarDiseñoCurricularInputPort;
 import com.caeproject.cae.domain.ports.model.DiseñoCurricular;
@@ -37,12 +36,12 @@ public class DiseñoCurricularController {
         return ResponseEntity.ok().build();
     }
 
-
     private DiseñoCurricularResponseDTO toResponseDTO(DiseñoCurricular model) {
         DiseñoCurricularResponseDTO dto = new DiseñoCurricularResponseDTO();
         dto.setNumeroTrimestre(model.getNumeroTrimestre());
         dto.setProgramaId(model.getProgramaId());
         dto.setRapId(model.getRapId());
+        dto.setHorasPresenciales(model.getHoraspresenciales());
         return dto;
     }
 }
