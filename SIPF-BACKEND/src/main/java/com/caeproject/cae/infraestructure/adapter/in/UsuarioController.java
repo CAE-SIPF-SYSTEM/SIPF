@@ -87,6 +87,8 @@ public class UsuarioController {
         return ResponseEntity.ok(buildSimpleResponse(usuario));
     }
 
+
+
     @GetMapping("/correo/{correo}")
     public ResponseEntity<UsuarioResponse> buscarPorCorreo(@PathVariable String correo) {
         Optional<Usuario> usuario = obtenerUsuarioInputPort.porCorreo(correo);
