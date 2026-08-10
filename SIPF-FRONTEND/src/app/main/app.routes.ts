@@ -92,6 +92,13 @@ export const routes: Routes = [
             m => m.AdminCompetenciaEspecialidadComponent
           ),
       },
+      {
+        path: 'auditoria',
+        loadComponent: () =>
+          import('../features/admin/auditoria/auditoria.component').then(
+            m => m.AuditoriaComponent
+          ),
+      },
     ],
   },
 

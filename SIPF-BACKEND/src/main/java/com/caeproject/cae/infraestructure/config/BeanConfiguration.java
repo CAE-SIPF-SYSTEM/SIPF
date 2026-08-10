@@ -450,4 +450,10 @@ public class BeanConfiguration {
                 fichaRepository
         );
     }
+
+    @Bean
+    public com.caeproject.cae.domain.ports.in.auditoria.ConsultarAuditoriaInputPort consultarAuditoriaInputPort(
+            AuditoriaPerfilRepository auditoriaPerfilRepository) {
+        return new com.caeproject.cae.application.usecases.auditorias.ConsultarAuditoriaUseCase(auditoriaPerfilRepository);
+    }
 }

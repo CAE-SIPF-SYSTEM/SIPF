@@ -27,4 +27,29 @@ public class AuditoriaPerfilJpaAdapter implements AuditoriaPerfilRepository {
         auditoria.setId(saved.getId());
         return auditoria;
     }
+
+    @Override
+    public java.util.List<AuditoriaPerfil> obtenerPorUsuarioId(Long usuarioId) {
+        return jpaRepository.findByUsuarioIdOrderByFechaModificacionDesc(usuarioId).stream()
+                .map(this::toDomain)
+                .collect(java.util.stream.Collectors.toList());
+    }
+
+    @Override
+    public java.util.List<AuditoriaPerfil> listarTodas() {
+        return jpaRepository.findAllByOrderByFechaModificacionDesc().stream()
+                .map(this::toDomain)
+                .collect(java.util.stream.Collectors.toList());
+    }
+
+    private AuditoriaPerfil toDomain(AuditoriaPerfilEntity entity) {
+        AuditoriaPerfil model = new AuditoriaPerfil();
+        model.setId(entity.getId());
+        model.setUsuarioId(entity.getUsuarioId());
+        model.setCampoModificado(entity.getCampoModificado());
+        model.setValorAnterior(entity.getValorAnterior());
+        model.setValorNuevo(entity.getValorNuevo());
+        model.setFechaModificacion(entity.getFechaModificacion());
+        return model;
+    }
 }

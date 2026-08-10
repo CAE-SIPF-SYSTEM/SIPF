@@ -1,0 +1,4 @@
+/* Estilos personalizados para la vista de Auditoría */
+:host {
+  display: block;
+}
