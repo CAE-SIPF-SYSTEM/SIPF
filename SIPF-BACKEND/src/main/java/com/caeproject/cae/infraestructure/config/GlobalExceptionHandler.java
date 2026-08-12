@@ -62,9 +62,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
     }
 
-    @ExceptionHandler(CruceHorarioException.class)
-    public ResponseEntity<ErrorResponse> handleCruceHorario(CruceHorarioException ex) {
-        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.CONFLICT.value());
+    @ExceptionHandler(com.caeproject.cae.domain.ports.exceptions.asignacionexceptions.CruceHorarioException.class)
+    public ResponseEntity<ErrorResponse> handleCruceHorario(com.caeproject.cae.domain.ports.exceptions.asignacionexceptions.CruceHorarioException ex) {
+        ErrorResponse error = new ErrorResponse(ex.getMessage() + " (Ficha Conflicto: " + ex.getFichaCodigo() + ")", HttpStatus.CONFLICT.value());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 

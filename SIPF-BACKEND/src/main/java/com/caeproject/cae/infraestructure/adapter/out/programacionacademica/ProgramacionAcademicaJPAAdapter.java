@@ -62,6 +62,13 @@ public class ProgramacionAcademicaJPAAdapter implements ProgramacionAcademicaRep
     }
 
     @Override
+    public List<ProgramacionAcademica> findByUserIdAndTrimestreId(Long userId, Long trimestreId) {
+        return jpaRepository.findByUsuarioIdAndTrimestreId(userId, trimestreId).stream()
+                .map(mapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public ProgramacionAcademica saveProgramacion(ProgramacionAcademica programacionAcademica) {
         ProgramacionAcademicaEntity entity = mapper.toEntity(programacionAcademica);
         ProgramacionAcademicaEntity saved = jpaRepository.save(entity);
