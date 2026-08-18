@@ -1,4 +1,4 @@
-import { Component, Inject, signal } from '@angular/core';
+import { Component, Inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
@@ -8,6 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ProgramaResponse } from '../../../core/entities/programa.model';
+import { UbicacionService, MunicipioResponse } from '../../../core/use-cases/ubicacion.service';
 
 export interface ProgramaFormDialogData {
   mode: 'create' | 'edit';
@@ -62,7 +63,11 @@ export interface ProgramaFormDialogData {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <mat-form-field appearance="outline">
             <mat-label>Municipio</mat-label>
-            <input matInput formControlName="municipio" placeholder="Ej: Bogotá">
+            <mat-select formControlName="municipio" [compareWith]="compareMunicipios">
+              <mat-option *ngFor="let mun of municipiosList()" [value]="mun">
+                {{ mun.nombre }}
+              </mat-option>
+            </mat-select>
             <mat-error *ngIf="form.get('municipio')?.hasError('required')">Obligatorio</mat-error>
           </mat-form-field>
 
@@ -85,13 +90,15 @@ export interface ProgramaFormDialogData {
     </mat-dialog-actions>
   `
 })
-export class ProgramaFormDialogComponent {
+export class ProgramaFormDialogComponent implements OnInit {
   form: FormGroup;
   isSaving = signal(false);
+  municipiosList = signal<MunicipioResponse[]>([]);
 
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ProgramaFormDialogComponent>,
+    private ubicacionService: UbicacionService,
     @Inject(MAT_DIALOG_DATA) public data: ProgramaFormDialogData
   ) {
     if (data.mode === 'create') {
@@ -111,6 +118,49 @@ export class ProgramaFormDialogComponent {
         duracionpracticas: [data.programa?.duracionpracticas || null, [Validators.required, Validators.min(1)]]
       });
     }
+  }
+
+  ngOnInit() {
+    this.ubicacionService.obtenerMunicipios().subscribe({
+      next: (data) => {
+        if (data && data.length > 0) {
+          this.municipiosList.set(data);
+        } else {
+          this.usarMunicipiosDefault();
+        }
+      },
+      error: () => this.usarMunicipiosDefault()
+    });
+  }
+
+  private usarMunicipiosDefault() {
+    this.municipiosList.set([
+      { id: 1, nombre: 'Bogotá D.C.' },
+      { id: 2, nombre: 'Fusagasugá' },
+      { id: 3, nombre: 'Girardot' },
+      { id: 4, nombre: 'Soacha' },
+      { id: 5, nombre: 'Chía' },
+      { id: 6, nombre: 'Zipaquirá' },
+      { id: 7, nombre: 'Facatativá' },
+      { id: 8, nombre: 'Mosquera' },
+      { id: 9, nombre: 'Madrid' },
+      { id: 10, nombre: 'Funza' },
+      { id: 11, nombre: 'Medellín' },
+      { id: 12, nombre: 'Cali' },
+      { id: 13, nombre: 'Barranquilla' },
+      { id: 14, nombre: 'Cartagena' },
+      { id: 15, nombre: 'Bucaramanga' },
+      { id: 16, nombre: 'Pereira' },
+      { id: 17, nombre: 'Manizales' },
+      { id: 18, nombre: 'Ibagué' },
+      { id: 19, nombre: 'Villavicencio' },
+      { id: 20, nombre: 'Neiva' }
+    ]);
+  }
+
+  compareMunicipios(m1: any, m2: any): boolean {
+    if (!m1 || !m2) return m1 === m2;
+    return typeof m1 === 'object' && typeof m2 === 'object' ? (m1.id === m2.id || m1.nombre === m2.nombre) : m1 === m2;
   }
 
   onSubmit() {

@@ -61,4 +61,9 @@ public class UbicacionPersistenceAdapter implements UbicacionRepository {
     public List<Departamento> obtenerDepartamentos() {
         return ubicacionMapper.toDomainDepartamentoList(departamentoJPARepository.findAll());
     }
+
+    @Override
+    public List<Municipio> obtenerMunicipios() {
+        return ubicacionMapper.toDomainMunicipioList(municipioJPARepository.findAll());
+    }
 }

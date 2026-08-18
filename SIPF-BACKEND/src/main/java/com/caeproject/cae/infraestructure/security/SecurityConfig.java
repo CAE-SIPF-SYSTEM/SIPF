@@ -50,7 +50,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/competencias/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
                         .requestMatchers("/api/disponibilidadinstructor", "/api/disponibilidadinstructor/**").hasAnyRole("INSTRUCTOR", "ADMINISTRADOR")
                         .requestMatchers("/api/ubicaciones").hasAnyRole("ADMINISTRADOR", "INSTRUCTOR","COORDINADOR" )
-                        .requestMatchers("/api/programacionacademica", "/api/programacionacademica/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
+                        .requestMatchers("/api/programacionacademica", "/api/programacionacademica/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR", "INSTRUCTOR")
                         .requestMatchers(HttpMethod.GET, "/api/usuarios").hasRole("ADMINISTRADOR")
 
                         // Cualquier otra petición requiere autenticación

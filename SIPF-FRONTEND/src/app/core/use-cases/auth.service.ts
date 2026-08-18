@@ -59,7 +59,7 @@ export class AuthService {
     return user ? user.estado : null
   }
 
-  getNombre(): String | null {
+  getNombre(): string | null {
     const user = this.getUser();
     return user ? user.nombre : null;
   }

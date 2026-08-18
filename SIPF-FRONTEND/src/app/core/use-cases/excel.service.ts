@@ -19,4 +19,8 @@ export class ExcelService {
       responseType: 'text' // El backend devuelve un String, no un JSON estructurado
     });
   }
+
+  exportarCargaInstructor(usuarioId: number, trimestreId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/exportacion?usuarioId=${usuarioId}&trimestreId=${trimestreId}`);
+  }
 }

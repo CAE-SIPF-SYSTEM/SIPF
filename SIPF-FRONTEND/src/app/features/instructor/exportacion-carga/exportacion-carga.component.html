@@ -1,0 +1,47 @@
+<app-main-layout pageTitle="Exportación de Carga Académica">
+  <div class="max-w-4xl mx-auto px-6 pt-12 pb-12 w-full flex flex-col gap-6 animate-fade-in-up">
+    
+    <!-- Tarjeta Principal de Descarga Directa -->
+    <div class="bg-white rounded-2xl shadow-md border border-slate-200 p-8 flex flex-col items-center text-center gap-6">
+      
+      <!-- Icono Ilustrativo -->
+      <div class="w-20 h-20 rounded-full bg-emerald-50 text-[#136E61] flex items-center justify-center border-2 border-emerald-100 shadow-inner">
+        <mat-icon class="!w-10 !h-10 text-4xl">file_download</mat-icon>
+      </div>
+
+      <!-- Títulos -->
+      <div>
+        <h2 class="text-2xl font-bold text-slate-800 m-0">Descargar Carga Académica</h2>
+        <p class="text-slate-500 text-sm mt-2 max-w-lg mx-auto">
+          Hola <strong class="text-slate-700">{{ nombreInstructor }}</strong>, selecciona el trimestre académico y haz clic en el botón para descargar directamente el archivo Excel con tu programación oficial.
+        </p>
+      </div>
+
+      <!-- Selección de Trimestre -->
+      <div class="w-full max-w-md bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col gap-2">
+        <label class="text-xs font-bold text-slate-600 uppercase tracking-wider text-left">Selecciona el Trimestre:</label>
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="w-full text-sm bg-white rounded-lg">
+          <mat-select [(ngModel)]="selectedTrimestreId">
+            <mat-option *ngFor="let t of trimestres" [value]="t.id">
+              Trimestre {{ t.numeroTrimestre || t.id }} ({{ t.anio || 2026 }})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Botón de Descarga Directa -->
+      <button mat-flat-button class="!bg-[#136E61] hover:!bg-[#0f544a] text-white font-bold h-14 px-10 rounded-full text-base shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3 w-full max-w-md mt-2"
+              (click)="descargarReporteDirecto()" [disabled]="isDownloading">
+        <mat-icon *ngIf="!isDownloading" class="scale-125">download</mat-icon>
+        <span *ngIf="isDownloading" class="animate-spin text-xl">⏳</span>
+        <span>{{ isDownloading ? 'Generando descarga...' : 'DESCARGAR ARCHIVO DE CARGA' }}</span>
+      </button>
+
+      <p class="text-xs text-slate-400 m-0 flex items-center gap-1">
+        <mat-icon class="!w-4 !h-4 text-xs">info</mat-icon>
+        El archivo se guardará automáticamente en tu carpeta de Descargas en formato Excel / CSV.
+      </p>
+
+    </div>
+  </div>
+</app-main-layout>

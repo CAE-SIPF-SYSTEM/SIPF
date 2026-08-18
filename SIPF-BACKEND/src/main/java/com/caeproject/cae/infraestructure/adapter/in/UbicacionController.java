@@ -28,6 +28,12 @@ public class UbicacionController {
     }
 
 
+    @GetMapping("/municipios")
+    public ResponseEntity<List<Municipio>> obtenerTodosLosMunicipios() {
+        List<Municipio> municipios = consultarUbicacionesPort.obtenerTodosLosMunicipios();
+        return ResponseEntity.ok(municipios);
+    }
+
     @GetMapping("/municipios/{id}")
     public ResponseEntity<Municipio> obtenerMunicipioPorId(@PathVariable Long id) {
         return consultarUbicacionesPort.obtenerMunicipioPorId(id)

@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface ConsultarUbicacionesInputPort {
     List<Departamento> obtenerTodosLosDepartamentos();
+    List<Municipio> obtenerTodosLosMunicipios();
     Optional<Municipio> obtenerMunicipioPorId(Long id);
 }

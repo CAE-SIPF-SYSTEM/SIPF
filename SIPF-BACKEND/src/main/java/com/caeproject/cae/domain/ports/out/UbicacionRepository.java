@@ -14,4 +14,5 @@ public interface UbicacionRepository {
     Optional<Municipio> obtenerMunicipioId(Long id);
     Optional<Municipio> obtenerMunicipioPorId(Long id);
     List<Departamento> obtenerDepartamentos();
+    List<Municipio> obtenerMunicipios();
 }

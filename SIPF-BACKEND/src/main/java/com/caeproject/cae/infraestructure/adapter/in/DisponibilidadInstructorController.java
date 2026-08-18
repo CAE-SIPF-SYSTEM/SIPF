@@ -25,13 +25,31 @@ public class DisponibilidadInstructorController {
     private final EliminarDisponibilidadInputPort eliminarDisponibilidadInputPort;
     private final ListarDisponibilidadInstructorInputPort listarDisponibilidadInstructorInputPort;
     private final ObtenerDisponibilidadInstructorInputPort obtenerDisponibilidadInstructorInputPort;
+    private final com.caeproject.cae.domain.ports.out.UsuarioRepository usuarioRepository;
 
-    public DisponibilidadInstructorController(CrearDisponibilidadInstructorInputPort crearDisponibilidadInstructorInputPort, EditarDisponibilidadInstructorInputPort editarDisponibilidadInstructorInputPort, EliminarDisponibilidadInputPort eliminarDisponibilidadInputPort, ListarDisponibilidadInstructorInputPort listarDisponibilidadInstructorInputPort, ObtenerDisponibilidadInstructorInputPort obtenerDisponibilidadInstructorInputPort) {
+    public DisponibilidadInstructorController(
+            CrearDisponibilidadInstructorInputPort crearDisponibilidadInstructorInputPort, 
+            EditarDisponibilidadInstructorInputPort editarDisponibilidadInstructorInputPort, 
+            EliminarDisponibilidadInputPort eliminarDisponibilidadInputPort, 
+            ListarDisponibilidadInstructorInputPort listarDisponibilidadInstructorInputPort, 
+            ObtenerDisponibilidadInstructorInputPort obtenerDisponibilidadInstructorInputPort,
+            com.caeproject.cae.domain.ports.out.UsuarioRepository usuarioRepository) {
         this.crearDisponibilidadInstructorInputPort = crearDisponibilidadInstructorInputPort;
         this.editarDisponibilidadInstructorInputPort = editarDisponibilidadInstructorInputPort;
         this.eliminarDisponibilidadInputPort = eliminarDisponibilidadInputPort;
         this.listarDisponibilidadInstructorInputPort = listarDisponibilidadInstructorInputPort;
         this.obtenerDisponibilidadInstructorInputPort = obtenerDisponibilidadInstructorInputPort;
+        this.usuarioRepository = usuarioRepository;
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<DisponibilidadInstructorResponse> obtenerMiDisponibilidad(org.springframework.security.core.Authentication authentication) {
+        String correo = authentication.getName();
+        com.caeproject.cae.domain.ports.model.Usuario usuario = usuarioRepository.findByCorreo(correo)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con correo: " + correo));
+        
+        DisponibilidadInstructor disponibilidad = obtenerDisponibilidadInstructorInputPort.obtenerDisponiblidad(usuario.getId());
+        return ResponseEntity.ok(toResponse(disponibilidad));
     }
 
     @PostMapping
