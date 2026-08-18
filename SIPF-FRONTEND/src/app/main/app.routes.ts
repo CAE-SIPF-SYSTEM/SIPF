@@ -121,11 +121,18 @@ export const routes: Routes = [
             m => m.DisponibilidadInstructorComponent
           ),
       },
-       {
+      {
         path: 'instructor-especialidad',
         loadComponent: () =>
           import('../features/admin/instructor-especialidad/admin-instructor-especialidad/admin-instructor-especialidad').then(
             m => m.AdminInstructorEspecialidadComponent
+          ),
+      },
+      {
+        path: 'exportacion-carga',
+        loadComponent: () =>
+          import('../features/instructor/exportacion-carga/exportacion-carga.component').then(
+            m => m.ExportacionCargaComponent
           ),
       },
     ],

@@ -82,6 +82,20 @@ public class AutoProgramarUseCase implements AutoProgramacionAcademicaInputPort 
             if (!candidatos.isEmpty()) {
                 DisponibilidadInstructor ganador = candidatos.get(0);
 
+                // HU-13: Validación preventiva de cruce horario (Un instructor no puede tener asignado el mismo RAP en el mismo trimestre y ficha con traslape)
+                List<ProgramacionAcademica> asignacionesPreviasInstructor = programacionAcademicaRepository
+                        .findByUserIdAndTrimestreId(ganador.getUsuarioId(), trimestreId);
+
+                boolean existeCruceFicha = asignacionesPreviasInstructor.stream()
+                        .anyMatch(p -> p.getFichaId() != null && p.getFichaId().equals(fichaId) && p.getRapId().equals(rap.getId()));
+
+                if (existeCruceFicha) {
+                    throw new com.caeproject.cae.domain.ports.exceptions.asignacionexceptions.CruceHorarioException(
+                            "Conflicto de cruce: El instructor ID#" + ganador.getUsuarioId() + " ya tiene asignada la Ficha #" + ficha.getCodigoFicha() + " para el RAP #" + rap.getId(),
+                            ficha.getCodigoFicha()
+                    );
+                }
+
                 ProgramacionAcademica programacion = new ProgramacionAcademica();
                 programacion.setTrimestreId(trimestreId);
                 programacion.setRapId(rap.getId());

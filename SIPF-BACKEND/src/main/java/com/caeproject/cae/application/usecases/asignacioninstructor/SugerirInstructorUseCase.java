@@ -45,7 +45,7 @@ public class SugerirInstructorUseCase implements SugerirInstructorInputPort {
                 .thenComparingLong(DisponibilidadInstructor::getHorasDisponibles)
                 .reversed();
 
-        // Paso 1: Intentar buscar instructores con especialidad estricta requerida
+
         List<DisponibilidadInstructor> candidatos = disponibilidadInstructorRepository.findAll().stream()
                 .filter(disponibilidad -> {
                     var instructorEspecialidad = instructorEspecialidadRepository
@@ -64,7 +64,6 @@ public class SugerirInstructorUseCase implements SugerirInstructorInputPort {
                 .sorted(comparadorSugerencia)
                 .toList();
 
-        // Paso 2: Si los instructores especializados se quedaron sin horas (0h disponibles), hacer fallback a cualquier instructor activo con horas suficientes
         if (candidatos.isEmpty()) {
             candidatos = disponibilidadInstructorRepository.findAll().stream()
                     .filter(disponibilidad -> {

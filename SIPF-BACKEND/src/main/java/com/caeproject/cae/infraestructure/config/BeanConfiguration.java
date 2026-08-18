@@ -24,6 +24,8 @@ import com.caeproject.cae.application.usecases.usuario.*;
 import com.caeproject.cae.domain.ports.in.recuperacion.RestablecerContrasenaInputPort;
 import com.caeproject.cae.domain.ports.in.recuperacion.SolicitarRecuperacionInputPort;
 import com.caeproject.cae.domain.ports.in.usuario.*;
+import com.caeproject.cae.application.usecases.excel.ExportacionInstructorTrimestreUseCase;
+import com.caeproject.cae.domain.ports.in.disponibilidadinstructor.ExportacionInstructorTrimestreInputPort;
 import com.caeproject.cae.infraestructure.security.JwtUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -455,5 +457,12 @@ public class BeanConfiguration {
     public com.caeproject.cae.domain.ports.in.auditoria.ConsultarAuditoriaInputPort consultarAuditoriaInputPort(
             AuditoriaPerfilRepository auditoriaPerfilRepository) {
         return new com.caeproject.cae.application.usecases.auditorias.ConsultarAuditoriaUseCase(auditoriaPerfilRepository);
+    }
+
+
+    @Bean
+    public ExportacionInstructorTrimestreInputPort exportacionInstructorTrimestreInputPort(
+            ExportadorInstructorTrimestreRepository exportadorInstructorTrimestreRepository) {
+        return new ExportacionInstructorTrimestreUseCase(exportadorInstructorTrimestreRepository);
     }
 }

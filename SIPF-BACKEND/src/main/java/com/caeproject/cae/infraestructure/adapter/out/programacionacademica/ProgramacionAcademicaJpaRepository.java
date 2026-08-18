@@ -10,4 +10,5 @@ public interface ProgramacionAcademicaJpaRepository extends JpaRepository<Progra
     List<ProgramacionAcademicaEntity> findByFichaIdAndTrimestreId(Long fichaId, Long trimestreId);
     boolean existsByRapIdAndTrimestreId(Long rapId, Long trimestreId);
     boolean existsByRapIdAndFichaIdAndTrimestreId(Long rapId, Long fichaId, Long trimestreId);
+    List<ProgramacionAcademicaEntity> findByUsuarioIdAndTrimestreId(Long usuarioId, Long trimestreId);
 }

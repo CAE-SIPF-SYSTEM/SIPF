@@ -531,7 +531,16 @@ export class ProgramacionAcademicaComponent implements OnInit {
 
   puedeAsignar(instructor: SugerenciaInstructorResponse): boolean {
     if (!this.selectedRap) return false;
-    return instructor.horasDisponibles >= this.selectedRap.horas;
+
+    // HU-19: Determinar tope institucional según Tipo de Contrato
+    const userObj = this.usuariosReales.find(u => u.id === instructor.instructorId);
+    const tipoContrato = (userObj?.tipoContrato || '').toUpperCase();
+    const topeHoras = tipoContrato === 'PLANTA' ? 144 : 160;
+
+    const horasPostAsignacion = (instructor.horasAsignadas || 0) + (this.selectedRap.horas || 0);
+
+    // Si supera el tope estricto o las horas disponibles, bloquea la asignación
+    return horasPostAsignacion <= topeHoras && instructor.horasDisponibles >= this.selectedRap.horas;
   }
 
   asignarInstructor(instructor: SugerenciaInstructorResponse) {
@@ -540,10 +549,29 @@ export class ProgramacionAcademicaComponent implements OnInit {
       return;
     }
 
+    // HU-19: Validación y notificación estricta de Topes Institucionales (144h Planta / 160h Contratista)
+    const userObj = this.usuariosReales.find(u => u.id === instructor.instructorId);
+    const tipoContrato = (userObj?.tipoContrato || 'CONTRATISTA').toUpperCase();
+    const topeMaximoInstitucional = tipoContrato === 'PLANTA' ? 144 : 160;
+    const horasResultantes = (instructor.horasAsignadas || 0) + (this.selectedRap.horas || 0);
+
+    if (horasResultantes > topeMaximoInstitucional) {
+      this.sweetAlertService.error(
+        '⛔ BLOQUEO POR TOPE DE HORAS SUPERADO (HU-19)',
+        `No es posible asignar la competencia/RAP de ${this.selectedRap.horas}h a ${instructor.nombreInstructor}.\n\n` +
+        `• Tipo de Contrato: ${tipoContrato}\n` +
+        `• Tope Máximo Permitido: ${topeMaximoInstitucional}h/mes\n` +
+        `• Horas Actuales Asignadas: ${instructor.horasAsignadas}h\n` +
+        `• Horas Resultantes: ${horasResultantes}h\n\n` +
+        `Superaría el límite institucional permitido por ${horasResultantes - topeMaximoInstitucional}h.`
+      );
+      return;
+    }
+
     if (!this.puedeAsignar(instructor)) {
       this.sweetAlertService.error(
         'Horas Insuficientes',
-        `El instructor ${instructor.nombreInstructor} solo tiene ${instructor.horasDisponibles}h disponibles y el RAP requiere ${this.selectedRap.horas}h.`
+        `El instructor ${instructor.nombreInstructor} solo tiene ${instructor.horasDisponibles}h disponibles para esta asignación.`
       );
       return;
     }

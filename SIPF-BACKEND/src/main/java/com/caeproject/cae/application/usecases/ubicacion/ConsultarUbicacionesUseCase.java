@@ -22,6 +22,11 @@ public class ConsultarUbicacionesUseCase implements ConsultarUbicacionesInputPor
     }
 
     @Override
+    public List<Municipio> obtenerTodosLosMunicipios() {
+        return ubicacionRepository.obtenerMunicipios();
+    }
+
+    @Override
     public Optional<Municipio> obtenerMunicipioPorId(Long id) {
         return ubicacionRepository.obtenerMunicipioPorId(id);
     }

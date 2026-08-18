@@ -61,11 +61,12 @@ export class ListarProgramasComponent implements OnInit {
       const rawTerm = this.searchTerm();
       const term = rawTerm ? rawTerm.toString().toLowerCase() : '';
       if (term) {
-        result = result.filter(p => 
-          (p.nombre?.toLowerCase().includes(term)) || 
-          (p.municipio?.toLowerCase().includes(term)) ||
-          (p.id?.toString().includes(term))
-        );
+        result = result.filter(p => {
+          const munStr = (typeof p.municipio === 'object' ? p.municipio?.nombre : p.municipio) || '';
+          return (p.nombre?.toLowerCase().includes(term)) || 
+                 (munStr.toLowerCase().includes(term)) ||
+                 (p.id?.toString().includes(term));
+        });
       }
       
       this.dataSource.data = result;

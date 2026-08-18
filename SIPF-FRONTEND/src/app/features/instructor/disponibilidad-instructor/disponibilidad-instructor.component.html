@@ -28,9 +28,42 @@
       </div>
 
       <!-- Si hay disponibilidad creada -->
-      <!-- Si hay disponibilidad creada -->
       <div *ngIf="disponibilidad()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4" style="gap: 1rem; margin-top: 1rem;">
         
+        <!-- Selector de Trimestre -->
+        <div class="card flex flex-col justify-center lg:col-span-4" style="padding: 1rem 1.25rem !important; border-radius: 1rem; background-color: #f8fafc; border: 1px solid #e2e8f0;">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <div>
+              <h3 class="text-sm font-bold text-slate-800 m-0">Consulta de Horas por Trimestre</h3>
+              <p class="text-xs text-slate-500 m-0">Selecciona el trimestre académico para ver tus horas asignadas en tiempo real.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="text-xs font-semibold text-slate-600">Trimestre:</label>
+              <select (change)="onTrimestreChange($event)" class="bg-white border border-slate-300 text-slate-800 font-bold text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#158e80]">
+                <option *ngFor="let t of trimestres()" [value]="t.id" [selected]="t.id === selectedTrimestreId()">
+                  Trimestre {{ t.numeroTrimestre || t.id }} ({{ t.anio || 2026 }})
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta Horas Asignadas en este Trimestre (Destacada) -->
+        <div class="card flex flex-col justify-center" style="padding: 1.25rem !important; border-radius: 1rem; background-color: #ecfdf5; border: 1px solid #a7f3d0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+          <div class="flex items-center mb-2">
+            <div class="bg-emerald-500 p-2 rounded-full mr-3 text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 uppercase tracking-wider">Horas Asignadas (Trimestre)</p>
+          </div>
+          <div>
+            <p class="text-3xl font-extrabold text-emerald-700">{{ horasAsignadasTrimestre() }} <span class="text-sm font-semibold text-emerald-600">hrs</span></p>
+            <p class="text-[11px] font-medium text-emerald-600 mt-1 mb-0">{{ fichasAsignadasTrimestre() }} Ficha(s) programada(s)</p>
+          </div>
+        </div>
+
         <!-- Tarjeta Horas Máximas -->
         <div class="card flex flex-col justify-center" style="padding: 1.25rem !important; border-radius: 1rem; background-color: #fff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
           <div class="flex items-center mb-2">
@@ -39,7 +72,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <p class="text-xs font-bold text-gray-500 uppercase tracking-wider">Horas Máximas</p>
+            <p class="text-xs font-bold text-gray-500 uppercase tracking-wider">Tope Máximo</p>
           </div>
           <div>
             <p class="text-2xl font-extrabold text-gray-900">{{ disponibilidad()?.horasMaximas }} <span class="text-sm font-medium text-gray-500">hrs</span></p>

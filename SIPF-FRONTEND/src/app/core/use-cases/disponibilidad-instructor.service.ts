@@ -13,6 +13,10 @@ export class DisponibilidadInstructorService {
     return this.http.get<DisponibilidadInstructor>(`${this.apiUrl}/disponibilidadinstructor/${usuarioId}`);
   }
 
+  getMiDisponibilidad(): Observable<DisponibilidadInstructor> {
+    return this.http.get<DisponibilidadInstructor>(`${this.apiUrl}/disponibilidadinstructor/me`);
+  }
+
   create(data: { usuarioId: number, diasDisponibles: string[], horasMaximas: number, jornada?: string }): Observable<DisponibilidadInstructor> {
     return this.http.post<DisponibilidadInstructor>(`${this.apiUrl}/disponibilidadinstructor`, data);
   }

@@ -59,7 +59,7 @@
 
           <ng-container matColumnDef="municipio">
             <th mat-header-cell *matHeaderCellDef mat-sort-header class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-left"> Municipio </th>
-            <td mat-cell *matCellDef="let p" class="px-4 py-3 text-slate-500"> {{p.municipio}} </td>
+            <td mat-cell *matCellDef="let p" class="px-4 py-3 text-slate-500"> {{p.municipio?.nombre || p.municipio}} </td>
           </ng-container>
 
           <ng-container matColumnDef="nivelFormacion">
