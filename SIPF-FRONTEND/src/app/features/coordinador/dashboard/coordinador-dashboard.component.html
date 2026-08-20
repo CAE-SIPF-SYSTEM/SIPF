@@ -4,162 +4,130 @@
   <div class="mb-6 animate-fade-in flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
     <div>
       <h2 class="text-3xl font-bold text-slate-800 mb-1">Bienvenido, <span class="gradient-text">Coordinador</span></h2>
-      <p class="text-slate-500 text-sm">Gestión integral de programación académica, control de fichas y alertas de resultados</p>
+      <p class="text-slate-500 text-sm">Gestión integral de programación académica y supervisión de cobertura de RAPs</p>
     </div>
 
     <!-- Acciones Rápidas -->
     <div class="flex gap-3">
-      <a routerLink="/coordinador/programacion-academica" class="bg-[#136E61] hover:bg-[#0f544a] text-white font-bold px-5 py-2.5 rounded-xl shadow-md transition-all text-sm flex items-center gap-2">
-        <span>+ Programar Clase</span>
+      <a routerLink="/coordinador/programacion-academica" class="bg-[#136E61] hover:bg-[#0f544a] text-white font-bold px-6 py-3 rounded-xl shadow-md transition-all text-sm flex items-center gap-2">
+        <span>+ Ir a Programación Académica</span>
       </a>
     </div>
   </div>
 
-  <!-- Profile & Summary Stats -->
-  <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
-    
-    <!-- Perfil del Coordinador -->
-    <div class="card lg:col-span-1 animate-fade-in-up" style="animation-delay: 0.1s">
-      <div class="flex items-center gap-4 mb-4">
-        <div class="w-14 h-14 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-600 text-xl font-bold border border-amber-500/30">
-          {{ email?.charAt(0)?.toUpperCase() || 'C' }}
-        </div>
-        <div>
-          <h3 class="text-base font-bold text-slate-800 truncate max-w-[180px]">{{ email }}</h3>
-          <span class="badge bg-amber-500/10 text-amber-700 border-amber-500/20 mt-1 text-xs">Coordinador</span>
-        </div>
-      </div>
-      <div class="pt-3 border-t border-slate-200">
-        <div class="flex justify-between items-center text-xs text-slate-500">
-          <span>Estado del Sistema</span>
-          <span class="font-bold text-emerald-600">● En Línea</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Stat 1: Total Alertas RAPs -->
-    <div class="card lg:col-span-1 flex items-center gap-4 border-l-4 border-l-rose-500 bg-rose-50/30 animate-fade-in-up" style="animation-delay: 0.2s">
-      <div class="w-12 h-12 rounded-xl bg-rose-500/15 text-rose-600 flex items-center justify-center font-bold text-xl">
-        ⚠️
-      </div>
-      <div>
-        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">RAPs Faltantes</p>
-        <h3 class="text-2xl font-extrabold text-rose-700">{{ totalAlertas() }} <span class="text-xs font-semibold text-rose-600">por asignar</span></h3>
-      </div>
-    </div>
-
-    <!-- Stat 2: Fichas Afectadas -->
-    <div class="card lg:col-span-1 flex items-center gap-4 border-l-4 border-l-amber-500 bg-amber-50/30 animate-fade-in-up" style="animation-delay: 0.3s">
-      <div class="w-12 h-12 rounded-xl bg-amber-500/15 text-amber-600 flex items-center justify-center font-bold text-xl">
-        📋
-      </div>
-      <div>
-        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Fichas con Alerta</p>
-        <h3 class="text-2xl font-extrabold text-amber-700">{{ fichasAfectadasCount() }} <span class="text-xs font-semibold text-amber-600">fichas</span></h3>
-      </div>
-    </div>
-
-    <!-- Stat 3: Estado de Cumplimiento -->
-    <div class="card lg:col-span-1 flex items-center gap-4 border-l-4 border-l-emerald-500 bg-emerald-50/30 animate-fade-in-up" style="animation-delay: 0.4s">
-      <div class="w-12 h-12 rounded-xl bg-emerald-500/15 text-emerald-600 flex items-center justify-center font-bold text-xl">
-        ✓
-      </div>
-      <div>
-        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Cumplimiento Malla</p>
-        <h3 class="text-2xl font-extrabold text-emerald-700">84% <span class="text-xs font-semibold text-emerald-600">cobertura</span></h3>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- HU-18: SECCIÓN DESTACADA DE ALERTAS DE RAPS NO PROGRAMADOS -->
+  <!-- HU-18: SECCIÓN DESTACADA DE ALERTAS DE RAPS NO PROGRAMADOS POR TRIMESTRE -->
   <div class="mb-8 animate-fade-in-up">
     <div class="bg-white rounded-2xl shadow-md border border-rose-200 overflow-hidden">
       
-      <!-- Cabecera de Alerta -->
-      <div class="bg-gradient-to-r from-rose-700 via-rose-600 to-amber-600 p-5 text-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <!-- Cabecera del Panel con Selector de Trimestre -->
+      <div class="bg-gradient-to-r from-[#136E61] via-[#168172] to-[#1c9886] p-6 text-white flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-xl shrink-0">
+          <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-2xl shrink-0 shadow-inner">
             🚨
           </div>
           <div>
-            <h3 class="text-lg font-bold m-0 text-white flex items-center gap-2">
-              Alertas Automáticas: Resultados de Aprendizaje (RAPs) No Programados
+            <h3 class="text-xl font-extrabold m-0 text-white flex items-center gap-2">
+              Resultados de Aprendizaje (RAPs) No Programados
             </h3>
-            <p class="text-rose-100 text-xs m-0">Se requiere asignar instructor a estos RAPs para evitar retrasos en el calendario de formación.</p>
+            <p class="text-emerald-100 text-sm m-0 mt-0.5">Filtra por trimestre para consultar qué RAPs aún no tienen instructor asignado.</p>
           </div>
         </div>
 
-        <a routerLink="/coordinador/programacion-academica" class="bg-white text-rose-700 hover:bg-rose-50 font-bold px-4 py-2 rounded-xl text-xs shadow transition-all shrink-0">
-          Resolver en Programación →
-        </a>
+        <!-- Selector de Ficha y Trimestre combinados -->
+        <div class="flex items-center gap-3 bg-white/10 p-2 rounded-xl border border-white/20 backdrop-blur-md shrink-0 flex-wrap">
+          <!-- Filtro por Ficha -->
+          <div class="flex items-center gap-1.5">
+            <label class="text-xs font-bold text-white uppercase tracking-wider pl-1">Ficha:</label>
+            <select (change)="onFichaChange($event)" class="bg-white text-slate-900 font-bold text-sm rounded-lg px-3 py-1.5 focus:outline-none shadow">
+              <option *ngFor="let f of fichas()" [value]="f.id" [selected]="f.id === selectedFichaId()">
+                {{ f.codigoFicha || ('Ficha #' + f.id) }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Filtro por Trimestre -->
+          <div class="flex items-center gap-1.5">
+            <label class="text-xs font-bold text-white uppercase tracking-wider">Trimestre:</label>
+            <select (change)="onTrimestreChange($event)" class="bg-white text-slate-900 font-bold text-sm rounded-lg px-3 py-1.5 focus:outline-none shadow">
+              <option *ngFor="let t of trimestres()" [value]="t.id" [selected]="t.id === selectedTrimestreId()">
+                Trimestre {{ t.numeroTrimestre || t.id }} ({{ t.anio || 2026 }})
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
 
       <!-- Spinner -->
-      <div *ngIf="isLoadingAlertas()" class="p-8 text-center">
-        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-rose-600 mb-2"></div>
-        <p class="text-xs text-slate-500 m-0">Auditando estado de la malla curricular...</p>
+      <div *ngIf="isLoadingAlertas()" class="p-12 text-center">
+        <div class="inline-block animate-spin rounded-full h-10 w-10 border-b-2 border-[#136E61] mb-2"></div>
+        <p class="text-sm text-slate-500 font-medium m-0">Auditando estado de los RAPs para este trimestre...</p>
       </div>
 
-      <!-- Lista Resaltada en Rojo/Advertencia -->
+      <!-- Lista Resaltada de RAPs No Programados con Letra Grande -->
       <div *ngIf="!isLoadingAlertas()" class="divide-y divide-rose-100">
         
-        <div *ngFor="let alerta of alertasNoProgramados()" class="p-4 sm:p-5 hover:bg-rose-50/50 transition-colors flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div *ngFor="let alerta of alertasNoProgramados()" class="p-6 hover:bg-rose-50/40 transition-colors flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           
-          <div class="flex items-start gap-4">
-            <!-- Icono de advertencia según nivel -->
-            <div [class]="alerta.nivelUrgencia === 'ALTA' ? 'w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-lg border border-rose-300 shrink-0' : 'w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-lg border border-amber-300 shrink-0'">
-              {{ alerta.nivelUrgencia === 'ALTA' ? '⚠️' : '⚡' }}
+          <div class="flex items-start gap-4 flex-1">
+            <!-- Icono decorativo -->
+            <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-xl border border-rose-200 shrink-0 shadow-sm">
+              ⚠️
             </div>
 
-            <div>
-              <div class="flex items-center gap-2 flex-wrap">
-                <span class="font-extrabold text-slate-900 text-sm">Ficha {{ alerta.codigoFicha }}</span>
-                <span class="text-xs text-slate-400">•</span>
-                <span class="text-xs font-semibold text-slate-600">{{ alerta.programaNombre }}</span>
-                <span [class]="alerta.nivelUrgencia === 'ALTA' ? 'badge bg-rose-100 text-rose-800 border-rose-300 text-[10px] font-bold uppercase' : 'badge bg-amber-100 text-amber-800 border-amber-300 text-[10px] font-bold uppercase'">
-                  Prioridad {{ alerta.nivelUrgencia }}
+            <div class="flex-1">
+              <div class="flex items-center gap-3 flex-wrap">
+                <span class="font-extrabold text-slate-900 text-base bg-slate-100 px-3 py-1 rounded-lg border border-slate-200">
+                  {{ alerta.codigoFicha }}
                 </span>
-                <span class="badge bg-slate-100 text-slate-700 border-slate-200 text-[10px]">Trimestre {{ alerta.trimestreRequerido }}</span>
+                <span class="text-sm font-semibold text-slate-600">{{ alerta.programaNombre }}</span>
+                <span class="badge bg-rose-100 text-rose-800 border-rose-200 text-xs font-bold px-2.5 py-1">
+                  Pendiente de Instructor
+                </span>
               </div>
 
-              <!-- Descripción RAP -->
-              <p class="text-sm font-semibold text-rose-950 mt-1 mb-0 flex items-center gap-1">
-                <span class="text-rose-600 font-bold">RAP #{{ alerta.rapId }}:</span> {{ alerta.rapDescripcion }}
+              <!-- Descripción RAP con Letra Más Grande -->
+              <p class="text-base font-bold text-rose-950 mt-2 mb-1">
+                <span class="text-rose-700 font-extrabold">RAP #{{ alerta.rapId }}:</span> {{ alerta.rapDescripcion }}
               </p>
               
-              <p class="text-xs text-slate-500 mt-0.5 mb-0">
-                <strong>Competencia:</strong> {{ alerta.competenciaNombre }}
+              <p class="text-sm text-slate-600 m-0">
+                <strong class="text-slate-700">Competencia:</strong> {{ alerta.competenciaNombre }}
               </p>
             </div>
           </div>
 
           <!-- Botón directo para programar esta ficha -->
-          <a routerLink="/coordinador/programacion-academica" class="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs px-4 py-2 rounded-xl transition-all shadow shrink-0 self-end md:self-center">
-            Asignar Instructor
+          <a routerLink="/coordinador/programacion-academica" class="bg-[#136E61] hover:bg-[#0f544a] text-white font-bold text-sm px-5 py-3 rounded-xl transition-all shadow-md hover:shadow-lg shrink-0 flex items-center gap-2">
+            <span>Asignar en Programación</span>
+            <span>→</span>
           </a>
         </div>
 
-        <div *ngIf="alertasNoProgramados().length === 0" class="p-8 text-center text-slate-400">
-          <p class="text-sm m-0">🎉 ¡Excelente! No tienes resultados de aprendizaje pendientes por programar.</p>
+        <!-- Si no hay faltantes en el trimestre -->
+        <div *ngIf="alertasNoProgramados().length === 0" class="p-12 text-center text-slate-500">
+          <div class="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-3 text-2xl font-bold border border-emerald-200">
+            ✓
+          </div>
+          <h4 class="text-lg font-bold text-slate-800 m-0">¡Todos los RAPs están programados!</h4>
+          <p class="text-sm text-slate-500 mt-1 m-0">No hay resultados de aprendizaje pendientes por asignar en el Trimestre {{ selectedTrimestreId() }}.</p>
         </div>
 
       </div>
 
-      <!-- Footer del Panel de Alertas -->
-      <div class="bg-rose-50/60 px-5 py-3 border-t border-rose-100 flex justify-between items-center text-xs text-rose-800">
-        <span>Mostrando las RAPs prioritarias no programadas de la mallas vigentes.</span>
-        <a routerLink="/coordinador/programacion-academica" class="font-bold hover:underline text-rose-900">Ir al Módulo de Programación →</a>
+      <!-- Footer del Panel -->
+      <div class="bg-slate-50 px-6 py-4 border-t border-slate-200 flex justify-between items-center text-xs text-slate-600">
+        <span>Mostrando RAPs sin instructor asignado correspondientes al <strong>Trimestre {{ selectedTrimestreId() }}</strong>.</span>
+        <a routerLink="/coordinador/programacion-academica" class="font-bold hover:underline text-[#136E61]">Ir al Módulo de Programación →</a>
       </div>
 
     </div>
   </div>
 
-  <!-- Modulos Principales del Coordinador -->
+  <!-- Módulos Principales del Coordinador -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     
     <!-- Programación -->
-    <a routerLink="/coordinador/programacion-academica" class="card relative overflow-hidden group hover:border-[#136E61] transition-all cursor-pointer">
+    <a routerLink="/coordinador/programacion-academica" class="card relative overflow-hidden group hover:border-[#136E61] transition-all cursor-pointer p-6">
       <div class="w-12 h-12 rounded-lg bg-emerald-500/20 text-[#136E61] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       </div>
@@ -168,7 +136,7 @@
     </a>
 
     <!-- Fichas -->
-    <a routerLink="/programas" class="card relative overflow-hidden group hover:border-[#136E61] transition-all cursor-pointer">
+    <a routerLink="/programas" class="card relative overflow-hidden group hover:border-[#136E61] transition-all cursor-pointer p-6">
       <div class="w-12 h-12 rounded-lg bg-indigo-500/20 text-indigo-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
       </div>
@@ -176,14 +144,14 @@
       <p class="text-sm text-slate-500">Consulta los programas de formación registrados y sus respectivas fichas.</p>
     </a>
 
-    <!-- Reportes -->
-    <div class="card relative overflow-hidden group opacity-80">
-      <div class="w-12 h-12 rounded-lg bg-slate-500/20 text-slate-600 flex items-center justify-center mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+    <!-- Competencias -->
+    <a routerLink="/competencias" class="card relative overflow-hidden group hover:border-[#136E61] transition-all cursor-pointer p-6">
+      <div class="w-12 h-12 rounded-lg bg-amber-500/20 text-amber-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
       </div>
-      <h3 class="text-lg font-bold text-slate-800 mb-2">Monitoreo de Avance</h3>
-      <p class="text-sm text-slate-500">Consolidado de cobertura y seguimiento de cumplimiento de mallas.</p>
-    </div>
+      <h3 class="text-lg font-bold text-slate-800 mb-2">Gestión de Competencias</h3>
+      <p class="text-sm text-slate-500">Administra las competencias técnicas y transversales del sistema.</p>
+    </a>
 
   </div>
 </app-main-layout>
