@@ -17,5 +17,6 @@ public interface ExportadorInstructorTrimestreRepository {
     ) {}
 
     List<DatosExportacion>obtenerDatosExportacion(Long usuarioId, Long trimestreId);
+    List<DatosExportacion> obtenerDatosExportacionPorFicha(Long fichaId, Long trimestreId);
 
 }

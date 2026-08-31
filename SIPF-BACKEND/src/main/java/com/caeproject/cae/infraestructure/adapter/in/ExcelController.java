@@ -15,11 +15,17 @@ import java.util.List;
 public class ExcelController {
     private final AlimentacionCrUseCase alimentacionCrUseCase;
     private final ExportacionInstructorTrimestreInputPort exportacionInstructorTrimestreInputPort;
+    private final com.caeproject.cae.application.usecases.excel.GenerarReporteInstructorExcelUseCase reporteInstructorExcelUseCase;
+    private final com.caeproject.cae.application.usecases.excel.GenerarReporteFichaExcelUseCase reporteFichaExcelUseCase;
 
     public ExcelController(AlimentacionCrUseCase alimentacionCrUseCase,
-                           ExportacionInstructorTrimestreInputPort exportacionInstructorTrimestreInputPort) {
+                           ExportacionInstructorTrimestreInputPort exportacionInstructorTrimestreInputPort,
+                           com.caeproject.cae.application.usecases.excel.GenerarReporteInstructorExcelUseCase reporteInstructorExcelUseCase,
+                           com.caeproject.cae.application.usecases.excel.GenerarReporteFichaExcelUseCase reporteFichaExcelUseCase) {
         this.alimentacionCrUseCase = alimentacionCrUseCase;
         this.exportacionInstructorTrimestreInputPort = exportacionInstructorTrimestreInputPort;
+        this.reporteInstructorExcelUseCase = reporteInstructorExcelUseCase;
+        this.reporteFichaExcelUseCase = reporteFichaExcelUseCase;
     }
 
     @PostMapping("/alimentacion")
@@ -53,6 +59,32 @@ public class ExcelController {
                 return ResponseEntity.noContent().build();
             }
             return ResponseEntity.ok(datos);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/reportes/instructor/descargar")
+    public ResponseEntity<byte[]> descargarReporteInstructor(@RequestParam Long usuarioId, @RequestParam Long trimestreId) {
+        try {
+            byte[] excelData = reporteInstructorExcelUseCase.ejecutar(usuarioId, trimestreId);
+            return ResponseEntity.ok()
+                    .header(org.springframework.http.HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"reporte_instructor.xlsx\"")
+                    .contentType(org.springframework.http.MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+                    .body(excelData);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/reportes/ficha/descargar")
+    public ResponseEntity<byte[]> descargarReporteFicha(@RequestParam Long fichaId, @RequestParam Long trimestreId) {
+        try {
+            byte[] excelData = reporteFichaExcelUseCase.ejecutar(fichaId, trimestreId);
+            return ResponseEntity.ok()
+                    .header(org.springframework.http.HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"reporte_ficha.xlsx\"")
+                    .contentType(org.springframework.http.MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+                    .body(excelData);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

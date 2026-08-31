@@ -99,6 +99,31 @@ public class ExportadorInstructorTrimestreAdapter implements ExportadorInstructo
         return datos;
     }
 
+    @Override
+    public List<DatosExportacion> obtenerDatosExportacionPorFicha(Long fichaId, Long trimestreId) {
+        Trimestre trimestre = trimestreRepository.findById(trimestreId)
+                .orElseThrow(() -> new RuntimeException("TRIMESTRE NO ENCONTRADO"));
+        List<ProgramacionAcademica> programaciones = programacionAcademicaRepository.findByFichaIdAndTrimestreId(fichaId, trimestreId);
+        List<DatosExportacion> datos = new ArrayList<>();
+
+        for (ProgramacionAcademica pa : programaciones) {
+            Ficha ficha = (pa.getFichaId() != null) ? fichaRepository.findById(pa.getFichaId()).orElse(null) : null;
+            Programa programa = (ficha != null && ficha.getProgramaId() != null) ? programaRepository.findById(ficha.getProgramaId()).orElse(null) : null;
+            Rap rap = (pa.getRapId() != null) ? rapRepository.findById(pa.getRapId()).orElse(null) : null;
+            Competencia competencia = (rap != null && rap.getCompetenciaId() != null) ? competenciaRepository.findById(rap.getCompetenciaId()).orElse(null) : null;
+
+            Integer horas = 40;
+            if (programa != null && pa.getRapId() != null) {
+                DiseñoCurricular dc = disenoCurricularRepository.findByProgramaIdAndRapId(programa.getId(), pa.getRapId()).orElse(null);
+                if (dc != null && dc.getHoraspresenciales() != null) {
+                    horas = dc.getHoraspresenciales();
+                }
+            }
+            datos.add(new DatosExportacion(ficha, programa, competencia, rap, trimestre, pa, horas));
+        }
+        return datos;
+    }
+
     private void escribirEncabezadoResumen(XSSFSheet hoja, XSSFWorkbook workbook, PerfilBase perfilBase,
                                            InstructorEspecialidad especialidad, DisponibilidadInstructor disponibilidad,
                                            Trimestre trimestre, String nombreCompletoInstructor) {

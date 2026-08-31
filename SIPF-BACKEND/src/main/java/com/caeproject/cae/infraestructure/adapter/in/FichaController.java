@@ -21,17 +21,25 @@ public class FichaController {
     private final ObtenerFIchaInputPort obtenerFichaPort;
     private final EditarFichaInputPort editarFichaPort;
     private final EliminarFichaInputPort eliminarFichaPort;
+    private final ObtenerAvanceFichasInputPort obtenerAvanceFichasPort;
 
     public FichaController(RegistrarFichaInputPort registrarFichaPort,
                            ListarFichasInputPort listarFichasPort,
                            ObtenerFIchaInputPort obtenerFichaPort,
                            EditarFichaInputPort editarFichaPort,
-                           EliminarFichaInputPort eliminarFichaPort) {
+                           EliminarFichaInputPort eliminarFichaPort,
+                           ObtenerAvanceFichasInputPort obtenerAvanceFichasPort) {
         this.registrarFichaPort = registrarFichaPort;
         this.listarFichasPort = listarFichasPort;
         this.obtenerFichaPort = obtenerFichaPort;
         this.editarFichaPort = editarFichaPort;
         this.eliminarFichaPort = eliminarFichaPort;
+        this.obtenerAvanceFichasPort = obtenerAvanceFichasPort;
+    }
+
+    @GetMapping("/avance")
+    public ResponseEntity<List<FichaAvanceResponse>> obtenerAvanceFichas() {
+        return ResponseEntity.ok(obtenerAvanceFichasPort.obtenerAvanceFichas());
     }
 
     @PostMapping

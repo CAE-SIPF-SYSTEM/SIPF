@@ -14,5 +14,6 @@ public interface ProgramacionAcademicaRepository {
  boolean existsByRapIdAndTrimestreId(Long rapId, Long trimestreId);
  boolean existsByRapIdAndFichaIdAndTrimestreId(Long rapId, Long fichaId, Long trimestreId);
  List<ProgramacionAcademica> findByUserIdAndTrimestreId(Long userId, Long trimestreId);
+ List<ProgramacionAcademica> findByFichaIdAndTrimestreId(Long fichaId, Long trimestreId);
  ProgramacionAcademica saveProgramacion(ProgramacionAcademica programacionAcademica);
 }
