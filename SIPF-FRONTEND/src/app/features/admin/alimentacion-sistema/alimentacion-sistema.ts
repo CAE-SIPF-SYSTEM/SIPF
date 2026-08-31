@@ -7,6 +7,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { ExcelService } from '../../../core/use-cases/excel.service';
 import { ProgramaService } from '../../../core/use-cases/programa.service';
+import { FichaService } from '../../../core/use-cases/ficha.service';
+import { TrimestreService } from '../../../core/use-cases/trimestre.service';
+import { UserService } from '../../../core/use-cases/user.service';
 import { SweetAlertService } from '../../../core/use-cases/sweet-alert.service';
 import { MainLayoutComponent } from '../../../shared/layouts/main-layout/main-layout';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -31,18 +34,35 @@ import { ProgramaResponse } from '../../../core/entities/programa.model';
 export class AlimentacionSistemaComponent implements OnInit {
   private excelService = inject(ExcelService);
   private programaService = inject(ProgramaService);
+  private fichaService = inject(FichaService);
+  private trimestreService = inject(TrimestreService);
+  private userService = inject(UserService);
   private sweetAlertService = inject(SweetAlertService);
   private cdr = inject(ChangeDetectorRef);
 
+  // Estados de Drag & Drop
   isDragging = false;
   selectedFile: File | null = null;
   isUploading = false;
   
+  // Datos para Malla Curricular
   programas: ProgramaResponse[] = [];
   selectedProgramaId: number | null = null;
 
+  // Datos para Reportes
+  fichas: any[] = [];
+  trimestres: any[] = [];
+  instructores: any[] = [];
+  
+  selectedFichaId: number | null = null;
+  selectedTrimestreFichaId: number | null = null;
+  
+  selectedInstructorId: number | null = null;
+  selectedTrimestreInstructorId: number | null = null;
+
   ngOnInit() {
     this.cargarProgramas();
+    this.cargarDatosReportes();
   }
 
   cargarProgramas() {
@@ -52,12 +72,75 @@ export class AlimentacionSistemaComponent implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.warn('No se pudieron cargar los programas dinámicos del backend:', err);
-        this.programas = [];
-        this.cdr.detectChanges();
+        console.warn('No se pudieron cargar los programas:', err);
       }
     });
   }
+
+  cargarDatosReportes() {
+    this.fichaService.getAll().subscribe((res: any[]) => {
+      this.fichas = res || [];
+      this.cdr.detectChanges();
+    });
+    
+    this.trimestreService.getAll().subscribe((res: any[]) => {
+      this.trimestres = res || [];
+      this.cdr.detectChanges();
+    });
+
+    this.userService.getByRole('INSTRUCTOR').subscribe((res: any[]) => {
+      this.instructores = res || [];
+      this.cdr.detectChanges();
+    });
+  }
+
+  // --- MÉTODOS DE DESCARGA DE REPORTES ---
+
+  descargarReporteInstructor() {
+    if (!this.selectedInstructorId || !this.selectedTrimestreInstructorId) {
+      this.sweetAlertService.error('Atención', 'Selecciona el Instructor y el Trimestre.');
+      return;
+    }
+    
+    this.excelService.descargarReporteInstructor(this.selectedInstructorId, this.selectedTrimestreInstructorId)
+      .subscribe({
+        next: (blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'reporte_instructor.xlsx';
+          a.click();
+          window.URL.revokeObjectURL(url);
+        },
+        error: (err) => {
+          this.sweetAlertService.error('Error', 'No se pudo descargar el reporte del instructor.');
+        }
+      });
+  }
+
+  descargarReporteFicha() {
+    if (!this.selectedFichaId || !this.selectedTrimestreFichaId) {
+      this.sweetAlertService.error('Atención', 'Selecciona la Ficha y el Trimestre.');
+      return;
+    }
+    
+    this.excelService.descargarReporteFicha(this.selectedFichaId, this.selectedTrimestreFichaId)
+      .subscribe({
+        next: (blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'reporte_ficha.xlsx';
+          a.click();
+          window.URL.revokeObjectURL(url);
+        },
+        error: (err) => {
+          this.sweetAlertService.error('Error', 'No se pudo descargar el reporte de la ficha.');
+        }
+      });
+  }
+
+  // --- LÓGICA DE DRAG & DROP ORIGINAL ---
 
   onDragOver(event: DragEvent) {
     event.preventDefault();

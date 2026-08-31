@@ -123,6 +123,17 @@ public class BeanConfiguration {
     public com.caeproject.cae.domain.ports.in.ficha.ListarFichasInputPort listarFichasInputPort(com.caeproject.cae.domain.ports.out.FichaRepository fichaRepository) {
         return new com.caeproject.cae.application.usecases.ficha.ListarFichasUseCase(fichaRepository);
     }
+
+    @Bean
+    public com.caeproject.cae.domain.ports.in.ficha.ObtenerAvanceFichasInputPort obtenerAvanceFichasInputPort(
+            com.caeproject.cae.domain.ports.out.FichaRepository fichaRepository,
+            com.caeproject.cae.domain.ports.out.ProgramaRepository programaRepository,
+            com.caeproject.cae.domain.ports.out.ProgramacionAcademicaRepository programacionAcademicaRepository,
+            com.caeproject.cae.domain.ports.out.DiseñoCurricularRepository diseñoCurricularRepository,
+            com.caeproject.cae.domain.ports.out.RapRepository rapRepository) {
+        return new com.caeproject.cae.application.usecases.ficha.ObtenerAvanceFichasUseCase(
+                fichaRepository, programaRepository, programacionAcademicaRepository, diseñoCurricularRepository, rapRepository);
+    }
     @Bean
     public com.caeproject.cae.domain.ports.in.ficha.ObtenerFIchaInputPort obtenerFIchaInputPort(com.caeproject.cae.domain.ports.out.FichaRepository fichaRepository) {
         return new com.caeproject.cae.application.usecases.ficha.ObtenerFichaUseCase(fichaRepository);

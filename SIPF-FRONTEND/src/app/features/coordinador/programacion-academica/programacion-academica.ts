@@ -92,13 +92,9 @@ export class ProgramacionAcademicaComponent implements OnInit {
         this.cdr.detectChanges();
       },
       error: () => {
-        this.fichas = [
-          { id: 1, codigoFicha: '2996315 - ADSO', programaId: 1, fechaInicio: '', fechaFin: '' },
-          { id: 2, codigoFicha: '2847124 - Redes', programaId: 2, fechaInicio: '', fechaFin: '' }
-        ];
-        if (!this.selectedFichaId) {
-          this.selectedFichaId = 1;
-        }
+        this.fichas = [];
+        this.selectedFichaId = null;
+        this.raps = [];
         this.cdr.detectChanges();
       }
     });
@@ -128,15 +124,7 @@ export class ProgramacionAcademicaComponent implements OnInit {
   }
 
   private generarTrimestresPorDefecto() {
-    this.trimestres = [
-      { id: 1, numeroTrimestre: 1, anio: 2026 },
-      { id: 2, numeroTrimestre: 2, anio: 2026 },
-      { id: 3, numeroTrimestre: 3, anio: 2026 },
-      { id: 4, numeroTrimestre: 4, anio: 2026 },
-      { id: 5, numeroTrimestre: 5, anio: 2026 },
-      { id: 6, numeroTrimestre: 6, anio: 2026 },
-      { id: 7, numeroTrimestre: 7, anio: 2026 }
-    ];
+    this.trimestres = [];
   }
 
   onSeleccionChange() {
@@ -317,16 +305,7 @@ export class ProgramacionAcademicaComponent implements OnInit {
   }
 
   private generarRapsPorDefectoAmpliados() {
-    this.raps = [
-      { id: 1, competenciaId: 1, competencia: 'Análisis y Desarrollo de Software', especialidad: 'Programación Backend', descripcion: 'Desarrollar componentes backend del sistema', horas: 40, estado: 'Pendiente', instructor: null },
-      { id: 2, competenciaId: 2, competencia: 'Inglés Técnico y Comunicación', especialidad: 'Bilingüismo', descripcion: 'Comprender y redactar documentación técnica en inglés', horas: 40, estado: 'Pendiente', instructor: null },
-      { id: 3, competenciaId: 3, competencia: 'Bases de Datos y Persistencia', especialidad: 'Bases de Datos SQL', descripcion: 'Diseñar la capa relacional y consultas SQL complejas', horas: 40, estado: 'Asignado', instructor: 'JHON PRADA' },
-      { id: 4, competenciaId: 4, competencia: 'Desarrollo Frontend e Interfaz Web', especialidad: 'Frontend UI/UX', descripcion: 'Construir interfaces interactivas en Angular y HTML5', horas: 40, estado: 'Pendiente', instructor: null },
-      { id: 5, competenciaId: 5, competencia: 'Redes y Comunicaciones de Datos', especialidad: 'Redes y Telecomunicaciones', descripcion: 'Configurar topologías de red y servicios Linux', horas: 40, estado: 'Pendiente', instructor: null },
-      { id: 6, competenciaId: 6, competencia: 'Seguridad y Salud en el Trabajo', especialidad: 'SST', descripcion: 'Aplicar normatividad de SST en entornos tecnológicos', horas: 24, estado: 'Pendiente', instructor: null },
-      { id: 7, competenciaId: 7, competencia: 'Pruebas de Software y Calidad QA', especialidad: 'Calidad QA', descripcion: 'Ejecutar pruebas unitarias, de integración y QA', horas: 40, estado: 'Pendiente', instructor: null },
-      { id: 8, competenciaId: 8, competencia: 'DevOps y Despliegue en la Nube', especialidad: 'DevOps & Cloud', descripcion: 'Configurar integraciones continuas y contenedores Docker', horas: 48, estado: 'Pendiente', instructor: null }
-    ];
+    this.raps = [];
   }
 
   private obtenerEspecialidadPorId(compNomId: number): string {
@@ -379,10 +358,7 @@ export class ProgramacionAcademicaComponent implements OnInit {
       },
       error: () => {
         this.isAutoprogramando = false;
-        this.sweetAlertService.success('Autoprogramación Completada', 'Proceso de asignación automática finalizado exitosamente.');
-        
-        this.cargarUsuariosYDisponibilidad();
-        this.cargarResumenDeProgramacion();
+        this.sweetAlertService.error('Error', 'Fallo al ejecutar la autoprogramación.');
         this.cdr.detectChanges();
       }
     });
@@ -501,19 +477,7 @@ export class ProgramacionAcademicaComponent implements OnInit {
           };
         });
     } else {
-      this.instructoresSugeridos = [
-        { instructorId: 1, nombreInstructor: 'JHON PRADA', especialidad: 'Programación Backend', jornada: 'TARDE', horasMaximas: 160, horasAsignadas: 155, horasDisponibles: 5, cumpleRequisitos: 5 >= rap.horas },
-        { instructorId: 4, nombreInstructor: 'vivi NA', especialidad: 'Bases de Datos', jornada: 'MAÑANA', horasMaximas: 160, horasAsignadas: 52, horasDisponibles: 108, cumpleRequisitos: 108 >= rap.horas },
-        { instructorId: 5, nombreInstructor: 'instructor_tic', especialidad: 'Redes y Telecomunicaciones', jornada: 'MAÑANA', horasMaximas: 160, horasAsignadas: 40, horasDisponibles: 120, cumpleRequisitos: 120 >= rap.horas },
-        { instructorId: 6, nombreInstructor: 'CARLOS MENDOZA', especialidad: 'Programación Backend y Algoritmos', jornada: 'TARDE', horasMaximas: 160, horasAsignadas: 0, horasDisponibles: 160, cumpleRequisitos: 160 >= rap.horas },
-        { instructorId: 7, nombreInstructor: 'MARÍA FERNANDA SILVA', especialidad: 'Bases de Datos y Persistencia', jornada: 'MAÑANA', horasMaximas: 160, horasAsignadas: 0, horasDisponibles: 160, cumpleRequisitos: 160 >= rap.horas },
-        { instructorId: 8, nombreInstructor: 'ANDRÉS FELIPE GÓMEZ', especialidad: 'Desarrollo Frontend y UI/UX', jornada: 'TARDE', horasMaximas: 160, horasAsignadas: 0, horasDisponibles: 160, cumpleRequisitos: 160 >= rap.horas },
-        { instructorId: 9, nombreInstructor: 'LAURA PATRICIA RESTREPO', especialidad: 'Inglés Técnico y Bilingüismo', jornada: 'MAÑANA', horasMaximas: 160, horasAsignadas: 0, horasDisponibles: 160, cumpleRequisitos: 160 >= rap.horas },
-        { instructorId: 10, nombreInstructor: 'DIEGO ALEJANDRO MARTÍNEZ', especialidad: 'Redes y Sistemas Linux', jornada: 'TARDE', horasMaximas: 160, horasAsignadas: 0, horasDisponibles: 160, cumpleRequisitos: 160 >= rap.horas },
-        { instructorId: 11, nombreInstructor: 'VALENTINA OSPINA', especialidad: 'Seguridad y Salud en el Trabajo (SST)', jornada: 'MAÑANA', horasMaximas: 160, horasAsignadas: 0, horasDisponibles: 160, cumpleRequisitos: 160 >= rap.horas },
-        { instructorId: 12, nombreInstructor: 'CAMILO ANDRÉS TORRES', especialidad: 'Calidad de Software (QA)', jornada: 'TARDE', horasMaximas: 160, horasAsignadas: 0, horasDisponibles: 160, cumpleRequisitos: 160 >= rap.horas },
-        { instructorId: 13, nombreInstructor: 'DIANA MARCELA VARGAS', especialidad: 'DevOps y Arquitectura Cloud', jornada: 'MAÑANA', horasMaximas: 160, horasAsignadas: 0, horasDisponibles: 160, cumpleRequisitos: 160 >= rap.horas }
-      ];
+      this.instructoresSugeridos = [];
     }
   }
 
@@ -598,14 +562,7 @@ export class ProgramacionAcademicaComponent implements OnInit {
         this.cdr.detectChanges();
       },
       error: () => {
-        this.sweetAlertService.success('Asignación Completada', `Instructor ${instructor.nombreInstructor} asignado correctamente.`);
-        if (this.selectedRap) {
-          this.selectedRap.estado = 'Asignado';
-          this.selectedRap.instructor = instructor.nombreInstructor;
-        }
-        this.selectedRap = null;
-        this.cargarUsuariosYDisponibilidad();
-        this.cargarResumenDeProgramacion();
+        this.sweetAlertService.error('Error', 'Fallo al guardar la asignación.');
         this.cdr.detectChanges();
       }
     });
