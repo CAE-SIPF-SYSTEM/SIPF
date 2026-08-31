@@ -1,231 +1,118 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { MainLayoutComponent } from '../../../shared/layouts/main-layout/main-layout';
 import { AuthService } from '../../../core/use-cases/auth.service';
-import { ProgramacionAcademicaService } from '../../../core/use-cases/programacion-academica.service';
-import { FichaService } from '../../../core/use-cases/ficha.service';
-import { TrimestreService } from '../../../core/use-cases/trimestre.service';
-
-export interface AlertaRapNoProgramado {
-  fichaId: number;
-  codigoFicha: string;
-  programaNombre: string;
-  rapId: number;
-  rapDescripcion: string;
-  competenciaNombre: string;
-  trimestreRequerido: number;
-}
+import { FichaService, FichaAvance } from '../../../core/use-cases/ficha.service';
+import { ProgramaService } from '../../../core/use-cases/programa.service';
+import { ProgramaResponse } from '../../../core/entities/programa.model';
 
 @Component({
   selector: 'app-coordinador-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, MainLayoutComponent, RouterLink],
+  imports: [CommonModule, FormsModule, MainLayoutComponent],
   templateUrl: './coordinador-dashboard.component.html',
   styleUrls: ['./coordinador-dashboard.component.css']
 })
 export class CoordinadorDashboardComponent implements OnInit {
   authService = inject(AuthService);
-  private programacionService = inject(ProgramacionAcademicaService);
   private fichaService = inject(FichaService);
-  private trimestreService = inject(TrimestreService);
+  private programaService = inject(ProgramaService);
+  private router = inject(Router);
 
   email = this.authService.getUserEmail();
-  
-  isLoadingAlertas = signal<boolean>(true);
-  alertasNoProgramados = signal<AlertaRapNoProgramado[]>([]);
-  todasLasAlertas: AlertaRapNoProgramado[] = [];
 
-  fichas = signal<any[]>([]);
-  selectedFichaId = signal<number | null>(null);
+  fichasAvance: FichaAvance[] = [];
+  programas: ProgramaResponse[] = [];
 
-  trimestres = signal<any[]>([]);
-  selectedTrimestreId = signal<number>(1);
+  selectedProgramaNombre = '';
+  selectedJornada = '';
+  searchTerm = '';
+  cargando = true;
 
   ngOnInit(): void {
-    this.cargarFichas();
-    this.cargarTrimestres();
+    this.cargarDatos();
   }
 
-  cargarFichas(): void {
-    this.fichaService.getAll().subscribe({
-      next: (data) => {
-        if (data && data.length > 0) {
-          this.fichas.set(data);
-          this.selectedFichaId.set(data[0].id);
-        } else {
-          this.fichas.set([
-            { id: 1, codigoFicha: '2996315 - ADSO' },
-            { id: 2, codigoFicha: '2847124 - Redes' }
-          ]);
-          this.selectedFichaId.set(1);
-        }
-        this.cargarAlertasNoProgramados();
+  cargarDatos(): void {
+    this.cargando = true;
+
+    this.programaService.getAll().subscribe({
+      next: (progs) => {
+        this.programas = progs || [];
       },
       error: () => {
-        this.fichas.set([
-          { id: 1, codigoFicha: '2996315 - ADSO' },
-          { id: 2, codigoFicha: '2847124 - Redes' }
-        ]);
-        this.selectedFichaId.set(1);
-        this.cargarAlertasNoProgramados();
+        this.programas = [];
       }
     });
-  }
 
-  cargarTrimestres(): void {
-    this.trimestreService.getAll().subscribe({
+    this.fichaService.getAvanceFichas().subscribe({
       next: (data) => {
-        if (data && data.length > 0) {
-          this.trimestres.set(data);
-          this.selectedTrimestreId.set(data[0].id || 1);
-        } else {
-          this.trimestres.set([
-            { id: 1, numeroTrimestre: 1, anio: 2026 },
-            { id: 2, numeroTrimestre: 2, anio: 2026 },
-            { id: 3, numeroTrimestre: 3, anio: 2026 },
-            { id: 4, numeroTrimestre: 4, anio: 2026 },
-            { id: 5, numeroTrimestre: 5, anio: 2026 },
-            { id: 6, numeroTrimestre: 6, anio: 2026 },
-            { id: 7, numeroTrimestre: 7, anio: 2026 }
-          ]);
-          this.selectedTrimestreId.set(1);
-        }
-        this.cargarAlertasNoProgramados();
+        this.fichasAvance = data || [];
+        this.cargando = false;
       },
       error: () => {
-        this.trimestres.set([
-          { id: 1, numeroTrimestre: 1, anio: 2026 },
-          { id: 2, numeroTrimestre: 2, anio: 2026 },
-          { id: 3, numeroTrimestre: 3, anio: 2026 },
-          { id: 4, numeroTrimestre: 4, anio: 2026 },
-          { id: 5, numeroTrimestre: 5, anio: 2026 },
-          { id: 6, numeroTrimestre: 6, anio: 2026 },
-          { id: 7, numeroTrimestre: 7, anio: 2026 }
-        ]);
-        this.selectedTrimestreId.set(1);
-        this.cargarAlertasNoProgramados();
+        this.fichasAvance = [];
+        this.cargando = false;
       }
     });
   }
 
-  onTrimestreChange(event: any): void {
-    const val = Number(event.target.value);
-    this.selectedTrimestreId.set(val);
-    this.filtrarAlertas();
-  }
+  get fichasFiltradas(): FichaAvance[] {
+    return this.fichasAvance.filter(f => {
+      const matchPrograma = this.selectedProgramaNombre 
+        ? f.programaNombre === this.selectedProgramaNombre 
+        : true;
 
-  onFichaChange(event: any): void {
-    const val = Number(event.target.value);
-    this.selectedFichaId.set(val);
-    this.filtrarAlertas();
-  }
+      const matchJornada = this.selectedJornada 
+        ? f.jornada.toUpperCase() === this.selectedJornada.toUpperCase() 
+        : true;
 
-  cargarAlertasNoProgramados(): void {
-    this.isLoadingAlertas.set(true);
+      const matchSearch = this.searchTerm 
+        ? (f.codigoFicha || '').toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+          (f.programaNombre || '').toLowerCase().includes(this.searchTerm.toLowerCase())
+        : true;
 
-    this.programacionService.getDisenoCurricular().subscribe({
-      next: (mallas: any[]) => {
-        this.programacionService.getAllProgramaciones().subscribe({
-          next: (programaciones: any[]) => {
-            const programadosSet = new Set<string>();
-            (programaciones || []).forEach(p => {
-              const fId = p.fichaId || p.ficha_id;
-              const rId = p.rapId || p.rap_id;
-              const tId = p.trimestreId || p.trimestre_id;
-              programadosSet.add(`${fId}_${rId}_${tId}`);
-            });
-
-            const listaAlertas: AlertaRapNoProgramado[] = [];
-            const listFichas = this.fichas().length > 0 ? this.fichas() : [
-              { id: 1, codigoFicha: '2996315 - ADSO', nombrePrograma: 'Análisis y Desarrollo de Software' },
-              { id: 2, codigoFicha: '2847124 - Redes', nombrePrograma: 'Gestión de Redes de Datos' }
-            ];
-
-            (mallas || []).forEach(item => {
-              const tReq = item.numeroTrimestre || item.trimestreId || 1;
-              listFichas.forEach(f => {
-                const key = `${f.id}_${item.rapId || item.rap_id}_${tReq}`;
-                if (!programadosSet.has(key)) {
-                  listaAlertas.push({
-                    fichaId: f.id,
-                    codigoFicha: f.codigoFicha || `Ficha #${f.id}`,
-                    programaNombre: f.nombrePrograma || item.nombrePrograma || 'Análisis y Desarrollo de Software',
-                    rapId: item.rapId || item.rap_id || 1,
-                    rapDescripcion: item.rapDescripcion || item.descripcionRap || 'Resultado de Aprendizaje pendiente por asignar instructor.',
-                    competenciaNombre: item.competenciaNombre || 'Competencia Técnica / Transversal',
-                    trimestreRequerido: tReq
-                  });
-                }
-              });
-            });
-
-            this.todasLasAlertas = listaAlertas;
-            this.filtrarAlertas();
-            this.isLoadingAlertas.set(false);
-          },
-          error: () => this.usarAlertasDemo()
-        });
-      },
-      error: () => this.usarAlertasDemo()
+      return matchPrograma && matchJornada && matchSearch;
     });
   }
 
-  filtrarAlertas(): void {
-    const tId = this.selectedTrimestreId();
-    const fId = this.selectedFichaId();
-    
-    const filtradas = this.todasLasAlertas.filter(a => {
-      const matchTrimestre = a.trimestreRequerido === tId;
-      const matchFicha = fId ? Number(a.fichaId) === Number(fId) : true;
-      return matchTrimestre && matchFicha;
-    });
-
-    this.alertasNoProgramados.set(filtradas);
+  get totalFichas(): number {
+    return this.fichasAvance.length;
   }
 
-  private usarAlertasDemo(): void {
-    const demoAlertas: AlertaRapNoProgramado[] = [
-      {
-        fichaId: 1,
-        codigoFicha: '2996315 - ADSO',
-        programaNombre: 'Análisis y Desarrollo de Software (ADSO)',
-        rapId: 64,
-        rapDescripcion: 'Construir el prototipo de la solución de software de acuerdo con el diseño establecido.',
-        competenciaNombre: 'Establecer requisitos de la solución de software',
-        trimestreRequerido: 1
-      },
-      {
-        fichaId: 2,
-        codigoFicha: '2847124 - Redes',
-        programaNombre: 'Gestión de Redes de Datos',
-        rapId: 70,
-        rapDescripcion: 'Configurar dispositivos de interconexión de red según diseño técnico.',
-        competenciaNombre: 'Implementar la estructura de la red de datos',
-        trimestreRequerido: 1
-      },
-      {
-        fichaId: 1,
-        codigoFicha: '2996315 - ADSO',
-        programaNombre: 'Análisis y Desarrollo de Software (ADSO)',
-        rapId: 72,
-        rapDescripcion: 'Evaluar requisitos de la solución de software de acuerdo con metodologías de análisis y estándares.',
-        competenciaNombre: 'Evaluar requisitos de la solución de software',
-        trimestreRequerido: 2
-      },
-      {
-        fichaId: 1,
-        codigoFicha: '2996315 - ADSO',
-        programaNombre: 'Análisis y Desarrollo de Software (ADSO)',
-        rapId: 73,
-        rapDescripcion: 'Desarrollar la estructura de datos del sistema de acuerdo con el diseño relacional.',
-        competenciaNombre: 'Bases de Datos y Persistencia SQL',
-        trimestreRequerido: 2
-      }
-    ];
-    this.todasLasAlertas = demoAlertas;
-    this.filtrarAlertas();
-    this.isLoadingAlertas.set(false);
+  get promedioCumplimiento(): number {
+    if (this.fichasAvance.length === 0) return 0;
+    const suma = this.fichasAvance.reduce((acc, curr) => acc + curr.porcentajeAvance, 0);
+    return Math.round(suma / this.fichasAvance.length);
+  }
+
+  get fichasCriticasCount(): number {
+    return this.fichasAvance.filter(f => f.porcentajeAvance < 40).length;
+  }
+
+  getBarColorClass(porcentaje: number): string {
+    if (porcentaje >= 80) return 'bg-emerald-500';
+    if (porcentaje >= 40) return 'bg-amber-500';
+    return 'bg-rose-500';
+  }
+
+  getBadgeClass(jornada: string): string {
+    const j = (jornada || '').toUpperCase();
+    if (j === 'MAÑANA') return 'bg-sky-100 text-sky-700 border-sky-200';
+    if (j === 'TARDE') return 'bg-amber-100 text-amber-700 border-amber-200';
+    if (j === 'NOCHE') return 'bg-indigo-100 text-indigo-700 border-indigo-200';
+    return 'bg-slate-100 text-slate-700 border-slate-200';
+  }
+
+  irAProgramacion(fichaId: number): void {
+    this.router.navigate(['/coordinador/programacion-academica'], { queryParams: { fichaId } });
+  }
+
+  limpiarFiltros(): void {
+    this.selectedProgramaNombre = '';
+    this.selectedJornada = '';
+    this.searchTerm = '';
   }
 }

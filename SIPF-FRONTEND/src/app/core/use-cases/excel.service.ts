@@ -23,4 +23,16 @@ export class ExcelService {
   exportarCargaInstructor(usuarioId: number, trimestreId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/exportacion?usuarioId=${usuarioId}&trimestreId=${trimestreId}`);
   }
+
+  descargarReporteInstructor(usuarioId: number, trimestreId: number): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/reportes/instructor/descargar?usuarioId=${usuarioId}&trimestreId=${trimestreId}`, {
+      responseType: 'blob'
+    });
+  }
+
+  descargarReporteFicha(fichaId: number, trimestreId: number): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/reportes/ficha/descargar?fichaId=${fichaId}&trimestreId=${trimestreId}`, {
+      responseType: 'blob'
+    });
+  }
 }
