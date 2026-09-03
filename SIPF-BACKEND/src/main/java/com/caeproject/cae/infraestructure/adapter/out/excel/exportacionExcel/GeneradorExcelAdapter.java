@@ -55,13 +55,13 @@ public class GeneradorExcelAdapter implements GeneradorExcelPort {
             for (int c = 0; c <= 5; c++) fila.createCell(c);
         }
 
-        // Columna 0: SenaLogo (Ocupa de col 0 a 1)
+
         imagenHelper.insertarImagen(hoja, workbook, "static/imgs/SenaLogo.png", 0, 1, 0, 3);
         
-        // Columna 5: Logo.png (Ocupa de col 5 a 6)
+
         imagenHelper.insertarImagen(hoja, workbook, "static/imgs/Logo.png", 5, 6, 0, 3);
 
-        // Titulo centrado (Ocupa de col 1 a 4)
+
         hoja.addMergedRegion(new CellRangeAddress(0, 2, 1, 4));
         hoja.getRow(0).getCell(1).setCellValue(titulo);
 
