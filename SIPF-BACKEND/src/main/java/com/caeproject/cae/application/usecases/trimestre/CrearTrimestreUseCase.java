@@ -14,6 +14,15 @@ public class CrearTrimestreUseCase  implements CrearTrimestreInputPort {
     }
     @Override
     public Trimestre crearTrimestre(CrearTrimestreCommand command) {
+        if (command.getAnio() == null) {
+            throw new IllegalArgumentException("El año no puede ser nulo");
+        }
+        if (command.getFechaInicio() == null || command.getFechaFin() == null) {
+            throw new IllegalArgumentException("Las fechas no pueden ser nulas");
+        }
+        if (command.getFechaInicio().after(command.getFechaFin())) {
+            throw new IllegalArgumentException("La fecha de inicio no puede ser posterior a la fecha fin");
+        }
         Long fichaID = command.getFichaId();
         if (trimestreRepository.existsByFicha(fichaID)){
             throw new FichaDuplicadaException("Ficha duplicada con id  " + fichaID);
