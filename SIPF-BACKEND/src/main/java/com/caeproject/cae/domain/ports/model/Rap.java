@@ -5,7 +5,6 @@ public class Rap {
     private Long id;
     private Long competenciaId;
     private String descripcion;
-    private Boolean estado;
 
     public Long getId() {
         return id;}
@@ -27,9 +26,5 @@ public class Rap {
 
 
 
-    public Boolean getEstado() {
-        return estado;}
 
-    public void setEstado(Boolean estado) {
-        this.estado = estado;}
 }

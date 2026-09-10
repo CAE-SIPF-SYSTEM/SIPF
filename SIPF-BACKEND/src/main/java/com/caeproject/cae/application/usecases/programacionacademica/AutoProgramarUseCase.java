@@ -1,6 +1,8 @@
 package com.caeproject.cae.application.usecases.programacionacademica;
 
+import com.caeproject.cae.domain.ports.exceptions.disenocurricularexception.DiseñoCurricularNoEncontradoException;
 import com.caeproject.cae.domain.ports.exceptions.fichasprogramasexception.FichaNoEncontradaException;
+import com.caeproject.cae.domain.ports.exceptions.rapexception.RapNoEncontradoException;
 import com.caeproject.cae.domain.ports.in.asignarinstructor.SugerirInstructorInputPort;
 import com.caeproject.cae.domain.ports.in.programacionacademica.AutoProgramacionAcademicaInputPort;
 import com.caeproject.cae.domain.ports.model.*;
@@ -33,6 +35,13 @@ public class AutoProgramarUseCase implements AutoProgramacionAcademicaInputPort 
                 .orElseThrow(()-> new FichaNoEncontradaException(fichaId));
         Long programaId = ficha.getProgramaId();
 
+        List<DiseñoCurricular> mallas = disenoCurricularRepository
+                .findByProgramaIdAndTrimestreId(programaId, trimestreId);
+
+        if (mallas == null || mallas.isEmpty()){
+            throw new DiseñoCurricularNoEncontradoException(programaId,trimestreId);
+        }
+
         // 1. Recalcular la carga horaria acumulada del Trimestre para no duplicar horas
         List<ProgramacionAcademica> programacionesPreviasTrimestre = programacionAcademicaRepository.findByTrimestre(trimestreId);
         List<DisponibilidadInstructor> disponibilidades = disponibilidadInstructorRepository.findAll();
@@ -47,8 +56,6 @@ public class AutoProgramarUseCase implements AutoProgramacionAcademicaInputPort 
                             .findFirst().orElse(null);
                     if (dis != null) {
                         horasAsignadasEnEsteTrimestre += dis.getHoraspresenciales();
-                    } else {
-                        horasAsignadasEnEsteTrimestre += 40L;
                     }
                 }
             }
@@ -58,8 +65,7 @@ public class AutoProgramarUseCase implements AutoProgramacionAcademicaInputPort 
 
         List<ProgramacionAcademica> programacionesCreadas = new ArrayList<>();
 
-        List<DiseñoCurricular> mallas = disenoCurricularRepository
-                .findByProgramaIdAndTrimestreId(programaId, trimestreId);
+
 
         for (DiseñoCurricular diseño : mallas) {
             // Evitar duplicados: Si el RAP ya está programado en esta Ficha y Trimestre, omitir reinserción
@@ -71,7 +77,7 @@ public class AutoProgramarUseCase implements AutoProgramacionAcademicaInputPort 
             }
 
             Rap rap = rapRepository.findById(diseño.getRapId())
-                    .orElseThrow(() -> new RuntimeException("No se encontró el RAP con id " + diseño.getRapId()));
+                    .orElseThrow(() -> new RapNoEncontradoException(diseño.getRapId()));
 
             Long competenciaId = rap.getCompetenciaId();
             Long horasRequeridas = Long.valueOf(diseño.getHoraspresenciales());
@@ -82,7 +88,6 @@ public class AutoProgramarUseCase implements AutoProgramacionAcademicaInputPort 
             if (!candidatos.isEmpty()) {
                 DisponibilidadInstructor ganador = candidatos.get(0);
 
-                // HU-13: Validación preventiva de cruce horario (Un instructor no puede tener asignado el mismo RAP en el mismo trimestre y ficha con traslape)
                 List<ProgramacionAcademica> asignacionesPreviasInstructor = programacionAcademicaRepository
                         .findByUserIdAndTrimestreId(ganador.getUsuarioId(), trimestreId);
 

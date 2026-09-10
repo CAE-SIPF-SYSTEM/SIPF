@@ -24,7 +24,6 @@ import static org.mockito.BDDMockito.any;
 import static org.mockito.Mockito.never;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 

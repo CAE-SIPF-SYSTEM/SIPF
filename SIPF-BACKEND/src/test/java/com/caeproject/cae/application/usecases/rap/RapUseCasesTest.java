@@ -66,7 +66,7 @@ public class RapUseCasesTest {
         rap.setId(1L);
         rap.setCompetenciaId(command.getCompetenciaId());
         rap.setDescripcion(command.getDescripcion());
-        rap.setEstado(true);
+
 
         given(rapRepository.existByCompetenciaId(command.getCompetenciaId())).willReturn(false);
         given(rapRepository.saveRap(any())).willReturn(rap);
@@ -99,7 +99,7 @@ public class RapUseCasesTest {
         rap.setId(1L);
         rap.setCompetenciaId(1L);
         rap.setDescripcion("Disenar la solucion de software");
-        rap.setEstado(true);
+
 
         given(rapRepository.findById(1L)).willReturn(Optional.of(rap));
 
