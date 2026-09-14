@@ -66,7 +66,6 @@ class ExportadorInstructorTrimestreAdapterTest {
 
     @Test
     void debeGenerarArchivoExcelYDevolverListaExportacion() {
-        // Arrange
         Long usuarioId = 1L;
         Long trimestreId = 2L;
 
@@ -127,10 +126,10 @@ class ExportadorInstructorTrimestreAdapterTest {
         when(rapRepository.findById(50L)).thenReturn(Optional.of(rap));
         when(competenciaRepository.findById(300L)).thenReturn(Optional.of(competencia));
 
-        // Act
+
         List<ExportadorInstructorTrimestreRepository.DatosExportacion> resultado = adapter.obtenerDatosExportacion(usuarioId, trimestreId);
 
-        // Assert
+
         assertNotNull(resultado);
         assertEquals(1, resultado.size());
         assertEquals("2996315", resultado.get(0).ficha().getCodigoFicha());
