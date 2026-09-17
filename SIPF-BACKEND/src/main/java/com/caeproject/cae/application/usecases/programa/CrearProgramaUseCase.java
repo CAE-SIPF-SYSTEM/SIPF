@@ -20,6 +20,9 @@ public class CrearProgramaUseCase implements CrearProgramaInputPort {
     @Override
     @Transactional
     public Programa crearPrograma(CrearProgramaCommand command) {
+        if (command.getJornada() == null || command.getNivelFormacion() == null || command.getDuracionpracticas() == null) {
+            throw new IllegalArgumentException("La jornada, el nivel de formación y la duración de prácticas son obligatorios.");
+        }
         Municipio municipio = ubicacionRepository.obtenerMunicipioPorId(command.getMunicipio().getId())
                 .orElseThrow(() -> new RuntimeException("El municipio con ID " + command.getMunicipio().getId() + " no existe"));
         String name = command.getNombre();

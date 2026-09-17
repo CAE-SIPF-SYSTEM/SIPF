@@ -172,13 +172,7 @@ public class AlimentacionCRAdapter implements AlimentacionCRRepository {
                 horasPresenciales = 0;
             }
         }
-        
-        if (estado != null && !estado.trim().isEmpty()) {
-            rap.setEstado(Boolean.parseBoolean(estado) || "ACTIVO".equalsIgnoreCase(estado));
-        } else {
-            rap.setEstado(true);
-        }
-        
+
         return new RapImport(rap, horasPresenciales);
     }
 
