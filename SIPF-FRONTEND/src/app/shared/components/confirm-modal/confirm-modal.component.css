@@ -1,0 +1,29 @@
+@reference "../../../../styles.css";
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #f43f5e;
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.btn-danger:hover {
+  transform: translateY(-1px);
+  background: #e11d48;
+  box-shadow: 0 6px 15px rgba(244, 63, 94, 0.3);
+}
+
+.btn-danger:active {
+  transform: translateY(0);
+}

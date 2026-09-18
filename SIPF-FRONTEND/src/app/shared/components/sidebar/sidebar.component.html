@@ -1,0 +1,110 @@
+<aside class="sidebar transition-all duration-300 ease-in-out h-screen flex flex-col shrink-0"
+       [class.w-48]="!isCollapsed()" [class.w-20]="isCollapsed()">
+  
+  <div class="logo-area h-16 flex items-center px-4 cursor-pointer" 
+       [class.justify-between]="!isCollapsed()" [class.justify-center]="isCollapsed()"
+       (click)="isCollapsed() ? toggleCollapse() : null">
+    <!-- Collapsed State: Show only Logo.png -->
+    <div class="flex items-center w-12 h-12 shrink-0" *ngIf="isCollapsed()" title="Expandir menú">
+      <img src="/Logo.png" alt="SIPF" class="w-10 h-20 object-contain">
+    </div>
+
+    <!-- Expanded State: Show Logo.png + Name.png -->
+    <div class="flex items-center gap-3 overflow-hidden" *ngIf="!isCollapsed()">
+  
+      <img src="/Name.png" alt="SIPF" class="h-10 w-auto object-contain">
+    </div>
+    
+    <button *ngIf="!isCollapsed()" (click)="toggleCollapse(); $event.stopPropagation()" class="text-slate-200 hover:text-white transition-colors focus:outline-none shrink-0" title="Colapsar menú">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+  </div>
+
+  <nav class="flex-1  flex flex-col gap-5 w-10">
+    <ng-container *ngIf="role() === 'ADMINISTRADOR'">
+      <a routerLink="/admin/dashboard" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] ">dashboard</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Dashboard</span>
+      </a>
+      <a routerLink="/admin/usuarios" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] ">people</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Usuarios</span>
+      </a>
+  
+      <a routerLink="/admin/alimentacion-sistema" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] text-indigo-500">cloud_upload</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Reportes y Cargas</span>
+      </a>
+      <a routerLink="/admin/trimestres" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] text-orange-500">date_range</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Trimestres</span>
+      </a>
+      <a routerLink="/admin/especialidades" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] text-teal-500">school</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Especialidades</span>
+      </a>
+      <a routerLink="/admin/instructor-especialidad" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] text-blue-500">assignment_ind</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Asignar Esp. Instructor</span>
+      </a>
+      <a routerLink="/admin/competencia-especialidad" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] text-indigo-500">extension</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Esp. Competencia</span>
+      </a>
+      <a routerLink="/admin/auditoria" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] text-amber-500">history</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Auditoría</span>
+      </a>
+    </ng-container>
+
+    <ng-container *ngIf="role() === 'INSTRUCTOR'">
+      <a routerLink="/instructor/dashboard" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] ">dashboard</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Dashboard</span>
+      </a>
+      <a routerLink="/instructor/disponibilidad" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] text-blue-500">event_available</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Disponibilidad</span>
+      </a>
+      <a routerLink="/instructor/exportacion-carga" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] text-emerald-500">file_download</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Exportar Carga</span>
+      </a>
+    </ng-container>
+
+
+    <ng-container *ngIf="role() === 'COORDINADOR'">
+      <a routerLink="/coordinador/dashboard" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px]">dashboard</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Dashboard</span>
+      </a>
+      <a routerLink="/coordinador/programas" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px]">class</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Programas</span>
+      </a>
+      <a routerLink="/coordinador/fichas" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px]">school</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Fichas</span>
+      </a>
+      <a routerLink="/coordinador/competencias" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] text-[#136E61]">school</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Competencias</span>
+      </a>
+      <a routerLink="/coordinador/raps" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] text-[#37CD2D]">assignment_turned_in</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">RAPs</span>
+      </a>
+      <a routerLink="/coordinador/programacion-academica" routerLinkActive="active-nav" class="nav-item">
+        <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px] text-indigo-500">event_note</mat-icon>
+        <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Programación</span>
+      </a>
+    </ng-container>
+  </nav>
+
+  <div class="user-area p-5">
+    <button (click)="logout()" class="nav-item logout-btn w-full">
+      <mat-icon class="shrink-0 text-[20px] w-[20px] h-[20px]">logout</mat-icon>
+      <span *ngIf="!isCollapsed()" class="whitespace-nowrap">Cerrar Sesión</span>
+    </button>
+  </div>
+</aside>

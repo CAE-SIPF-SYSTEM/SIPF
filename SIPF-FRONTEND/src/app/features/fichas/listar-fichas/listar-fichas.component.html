@@ -1,0 +1,74 @@
+<app-main-layout pageTitle="Gestión de Fichas">
+  <div class="max-w-7xl mx-auto px-6 pt-12 pb-12 w-full flex flex-col gap-6 animate-fade-in-up">
+    
+    <!-- Filter bar -->
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center bg-white shadow-sm rounded-t-2xl p-6 border-b border-slate-100 gap-4">
+      <div class="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-4 w-full lg:w-auto">
+        <h2 class="text-lg font-bold text-slate-800 m-0">Fichas Activas</h2>
+        
+        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto mt-2 sm:mt-0">
+          <mat-form-field appearance="outline" subscriptSizing="dynamic" class="w-full sm:w-56 text-sm">
+            <mat-icon matPrefix class="scale-75 opacity-70">search</mat-icon>
+            <input matInput [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" placeholder="Buscar por código...">
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" subscriptSizing="dynamic" class="w-full sm:w-64 text-sm">
+            <mat-select [ngModel]="selectedProgramaId()" (ngModelChange)="selectedProgramaId.set($event)">
+              <mat-option value="TODOS">Filtrar por Programa</mat-option>
+              <mat-option *ngFor="let prog of programas()" [value]="prog.id">
+                {{ prog.nombre }} ({{ prog.jornada }})
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <button mat-flat-button color="primary" class="rounded-full px-6 h-10 text-sm bg-[#37CD2D] text-white font-medium shrink-0 shadow-sm hover:shadow transition-all w-full lg:w-auto mt-2 lg:mt-0" (click)="openCreateDialog()">
+        Crear ficha
+      </button>
+    </div>
+
+    <!-- Table Container -->
+    <div class="bg-white rounded-b-2xl shadow-sm overflow-hidden p-6 -mt-2">
+      <div *ngIf="isLoading()" class="flex justify-center py-12">
+        <div class="spinner border-t-primary-600"></div>
+      </div>
+
+      <div *ngIf="!isLoading()" class="overflow-x-auto">
+        <table mat-table [dataSource]="dataSource" matSort class="w-full text-sm">
+          
+          <ng-container matColumnDef="codigoFicha">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-left rounded-tl-lg"> Código </th>
+            <td mat-cell *matCellDef="let f" class="px-4 py-3 text-slate-500 font-medium"> {{f.codigoFicha}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="programa">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-left"> Programa de Formación </th>
+            <td mat-cell *matCellDef="let f" class="px-4 py-3 text-slate-500"> {{getProgramaNombre(f.programaId)}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fechaInicio">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-left"> Fecha de Inicio </th>
+            <td mat-cell *matCellDef="let f" class="px-4 py-3 text-slate-500"> {{f.fechaInicio | date:'mediumDate'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fechaFin">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="!bg-[#136E61] !text-white font-medium px-4 py-3 text-left rounded-tr-lg"> Fecha de Fin </th>
+            <td mat-cell *matCellDef="let f" class="px-4 py-3 text-slate-500"> {{f.fechaFin | date:'mediumDate'}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="!bg-[#136E61] h-12"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-100 h-12" (click)="openEditDialog(row)"></tr>
+          
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell text-center py-12 text-slate-500" colspan="4">
+              No se encontraron fichas que coincidan con la búsqueda.
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" class="border-t border-slate-100 mt-4"></mat-paginator>
+    </div>
+  </div>
+</app-main-layout>

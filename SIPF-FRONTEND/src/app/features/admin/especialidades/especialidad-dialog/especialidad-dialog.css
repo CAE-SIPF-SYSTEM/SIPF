@@ -1,0 +1,55 @@
+.dialog-container {
+    padding: 16px;
+}
+
+.dialog-title {
+    margin: 0 0 24px 0 !important;
+    font-size: 22px;
+    font-weight: 600;
+    color: #1e293b;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 16px;
+}
+
+.dialog-content {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-y: visible !important;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.dialog-actions {
+    margin-top: 24px;
+    padding: 16px 0 0 0 !important;
+    border-top: 1px solid #e2e8f0;
+}
+
+.cancel-btn {
+    color: #64748b;
+    font-weight: 500;
+}
+
+.save-btn {
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+}
+
+::ng-deep .custom-field .mat-mdc-text-field-wrapper {
+    background-color: #f8fafc;
+}

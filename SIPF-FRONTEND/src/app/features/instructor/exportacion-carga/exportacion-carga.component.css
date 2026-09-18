@@ -1,0 +1,8 @@
+.light-form-field .mat-mdc-select-value-text {
+  color: #1e293b !important;
+}
+
+.light-form-field .mat-mdc-form-field-flex {
+  background-color: #ffffff !important;
+  border-radius: 8px !important;
+}

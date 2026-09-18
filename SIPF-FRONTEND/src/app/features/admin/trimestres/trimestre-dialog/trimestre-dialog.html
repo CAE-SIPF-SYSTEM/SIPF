@@ -1,0 +1,72 @@
+<h2 mat-dialog-title class="text-xl font-bold text-gray-800">
+  {{ isEditMode ? 'Editar Trimestre' : 'Crear Nuevo Trimestre' }}
+</h2>
+
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 mt-4" id="trimestre-form">
+    
+    <!-- Ficha Select -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Ficha</mat-label>
+      <mat-select formControlName="fichaId">
+        <mat-option *ngFor="let ficha of fichas()" [value]="ficha.id">
+          {{ ficha.codigoFicha }} (Programa {{ ficha.programaId }})
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('fichaId')?.hasError('required')">
+        La ficha es obligatoria
+      </mat-error>
+    </mat-form-field>
+
+    <div class="flex gap-4">
+      <!-- Año -->
+      <mat-form-field appearance="outline" class="w-1/2">
+        <mat-label>Año</mat-label>
+        <input matInput type="number" formControlName="anio" placeholder="Ej: 2026">
+        <mat-error *ngIf="form.get('anio')?.hasError('required')">Requerido</mat-error>
+        <mat-error *ngIf="form.get('anio')?.hasError('min')">Año inválido</mat-error>
+      </mat-form-field>
+
+      <!-- Número Trimestre -->
+      <mat-form-field appearance="outline" class="w-1/2">
+        <mat-label>Número de Trimestre</mat-label>
+        <mat-select formControlName="numeroTrimestre">
+          <mat-option *ngFor="let num of numerosTrimestre" [value]="num">
+            Trimestre {{ num }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('numeroTrimestre')?.hasError('required')">Requerido</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Fechas -->
+    <div class="flex gap-4">
+      <mat-form-field appearance="outline" class="w-1/2">
+        <mat-label>Fecha de Inicio</mat-label>
+        <input matInput [matDatepicker]="pickerInicio" formControlName="fechaInicio">
+        <mat-datepicker-toggle matIconSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+        <mat-datepicker #pickerInicio></mat-datepicker>
+        <mat-error *ngIf="form.get('fechaInicio')?.hasError('required')">Requerida</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-1/2">
+        <mat-label>Fecha de Fin</mat-label>
+        <input matInput [matDatepicker]="pickerFin" formControlName="fechaFin">
+        <mat-datepicker-toggle matIconSuffix [for]="pickerFin"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFin></mat-datepicker>
+        <mat-error *ngIf="form.get('fechaFin')?.hasError('required')">Requerida</mat-error>
+        <mat-error *ngIf="form.get('fechaFin')?.hasError('invalidDateRange')">
+          La fecha fin debe ser mayor a la inicial
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="mb-2 mr-2">
+  <button mat-button type="button" (click)="onCancel()" color="warn">Cancelar</button>
+  <button mat-flat-button type="submit" form="trimestre-form" class="bg-[#37CD2D] text-white" [disabled]="form.invalid">
+    {{ isEditMode ? 'Guardar Cambios' : 'Crear' }}
+  </button>
+</mat-dialog-actions>

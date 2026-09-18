@@ -1,0 +1,8 @@
+package com.caeproject.cae.domain.ports.in.ficha;
+
+import com.caeproject.cae.application.usecases.ficha.commands.RegistrarFichaCommand;
+import com.caeproject.cae.domain.ports.model.Ficha;
+
+public interface RegistrarFichaInputPort {
+    Ficha registrarFicha(RegistrarFichaCommand command);
+}

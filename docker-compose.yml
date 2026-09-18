@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./SIPF-BACKEND
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./SIPF-BACKEND/.env
+    environment:
+      - SPRING_PROFILES_ACTIVE=production
+    volumes:
+      - ./SIPF-BACKEND/data:/app/data #DATOS DE PRUEBA NO A DB
+
+  frontend:
+    build: ./SIPF-FRONTEND
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend

@@ -1,0 +1,31 @@
+<div class="dialog-container">
+  <h2 mat-dialog-title class="dialog-title">
+    {{ isEditMode ? 'Editar Especialidad' : 'Nueva Especialidad' }}
+  </h2>
+  
+  <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
+    <mat-dialog-content class="dialog-content">
+      
+      <div class="form-group">
+        <label class="form-label">Nombre de la Especialidad</label>
+        <mat-form-field appearance="outline" class="w-full custom-field">
+          <input matInput formControlName="nombreEspecialidad" placeholder="Ej: Bilingüismo, Programación, Ética">
+          <mat-error *ngIf="form.get('nombreEspecialidad')?.hasError('required')">
+            El nombre es obligatorio
+          </mat-error>
+          <mat-error *ngIf="form.get('nombreEspecialidad')?.hasError('minlength')">
+            El nombre debe tener al menos 3 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+    </mat-dialog-content>
+    
+    <mat-dialog-actions align="end" class="dialog-actions">
+      <button mat-button type="button" class="cancel-btn" (click)="onCancel()">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit" class="save-btn">
+        {{ isEditMode ? 'Guardar Cambios' : 'Crear Especialidad' }}
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>
