@@ -37,3 +37,6 @@ build/
 /data/
 *.mv.db
 *.trace.db
+
+##ingore
+.env
