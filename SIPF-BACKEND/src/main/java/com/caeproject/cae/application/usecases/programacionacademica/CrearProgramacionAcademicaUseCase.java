@@ -2,6 +2,7 @@ package com.caeproject.cae.application.usecases.programacionacademica;
 
 import com.caeproject.cae.application.usecases.programacionacademica.commands.CrearProgramacionCommand;
 import com.caeproject.cae.application.usecases.asignacioninstructor.commands.AsignarInstructorCommand;
+import com.caeproject.cae.domain.ports.exceptions.rapexception.RapNoEncontradoException;
 import com.caeproject.cae.domain.ports.in.programacionacademica.CrearProgramacionInputPort;
 import com.caeproject.cae.domain.ports.in.asignarinstructor.AsignarInstructorInputPort;
 import com.caeproject.cae.domain.ports.model.*;
@@ -30,7 +31,7 @@ public class CrearProgramacionAcademicaUseCase implements CrearProgramacionInput
     @Transactional
     public ProgramacionAcademica programacionAcademica(CrearProgramacionCommand command) {
         Rap rap = rapRepository.findById(command.getRapId())
-                .orElseThrow(() -> new RuntimeException("No se encontró el rap con este id " + command.getRapId()));
+                .orElseThrow(() -> new RapNoEncontradoException(command.getRapId()));
       trimestreRepository.findById(command.getTrimestreId())
                 .orElseThrow(() -> new RuntimeException("No se encontró el trimestre con este id " + command.getTrimestreId()));
 

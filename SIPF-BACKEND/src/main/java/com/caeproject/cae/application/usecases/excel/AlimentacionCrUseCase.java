@@ -88,8 +88,7 @@ public class AlimentacionCrUseCase {
                             .filter(r -> r.getDescripcion() != null && r.getDescripcion().equalsIgnoreCase(descripcionRap))
                             .findFirst().orElseThrow();
                     } else {
-                        Boolean estado = rap.getEstado();
-                        log.info("   -> Guardando RAP: {} {} {}", idcompetencia, descripcionRap, estado);
+                        log.info("   -> Guardando RAP: {} {} {}", idcompetencia, descripcionRap);
                         rap.setCompetenciaId(idcompetencia);
                         rap.setId(null);
                         rapGuardado = rapRepository.saveRap(rap);
