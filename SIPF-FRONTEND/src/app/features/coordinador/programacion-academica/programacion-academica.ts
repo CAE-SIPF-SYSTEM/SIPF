@@ -417,7 +417,25 @@ export class ProgramacionAcademicaComponent implements OnInit {
       next: (data) => {
         this.cargandoSugerencias = false;
         if (data && data.length > 0) {
-          this.instructoresSugeridos = data;
+          const mapaEspecialidades: Record<number, string> = {
+            1: 'Programación Backend', 4: 'Bases de Datos SQL', 5: 'Redes y Telecomunicaciones',
+            6: 'Programación Backend y Algoritmos', 7: 'Bases de Datos y Persistencia',
+            8: 'Desarrollo Frontend y UI/UX', 9: 'Inglés Técnico y Bilingüismo',
+            10: 'Redes y Sistemas Linux', 11: 'Seguridad y Salud en el Trabajo (SST)',
+            12: 'Calidad de Software (QA)', 13: 'DevOps y Nube'
+          };
+          this.instructoresSugeridos = data.map((d: any) => {
+            const uId = d.usuarioId || d.instructorId;
+            const userObj = this.usuariosReales.find(u => u.id === uId);
+            const nombre = userObj ? `${userObj.nombre || ''} ${userObj.apellido && userObj.apellido !== 'NONE' && userObj.apellido !== 'NA' ? userObj.apellido : ''}`.trim() : `Instructor #${uId}`;
+            const espec = userObj ? (mapaEspecialidades[userObj.id] || userObj.tipoContrato || 'Instructor Técnico') : 'Instructor Técnico';
+            return {
+              ...d,
+              instructorId: uId,
+              nombreInstructor: d.nombreInstructor || nombre,
+              especialidad: d.especialidad || espec
+            };
+          });
         } else {
           this.construirSugerenciasConHorasReales(rap);
         }
