@@ -24,8 +24,8 @@ public class CrearTrimestreUseCase  implements CrearTrimestreInputPort {
             throw new IllegalArgumentException("La fecha de inicio no puede ser posterior a la fecha fin");
         }
         Long fichaID = command.getFichaId();
-        if (trimestreRepository.existsByFicha(fichaID)){
-            throw new FichaDuplicadaException("Ficha duplicada con id  " + fichaID);
+        if (trimestreRepository.existsByFichaIdAndNumeroTrimestre(fichaID, command.getNumeroTrimestre())){
+            throw new FichaDuplicadaException("Ya existe el trimestre " + command.getNumeroTrimestre() + " para la ficha con id " + fichaID);
         }
         Trimestre trimestre = new Trimestre();
         trimestre.setAnio(command.getAnio());

@@ -33,6 +33,11 @@ public class TrimestreJpaAdapter implements TrimestreRepository {
     }
 
     @Override
+    public boolean existsByFichaIdAndNumeroTrimestre(Long fichaId, Integer numeroTrimestre) {
+        return trimestreJpaRepository.existsByFichaIdAndNumeroTrimestre(fichaId, numeroTrimestre);
+    }
+
+    @Override
     public Optional<Trimestre> findById(Long id) {
         return trimestreJpaRepository.findById(id).map(trimestreMapper::toDomain);
     }

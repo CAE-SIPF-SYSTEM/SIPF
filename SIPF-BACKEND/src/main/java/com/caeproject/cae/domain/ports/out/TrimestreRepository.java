@@ -13,4 +13,5 @@ public interface TrimestreRepository {
     List<Trimestre>findByFicha(Long fichaId);
     Trimestre savetrimestre (Trimestre trimestre);
     boolean existsByFicha(Long fichaId);
+    boolean existsByFichaIdAndNumeroTrimestre(Long fichaId, Integer numeroTrimestre);
 }

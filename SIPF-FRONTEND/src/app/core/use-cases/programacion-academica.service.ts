@@ -87,9 +87,9 @@ export class ProgramacionAcademicaService {
    * Obtiene la lista de instructores sugeridos con sus horas disponibles según competencia, programa e intensidad horaria.
    * GET /api/programacionacademica/sugerencias?competenciaId=X&programaId=Y&horasRequeridas=Z
    */
-  getSugerencias(competenciaId: number, programaId: number, horasRequeridas: number): Observable<SugerenciaInstructorResponse[]> {
+  getSugerencias(competenciaId: number, fichaId: number, horasRequeridas: number): Observable<SugerenciaInstructorResponse[]> {
     return this.http.get<SugerenciaInstructorResponse[]>(
-      `${this.apiUrl}/programacionacademica/sugerencias?competenciaId=${competenciaId}&programaId=${programaId}&horasRequeridas=${horasRequeridas}`
+      `${this.apiUrl}/programacionacademica/sugerencias?competenciaId=${competenciaId}&fichaId=${fichaId}&horasRequeridas=${horasRequeridas}`
     );
   }
 

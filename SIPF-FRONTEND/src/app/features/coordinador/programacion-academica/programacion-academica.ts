@@ -411,9 +411,9 @@ export class ProgramacionAcademicaComponent implements OnInit {
 
   cargarSugerencias(rap: RapItem) {
     this.cargandoSugerencias = true;
-    const programaId = this.selectedFichaId || 1;
+    const fichaId = this.selectedFichaId || 1;
 
-    this.programacionService.getSugerencias(rap.competenciaId || 1, programaId, rap.horas).subscribe({
+    this.programacionService.getSugerencias(rap.competenciaId || 1, fichaId, rap.horas).subscribe({
       next: (data) => {
         this.cargandoSugerencias = false;
         if (data && data.length > 0) {

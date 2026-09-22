@@ -8,5 +8,6 @@ import java.util.List;
 @Repository
 public interface TrimestreJpaRepository extends JpaRepository<TrimestreEntity, Long> {
     boolean existsByFichaId(Long fichaId);
+    boolean existsByFichaIdAndNumeroTrimestre(Long fichaId, Integer numeroTrimestre);
     List<TrimestreEntity> findByFichaId(Long fichaId);
 }
