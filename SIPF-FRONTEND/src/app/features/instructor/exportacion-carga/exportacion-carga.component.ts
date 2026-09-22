@@ -80,11 +80,11 @@ export class ExportacionCargaComponent implements OnInit {
 
     this.isDownloading = true;
 
-    this.excelService.exportarCargaInstructor(this.usuarioId, this.selectedTrimestreId).subscribe({
-      next: (datosCarga) => {
+    this.excelService.descargarReporteInstructor(this.usuarioId, this.selectedTrimestreId).subscribe({
+      next: (blob: Blob) => {
         this.isDownloading = false;
         
-        if (!datosCarga || datosCarga.length === 0) {
+        if (blob.size === 0) {
           this.sweetAlertService.warning(
             'Sin Asignación de Carga',
             `No registras programaciones de clases guardadas en el Trimestre ${this.selectedTrimestreId}.`
@@ -92,31 +92,18 @@ export class ExportacionCargaComponent implements OnInit {
           return;
         }
 
-        // Generación directa del Excel / CSV descargable
-        const headers = ['Trimestre', 'Código Ficha', 'Programa', 'Jornada', 'Horas Presenciales', 'Descripción RAP'];
-        const rows = datosCarga.map((d: any) => [
-          d.trimestreNumero || d.trimestreId || this.selectedTrimestreId,
-          d.ficha?.codigoFicha || d.codigoFicha || 'N/A',
-          d.programa?.nombre || d.nombrePrograma || 'N/A',
-          d.programa?.jornada || d.jornada || 'MAÑANA',
-          d.horasPresenciales || d.horasAsignadas || 40,
-          `"${(d.rap?.descripcion || d.descripcionRap || 'RAP de Formación').replace(/"/g, '""')}"`
-        ]);
-
-        const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' 
-          + [headers.join(','), ...rows.map((e: any) => e.join(','))].join('\n');
-
-        const encodedUri = encodeURI(csvContent);
+        const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
-        link.setAttribute('href', encodedUri);
-        link.setAttribute('download', `CARGA_ACADEMICA_TRIMESTRE_${this.selectedTrimestreId}_${this.nombreInstructor.replace(/\s+/g, '_')}.csv`);
+        link.href = url;
+        link.download = `REPORTE_CARGA_TRIMESTRE_${this.selectedTrimestreId}_${this.nombreInstructor.replace(/\s+/g, '_')}.xlsx`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
 
         this.sweetAlertService.success(
           '¡Descarga Finalizada!',
-          `Se ha descargado el archivo Excel/CSV con el reporte oficial de tu carga académica (${datosCarga.length} RAPs).`
+          `Se ha descargado el archivo Excel oficial de tu carga académica.`
         );
       },
       error: () => {
