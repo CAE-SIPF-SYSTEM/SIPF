@@ -427,7 +427,17 @@ export class ProgramacionAcademicaComponent implements OnInit {
           this.instructoresSugeridos = data.map((d: any) => {
             const uId = d.usuarioId || d.instructorId;
             const userObj = this.usuariosReales.find(u => u.id === uId);
-            const nombre = userObj ? `${userObj.nombre || ''} ${userObj.apellido && userObj.apellido !== 'NONE' && userObj.apellido !== 'NA' ? userObj.apellido : ''}`.trim() : `Instructor #${uId}`;
+            
+            let nombre = `Instructor #${uId}`;
+            if (userObj) {
+              const fullName = `${userObj.nombre || ''} ${userObj.apellido && userObj.apellido !== 'NONE' && userObj.apellido !== 'NA' ? userObj.apellido : ''}`.trim();
+              if (fullName) {
+                nombre = fullName;
+              } else if (userObj.correo) {
+                nombre = userObj.correo.split('@')[0]; // Usa la primera parte del correo
+              }
+            }
+            
             const espec = userObj ? (mapaEspecialidades[userObj.id] || userObj.tipoContrato || 'Instructor Técnico') : 'Instructor Técnico';
             return {
               ...d,

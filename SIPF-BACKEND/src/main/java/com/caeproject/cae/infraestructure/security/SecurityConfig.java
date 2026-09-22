@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/h2-console/**").permitAll() //MOMENTANEO H2
                         .requestMatchers("/api/programas/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
                         .requestMatchers("/api/fichas/**").hasAnyRole("COORDINADOR", "ADMINISTRADOR")
-                        .requestMatchers("/api/trimestres/**").hasRole("ADMINISTRADOR")
+                        .requestMatchers("/api/trimestres/**").hasAnyRole("ADMINISTRADOR", "COORDINADOR")
                         .requestMatchers("/api/especialidades/**").hasAnyRole("ADMINISTRADOR", "INSTRUCTOR")
                         .requestMatchers("/api/instructor-especialidad/**").hasAnyRole("ADMINISTRADOR", "INSTRUCTOR")
                         .requestMatchers("/api/competencia-especialidad/**").hasRole("ADMINISTRADOR")
