@@ -43,7 +43,6 @@ export interface ProgramaFormDialogData {
             <mat-select formControlName="nivelFormacion">
               <mat-option value="TECNICO">Técnico</mat-option>
               <mat-option value="TECNOLOGO">Tecnólogo</mat-option>
-              <mat-option value="ESPECIALIZACION">Especialización</mat-option>
               <mat-option value="OPERARIO">Operario</mat-option>
               <mat-option value="AUXILIAR">Auxiliar</mat-option>
             </mat-select>
