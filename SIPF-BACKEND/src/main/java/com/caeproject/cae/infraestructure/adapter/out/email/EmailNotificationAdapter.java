@@ -16,7 +16,7 @@ public class EmailNotificationAdapter implements EmailNotificationPort {
     @Value("${spring.mail.username}")
     private String sender;
 
-    @Value("${app.frontend.url:http://localhost:4200}")
+    @Value("${app.frontend.url:https://sipf.up.railway.app}")
     private String frontendUrl;
 
     public EmailNotificationAdapter(JavaMailSender javaMailSender) {
