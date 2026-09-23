@@ -1,43 +1,69 @@
 package com.caeproject.cae.infraestructure.adapter.out.email;
 
 import com.caeproject.cae.domain.ports.out.EmailNotificationPort;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class EmailNotificationAdapter implements EmailNotificationPort {
 
-    private final JavaMailSender javaMailSender;
+    @Value("${resend.api.key:re_dummy_key_please_change}")
+    private String resendApiKey;
 
-    @Value("${spring.mail.username}")
+    // Resend exige 'onboarding@resend.dev' para cuentas gratis sin dominio verificado
+    @Value("${resend.from.email:onboarding@resend.dev}")
     private String sender;
 
     @Value("${app.frontend.url:https://sipf.up.railway.app}")
     private String frontendUrl;
 
-    public EmailNotificationAdapter(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
+    private final ObjectMapper objectMapper;
+    private final HttpClient httpClient;
+
+    public EmailNotificationAdapter(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+        this.httpClient = HttpClient.newBuilder()
+                .connectTimeout(Duration.ofSeconds(10))
+                .build();
     }
 
     @Override
     public void enviarEmailRecuperacion(String destinatario, String token) {
         try {
-            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+            Map<String, Object> payload = new HashMap<>();
+            // El remitente en la capa gratuita de resend DEBE ser onboarding@resend.dev
+            payload.put("from", "SIPF CAE <" + sender + ">");
+            payload.put("to", new String[]{destinatario});
+            payload.put("subject", "SIPF - Recuperación de Contraseña");
+            payload.put("html", construirHtmlEmail(token));
 
-            helper.setFrom(sender);
-            helper.setTo(destinatario);
-            helper.setSubject("SIPF - Recuperación de Contraseña");
-            helper.setText(construirHtmlEmail(token), true);
+            String requestBody = objectMapper.writeValueAsString(payload);
 
-            javaMailSender.send(mimeMessage);
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://api.resend.com/emails"))
+                    .timeout(Duration.ofSeconds(10))
+                    .header("Authorization", "Bearer " + resendApiKey)
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
 
-        } catch (MessagingException e) {
-            throw new RuntimeException("Error al enviar el correo de recuperación: " + e.getMessage(), e);
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() >= 400) {
+                throw new RuntimeException("Error en la API de Resend (HTTP " + response.statusCode() + "): " + response.body());
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al enviar el correo de recuperación por API: " + e.getMessage(), e);
         }
     }
 
