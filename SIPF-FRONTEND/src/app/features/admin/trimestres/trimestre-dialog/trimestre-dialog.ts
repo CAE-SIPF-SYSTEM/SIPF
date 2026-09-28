@@ -72,12 +72,15 @@ export class TrimestreDialogComponent implements OnInit, OnDestroy {
   }
 
   private initForm(): void {
+    const fInicio = this.data?.fechaInicio ? new Date(this.data.fechaInicio) : null;
+    const fFin = this.data?.fechaFin ? new Date(this.data.fechaFin) : null;
+
     this.form = this.fb.group({
       fichaId: [{ value: this.data?.fichaId || '', disabled: this.isEditMode }, Validators.required],
       anio: [this.data?.anio || new Date().getFullYear(), [Validators.required, Validators.min(2000)]],
       numeroTrimestre: [this.data?.numeroTrimestre || '', Validators.required],
-      fechaInicio: [this.data?.fechaInicio || '', Validators.required],
-      fechaFin: [this.data?.fechaFin || '', Validators.required]
+      fechaInicio: [fInicio, Validators.required],
+      fechaFin: [fFin, Validators.required]
     });
   }
 
@@ -93,15 +96,21 @@ export class TrimestreDialogComponent implements OnInit, OnDestroy {
       const formValue = this.form.getRawValue();
       
       // Validar que la fecha de fin no sea menor a la fecha de inicio
-      const inicio = new Date(formValue.fechaInicio);
-      const fin = new Date(formValue.fechaFin);
+      const inicio = formValue.fechaInicio;
+      const fin = formValue.fechaFin;
       
       if (fin < inicio) {
         this.form.get('fechaFin')?.setErrors({ invalidDateRange: true });
         return;
       }
 
-      this.dialogRef.close(formValue);
+      const payload = {
+        ...formValue,
+        fechaInicio: inicio.toISOString(),
+        fechaFin: fin.toISOString()
+      };
+
+      this.dialogRef.close(payload);
     }
   }
 

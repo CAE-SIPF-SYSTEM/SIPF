@@ -97,13 +97,12 @@ export class FichaFormDialogComponent implements OnInit {
       this.form = this.fb.group({
         codigoFicha: ['', [Validators.required]],
         programaId: [null, [Validators.required]],
-        fechaInicio: ['', [Validators.required]],
-        fechaFin: ['', [Validators.required]]
+        fechaInicio: [null, [Validators.required]],
+        fechaFin: [null, [Validators.required]]
       });
     } else {
-      // Parse ISO dates for HTML date input (YYYY-MM-DD)
-      const fInicio = data.ficha?.fechaInicio ? new Date(data.ficha.fechaInicio).toISOString().split('T')[0] : '';
-      const fFin = data.ficha?.fechaFin ? new Date(data.ficha.fechaFin).toISOString().split('T')[0] : '';
+      const fInicio = data.ficha?.fechaInicio ? new Date(data.ficha.fechaInicio) : null;
+      const fFin = data.ficha?.fechaFin ? new Date(data.ficha.fechaFin) : null;
       
       this.form = this.fb.group({
         codigoFicha: [data.ficha?.codigoFicha || '', [Validators.required]],
@@ -124,15 +123,15 @@ export class FichaFormDialogComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       const val = this.form.value;
-      if (new Date(val.fechaInicio) > new Date(val.fechaFin)) {
+      if (val.fechaInicio > val.fechaFin) {
         alert('La fecha de fin debe ser posterior a la de inicio');
         return;
       }
       
       const payload = {
         ...val,
-        fechaInicio: new Date(val.fechaInicio + 'T00:00:00').toISOString(),
-        fechaFin: new Date(val.fechaFin + 'T00:00:00').toISOString()
+        fechaInicio: val.fechaInicio.toISOString(),
+        fechaFin: val.fechaFin.toISOString()
       };
       this.dialogRef.close({ action: 'save', value: payload });
     }
