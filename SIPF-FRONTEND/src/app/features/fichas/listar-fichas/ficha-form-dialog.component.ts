@@ -10,6 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { FichaResponse } from '../../../core/entities/ficha.model';
 import { ProgramaResponse } from '../../../core/entities/programa.model';
 import { ProgramaService } from '../../../core/use-cases/programa.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 export interface FichaFormDialogData {
   mode: 'create' | 'edit';
@@ -22,7 +24,8 @@ export interface FichaFormDialogData {
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
     MatDialogModule, MatFormFieldModule, MatInputModule, 
-    MatSelectModule, MatButtonModule, MatIconModule
+    MatSelectModule, MatButtonModule, MatIconModule,
+    MatDatepickerModule, MatNativeDateModule
   ],
   template: `
     <h2 mat-dialog-title class="flex items-center gap-2">
@@ -53,13 +56,17 @@ export interface FichaFormDialogData {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <mat-form-field appearance="outline">
             <mat-label>Fecha de Inicio</mat-label>
-            <input matInput type="date" formControlName="fechaInicio">
+            <input matInput [matDatepicker]="pickerInicio" formControlName="fechaInicio">
+            <mat-datepicker-toggle matIconSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+            <mat-datepicker #pickerInicio></mat-datepicker>
             <mat-error *ngIf="form.get('fechaInicio')?.hasError('required')">Obligatorio</mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label>Fecha de Fin</mat-label>
-            <input matInput type="date" formControlName="fechaFin">
+            <input matInput [matDatepicker]="pickerFin" formControlName="fechaFin">
+            <mat-datepicker-toggle matIconSuffix [for]="pickerFin"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFin></mat-datepicker>
             <mat-error *ngIf="form.get('fechaFin')?.hasError('required')">Obligatorio</mat-error>
           </mat-form-field>
         </div>
