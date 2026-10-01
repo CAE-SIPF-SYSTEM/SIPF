@@ -17,6 +17,6 @@ El proyecto está construido bajo los principios de **Arquitectura Hexagonal (Po
 ## Stack Tecnológico
 * **Backend:** Java 21 (LTS) / Spring Boot 3.x
 * **Frontend:** Angular 22 / TypeScript / Tailwind CSS
-* **Base de Datos:** PostgreSQL / H2 (Entorno Local)
+* **Base de Datos:** MySQL / H2 (Entorno Local)
 
 ---
