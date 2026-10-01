@@ -1,17 +1,22 @@
-# SIPF
-SIPF es un sistema de automatizacion curricular y optimizacion de programacion academica para centros de formacion SENA, resuelve el problema de gestion de horarios y la fragmentacion de datos y programacion de instructores a sus RAPS
+# SIPF (Sistema de Información de Programación de Instructores)
 
-## ARQUTECTURA ##
-El proyecto se desarrolla en una arquitectura hexagonal
-Links de apropiacion acerca de la arquitectura
+SIPF es un sistema de automatización curricular y optimización de programación académica para centros de formación SENA. Resuelve los problemas de gestión de horarios, fragmentación de datos y la correcta asignación de instructores a sus respectivos RAPS.
 
-https://alistair.cockburn.us/hexagonal-architecture
-https://netflixtechblog.com/ready-for-changes-with-hexagonal-architecture-b315ec967749
-https://reflectoring.io/spring-hexagonal/
+---
 
+##  Arquitectura
+El proyecto está construido bajo los principios de **Arquitectura Hexagonal (Ports & Adapters)** para garantizar el desacoplamiento del negocio frente a los frameworks. 
 
+*Lecturas de referencia:*
+* [Alistair Cockburn - Hexagonal Architecture](https://alistair.cockburn.us/hexagonal-architecture)
+* [Netflix Tech Blog - Hexagonal Architecture](https://netflixtechblog.com/ready-for-changes-with-hexagonal-architecture-b315ec967749)
+* [Reflectoring - Spring Hexagonal](https://reflectoring.io/spring-hexagonal)
 
-# TECNOLOGIAS #
-- BACKEND: Desarrollado en JAVA 21
-- FRONTEND: ANGULAR
+---
 
+## Stack Tecnológico
+* **Backend:** Java 21 (LTS) / Spring Boot 3.x
+* **Frontend:** Angular 22 / TypeScript / Tailwind CSS
+* **Base de Datos:** PostgreSQL / H2 (Entorno Local)
+
+---
