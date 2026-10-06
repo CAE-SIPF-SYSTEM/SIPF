@@ -171,7 +171,7 @@ public class AutoProgramacionUseCaseTest {
     }
 
     @Test
-    @DisplayName("Ejecutar autoprogramacion correctamente")
+    @DisplayName("Ejecutar autoprogramacion correctamente dando prioridad a PLANTA")
     void ejecutar_autoprogramacion_exitosa() {
         Ficha ficha = new Ficha();
         ficha.setId(2L);
@@ -184,12 +184,36 @@ public class AutoProgramacionUseCaseTest {
         Rap rap = new Rap();
         rap.setId(10L);
         rap.setCompetenciaId(5L);
-        DisponibilidadInstructor instructorCandidato = new DisponibilidadInstructor();
-        instructorCandidato.setUsuarioId(99L);
-        instructorCandidato.setHorasAsignadas(0L);
-        instructorCandidato.setHorasMaximas(160L);
+
+        System.out.println("----- PRUEBA: ejecutar_autoprogramacion_exitosa (Selección de PLANTA) -----");
+        System.out.println("Generando 30 instructores sugeridos (15 PLANTA, 15 CONTRATISTA)...");
+        List<DisponibilidadInstructor> candidatos = new ArrayList<>();
+        DisponibilidadInstructor instructorPlantaGanador = null;
+
+        // Simulamos que el SugerirInstructorUseCase ya nos devuelve la lista ordenada (PLANTA primero)
+        for (int i = 1; i <= 30; i++) {
+            Long id = (long) i + 100;
+            com.caeproject.cae.domain.ports.model.enums.TIpoContrato tipo = (i <= 15) ? 
+                    com.caeproject.cae.domain.ports.model.enums.TIpoContrato.PLANTA : 
+                    com.caeproject.cae.domain.ports.model.enums.TIpoContrato.CONTRATISTA;
+
+            DisponibilidadInstructor inst = new DisponibilidadInstructor();
+            inst.setUsuarioId(id);
+            inst.setHorasAsignadas(0L);
+            inst.setHorasMaximas(160L);
+            
+            // Guardamos la referencia del primero (que debe ser de PLANTA y el ganador)
+            if (i == 1) {
+                instructorPlantaGanador = inst;
+            }
+            candidatos.add(inst);
+            System.out.println(i + ". Instructor ID: " + id + " | Tipo Contrato: " + tipo);
+        }
+
         ProgramacionAcademica guardada = new ProgramacionAcademica();
         guardada.setId(100L);
+        guardada.setUsuarioId(instructorPlantaGanador.getUsuarioId());
+
         given(fichaRepository.findById(ficha.getId())).willReturn(Optional.of(ficha));
         given(programacionAcademicaRepository.findByTrimestre(trimestre.getId())).willReturn(Collections.emptyList());
         given(disponibilidad.findAll()).willReturn(Collections.emptyList());
@@ -199,27 +223,29 @@ public class AutoProgramacionUseCaseTest {
         given(programacionAcademicaRepository.existsByRapIdAndFichaIdAndTrimestreId(
                 diseno.getRapId(), ficha.getId(), trimestre.getId())).willReturn(false);
         given(rapRepository.findById(diseno.getRapId())).willReturn(Optional.of(rap));
+        
+        // Mockeamos la respuesta del caso de uso de sugerencia para retornar los 30 candidatos
         given(sugerirInstructorUseCase.sugerirInstructores(rap.getCompetenciaId(), ficha.getId(), 40L))
-                .willReturn(List.of(instructorCandidato));
-        given(programacionAcademicaRepository.findByUserIdAndTrimestreId(instructorCandidato.getUsuarioId(), trimestre.getId()))
+                .willReturn(candidatos);
+                
+        given(programacionAcademicaRepository.findByUserIdAndTrimestreId(instructorPlantaGanador.getUsuarioId(), trimestre.getId()))
                 .willReturn(Collections.emptyList());
         given(programacionAcademicaRepository.saveProgramacion(any(ProgramacionAcademica.class)))
                 .willReturn(guardada);
+                
         List<ProgramacionAcademica> resultado = programarUseCase.autoprogramarficha(ficha.getId(), trimestre.getId());
+        
         assertFalse(resultado.isEmpty());
         assertEquals(1, resultado.size());
+        // Verificamos que el instructor ganador sea el primero de PLANTA
+        assertEquals(instructorPlantaGanador.getUsuarioId(), resultado.getFirst().getUsuarioId());
 
         then(programacionAcademicaRepository).should().saveProgramacion(any(ProgramacionAcademica.class));
-        then(disponibilidad).should().saveDisponibilidad(instructorCandidato);
-        ProgramacionAcademica p = resultado.get(0);
-        System.out.println("Programacion academica autoprogramada correctamente ID: " + p.getId() +
-                " RAP: " + p.getRapId() +
-                " TRIMESTRE: " + p.getTrimestreId() +
-                " USUARIO: " + p.getUsuarioId() +
-                " FICHA: " + p.getFichaId());
-
-
-}
+        then(disponibilidad).should().saveDisponibilidad(instructorPlantaGanador);
+        
+        System.out.println("\nResultado de autoprogramación: Se seleccionó al Instructor Ganador ID: " + resultado.get(0) + " " + instructorPlantaGanador.getUsuarioId());
+        System.out.println("----------------------------------------------------------------------\n");
+    }
     @Test
     @DisplayName("Omitir autoprogramacion por RAP ya programado")
     void ejecutar_autoprogramacion_rapYaProgramado() {

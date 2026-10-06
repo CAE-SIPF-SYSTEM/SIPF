@@ -1,6 +1,7 @@
 package com.caeproject.cae.domain.ports.out;
 
 import com.caeproject.cae.domain.ports.model.DisponibilidadInstructor;
+import com.caeproject.cae.domain.ports.model.DisponibilidadTipoContrato;
 import com.caeproject.cae.domain.ports.model.enums.DiasDisponibles;
 
 import java.util.List;
@@ -12,4 +13,4 @@ public interface DisponibilidadInstructorRepository {
     List<DisponibilidadInstructor> findAll();
     void deleteDisponibilidadInstrucor(Long usuarioId);
     DisponibilidadInstructor saveDisponibilidad(DisponibilidadInstructor disponibilidadInstructor);
-    }
+}

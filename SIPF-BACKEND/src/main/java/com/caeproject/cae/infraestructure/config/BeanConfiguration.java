@@ -398,6 +398,7 @@ public class BeanConfiguration {
 
     @Bean
     public SugerirInstructorInputPort sugerirInstructorInputPort(
+            PerfilBaseRepository perfilBaseRepository,
             ValidarElegibilidadInstructor validarElegibilidadInstructor,
             DisponibilidadInstructorRepository disponibilidadInstructorRepository,
             InstructorEspecialidadRepository instructorEspecialidadRepository,
@@ -406,6 +407,7 @@ public class BeanConfiguration {
             FichaRepository fichaRepository
     ) {
         return new SugerirInstructorUseCase(
+                perfilBaseRepository,
                 validarElegibilidadInstructor,
                 disponibilidadInstructorRepository,
                 instructorEspecialidadRepository,
